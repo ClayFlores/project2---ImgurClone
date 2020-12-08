@@ -6,13 +6,15 @@ export class Image{
         private _dateSubmitted: Date
     ){}
 
-    public get id(): number{
-        return this.id;
-    }
-    public set id(myId: number):{
-        this._id=myId;
-    }
-    private imgUrl: string;
-    private caption: string
-    private dateSubmitted: Date
+    public get id(): number{return this._id;}
+    public set id(myId: number){this._id=myId;}
+
+    public get imgUrl(): string{return this._imgUrl;}
+    public set imgUrl(newUrl: string){this._imgUrl=newUrl;}
+
+    public get caption(): string{return this._caption;}
+    public set caption(newCaption: string){this._caption=newCaption;}
+
+    public get dateSubmitted(): Date{return this._dateSubmitted;}
+    public set dateSubmitted(newDate: Date){this._dateSubmitted=newDate;}
 }
