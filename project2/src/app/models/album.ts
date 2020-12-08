@@ -1,5 +1,6 @@
 import { AlbumComment } from './AlbumComment';
 import { Image } from './image';
+import { Tag } from './tag';
 import { User } from './user'
 
 export class Album{
@@ -10,7 +11,7 @@ export class Album{
         private _images: Image[],
         private _upvoteCount: number,
         private _dateCreated: Date,
-        //private _tags: Tag[],
+        private _tags: Tag[],
         private _comments: AlbumComment[]
     ){}
 
@@ -43,6 +44,9 @@ export class Album{
 
     public get dateCreated(): Date{return this._dateCreated}
     public set dateCreated(newDateCreated: Date){this._dateCreated = newDateCreated}
+
+    public get tags(): Tag[]{return this._tags}
+    public set tags(newTags: Tag[]){this._tags = newTags}  
 
     public get comments(): AlbumComment[]{return this._comments}
     public set comments(newComments: AlbumComment[]){this._comments = newComments}
