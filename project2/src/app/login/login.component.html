@@ -1,1 +1,20 @@
-<p>Login Form</p>
+<h2>Login Form</h2>
+
+<form>
+
+  <p>The email: {{currentUser.email}}</p>
+  <p>The password: {{currentUser.password}}</p>
+
+
+  <label for="email">Email</label>
+  <input type="text" id="email" name="email" [(ngModel)]="currentUser.email">
+
+  <br>
+
+  <label for="password">Password</label>
+  <input type="text" id="password" name="password" [(ngModel)]="currentUser.password">
+
+  <input type="submit" (click)="onSubmit()">
+
+
+</form>
