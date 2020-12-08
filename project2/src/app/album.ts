@@ -30,4 +30,17 @@ export class album{
 
     public get dateCreated(): Date{return this._dateCreated}
     public set dateCreated(newDateCreated: Date){this._dateCreated = newDateCreated}
+
+    //appends myImage to the end of the images array
+    public addImage(myImage: Image){
+        this._images.push(myImage);
+    }
+
+    //removes the specified image from the images array
+    public removeImage(victimImage: Image){
+        this._images.filter((img: Image)=>{
+            return(img !== victimImage)
+        })
+    }
+
 }
