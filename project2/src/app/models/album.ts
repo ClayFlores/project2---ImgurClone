@@ -1,17 +1,30 @@
+import { AlbumComment } from './AlbumComment';
 import { Image } from './image';
 import { User } from './user'
 
-export class album{
+export class Album{
     constructor(
         private _id: number,
         private _title: string,
         private _userCreator: User,
         private _images: Image[],
         private _upvoteCount: number,
-        private _dateCreated: Date
+        private _dateCreated: Date,
         //private _tags: Tag[],
-        //private _comments: Comment[],
+        private _comments: AlbumComment[]
     ){}
+
+    //appends myImage to the end of the images array
+    public addImage(myImage: Image){
+        this._images.push(myImage);
+    }
+
+    //removes the specified image from the images array
+    public removeImage(victimImage: Image){
+        this._images.filter((img: Image)=>{
+            return(img !== victimImage)
+        })
+    }
 
     public get id(): number{ return this._id;}
     public set id(newId: number){ this._id = newId;}
@@ -31,16 +44,7 @@ export class album{
     public get dateCreated(): Date{return this._dateCreated}
     public set dateCreated(newDateCreated: Date){this._dateCreated = newDateCreated}
 
-    //appends myImage to the end of the images array
-    public addImage(myImage: Image){
-        this._images.push(myImage);
-    }
-
-    //removes the specified image from the images array
-    public removeImage(victimImage: Image){
-        this._images.filter((img: Image)=>{
-            return(img !== victimImage)
-        })
-    }
+    public get comments(): AlbumComment[]{return this._comments}
+    public set comments(newComments: AlbumComment[]){this._comments = newComments}
 
 }
