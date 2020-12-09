@@ -1,1 +1,16 @@
 <p>homepage works!</p>
+
+<div *ngFor="let album of homepageAlbums">
+    <div class = "albumTile">
+        <div class = "frontPic">
+            <img src="{{album.images[0].imgUrl}}" alt="{{album.images[0].caption}}"/>
+        </div>
+        <div class="albumInfo">
+            <div class="albumTitle"><h5>{{album.title}}</h5></div>
+            <div class="albumDetails">
+                <div class="userCount">{{album.userCount}}</div>
+                <div class="commentCount">{{album.comments.length}}</div>
+            </div>
+        </div>
+    </div>
+</div>
