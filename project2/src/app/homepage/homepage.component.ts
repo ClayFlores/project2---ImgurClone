@@ -1,3 +1,4 @@
+import { UserService } from './../services/user/user.service';
 import { Image } from './../models/image';
 import { User } from 'src/app/models/user';
 import { AlbumService } from './../services/album/album.service';
