@@ -1,0 +1,22 @@
+<!-- reminder for later: call is async and may need ngIf to not show unless data exists -->
+
+<!-- albumSet -> Album -> imageSet -> Image -> imgUrl -->
+<!-- array       class    array     class    string -->
+
+<!-- <div *ngIf=""> -->
+    <!-- Only need first image of each album  -->
+<div>
+    <div class="column" *ngFor="let Album of albumSet">
+        <img  src={{Album.images[0].imgUrl}} />
+        <p>{{Album.title}}</p>
+        <!-- how tour of heroes did click routing -->
+        <!-- <a routerLink="/detail/{{hero.id}}"> -->
+            <!-- <span class="badge">{{hero.id}}</span> {{hero.name}} -->
+        <!-- </a> -->
+    </div>
+
+</div>
+<!-- </div>  -->
+
+<!-- TODO: make clicked album go to album component (routing involved) -->
+<!-- TODO: add more css for aesthetics -->

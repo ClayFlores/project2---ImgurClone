@@ -8,10 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/InMemoryData/in-memory-data.service';
+import { AlbumEditComponent } from './album-edit/album-edit.component';
+import { AlbumViewComponent } from './album-view/album-view.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AlbumEditComponent,
+    AlbumViewComponent
   ],
   imports: [
     BrowserModule,

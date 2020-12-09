@@ -1,0 +1,15 @@
+
+.column {
+    float: left;
+    width: 12.5%;
+    padding: 10px;
+}
+
+.column img {
+    cursor: pointer;
+    width: 80%;
+}
+
+.column img:hover{
+    border: solid black 1px;
+}
