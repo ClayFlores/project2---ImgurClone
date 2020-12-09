@@ -11,7 +11,7 @@ import { Album } from '../models/album';
 })
 export class HomepageComponent implements OnInit {
 
-  private homepageAlbums: Album[];
+  homepageAlbums: Album[] = [];
 
   constructor(
     private albumService: AlbumService
