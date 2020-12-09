@@ -12,12 +12,14 @@ import { InMemoryDataService } from './services/InMemoryData/in-memory-data.serv
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
+import { UpvoteComponent } from './upvote/upvote.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomepageComponent
+    HomepageComponent,
+    UpvoteComponent
   ],
   imports: [
     BrowserModule,
