@@ -18,11 +18,18 @@ export class HomepageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.homepageAlbums = this.getHomepageAlbums();
+    this.getHomepageAlbums();
     console.log(this.homepageAlbums)
   }
 
-  public getHomepageAlbums(): Album[]{
+  public getHomepageAlbums(): void{
+    this.albumService.getAlbums()
+    .subscribe(albums => {
+      this.homepageAlbums = albums;
+      console.log(this.homepageAlbums)
+    })
+    
+    /*
     //for now, going to create a stock array of albums; this will be replaced with a call to the albumService which will return a list from the db
     let users: User[] = [
       new User(1, 'password', 'test1@example.com'),
@@ -39,8 +46,8 @@ export class HomepageComponent implements OnInit {
       new Album(2, 'joyce pics', users[1], [images[2], images[3]], 50, new Date(), [], [])
     ]
 
-
     return albums;
+    */
   }
 
 }
