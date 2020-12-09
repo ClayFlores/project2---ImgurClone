@@ -13,10 +13,11 @@ export class LoginComponent implements OnInit {
    submitted = false;
 
   constructor(private userService: UserService) {
-    this.currentUser = {};
     if (userService.myUser) {
       // return to homepage
     }
+
+    this.currentUser = {} as User;
   }
 
   ngOnInit(): void {
