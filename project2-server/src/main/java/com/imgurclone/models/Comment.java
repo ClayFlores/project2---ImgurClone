@@ -1,4 +1,4 @@
 package com.imgurclone.models;
 
-public class Images {
+public class Comment {
 }

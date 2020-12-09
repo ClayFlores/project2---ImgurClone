@@ -1,6 +1,7 @@
 package com.imgurclone.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="user")
@@ -16,6 +17,9 @@ public class User {
     //TODO make this a hashed valued
     @Column(name = "hash")
     private String hash;
+
+    @OneToMany
+    private List<Album> albumList;
 
     public int getId() {
         return id;
