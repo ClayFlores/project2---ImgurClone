@@ -11,10 +11,10 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name='album_title')
+    @Column(name="album_title")
     private String albumTitle;
 
-    @Column(name = 'date_created');
+    @Column(name = "date_created")
     private LocalDate dateCreated;
 
 

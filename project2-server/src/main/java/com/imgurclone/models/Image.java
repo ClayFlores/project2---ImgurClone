@@ -17,7 +17,7 @@ public class Image {
     @Column(name = "captions")
     private String caption;
 
-    @Column(name = 'date_submitted')
+    @Column(name = "date_submitted")
     private LocalDate dateSubmitted;
 
     // foreign key map relationships later
