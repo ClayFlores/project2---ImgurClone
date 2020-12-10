@@ -6,7 +6,8 @@
 <!-- my images suck -->
 <div class="column">
     <div class="row" *ngFor="let Image of imageSet">
-        <p>{{Image.caption}}</p>
+        <h3>{{Image.caption}}</h3>
+        <h5>Submitted: {{Image.dateSubmitted | date:'longDate'}}</h5>
         <img  src={{Image.imgUrl}} />
         <!-- how tour of heroes did click routing -->
         <!-- <a routerLink="/detail/{{hero.id}}"> -->
@@ -15,6 +16,7 @@
     </div>
 </div>
 
-
-<!-- TODO: make clicked album go to album component (routing involved) -->
+<!-- TODO: add routing to album edit component at least -->
+<!-- TODO: add upvote system -->
+<!-- TODO: add comment system -->
 <!-- TODO: add more css for aesthetics -->
