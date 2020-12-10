@@ -1,0 +1,14 @@
+.column {
+    float: left;
+    width: 10%;
+    padding: 10px;
+}
+
+.column img {
+    width: 10%;
+}
+
+.listItem:hover{
+    border: solid black 1px;
+    cursor: pointer;
+}
