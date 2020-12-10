@@ -1,13 +1,13 @@
 
 .column {
     float: left;
-    width: 12.5%;
+    width: 90%;
     padding: 10px;
 }
 
 .column img {
     cursor: pointer;
-    width: 80%;
+    width: 90%;
 }
 
 .column img:hover{
