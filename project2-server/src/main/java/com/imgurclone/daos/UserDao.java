@@ -37,4 +37,13 @@ public class UserDao {
         return (User) query.list().get(0);
     }
 
+    public User getByEmailAndPasswordHash(String email, String passwordHash) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "From User where email=:email and passwordhash=:pw";
+        Query query = session.createQuery(hql);
+        query.setString("email", email);
+        query.setString("pw", passwordHash);
+        return (User) query.list().get(0);
+    }
+
 }
