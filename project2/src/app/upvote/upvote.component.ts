@@ -10,8 +10,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./upvote.component.css']
 })
 export class UpvoteComponent implements OnInit {
-  @Input() album: Album;
-  currentUser: User | null;
+   @Input() album: Album;
+   currentUser: User | null;
  
   constructor(
     private userService: UserService,
@@ -23,7 +23,7 @@ export class UpvoteComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.currentUser = this.userService.myUser;
+     this.currentUser = this.userService.myUser;
   }
 
 }

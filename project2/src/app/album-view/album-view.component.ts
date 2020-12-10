@@ -25,18 +25,8 @@ export class AlbumViewComponent implements OnInit {
       new Image(4, '../assets/broccoli.png', 'broccoli', new Date())
     ]
 
-    imageSet2: Image[] = [
-      new Image(1, '../assets/macaron.png','macaron', new Date()),
-      new Image(2, '../assets/pizza.png','pizza', new Date()),
-      new Image(3, '../assets/orange.png','orange', new Date()),
-      new Image(4, '../assets/broccoli.png', 'broccoli', new Date())
-    ]
+    albumSet: Album = new Album(1, 'test images', this.users[0], this.imageSet, 0, new Date(), [],[])
 
-    albumSet: Album[] = [
-      new Album(1, 'test images', this.users[0], this.imageSet, 0, new Date(), [],[]),
-      new Album(2, 'test images2', this.users[0], this.imageSet2, 0, new Date(), [],[]),
-      new Album(3, 'test images3', this.users[0], this.imageSet, 0, new Date(), [],[])
-    ]
 
   constructor() {  }
 
