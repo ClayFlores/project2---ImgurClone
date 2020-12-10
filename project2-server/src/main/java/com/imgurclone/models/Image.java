@@ -1,6 +1,7 @@
 package com.imgurclone.models;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class Image {
     private String caption;
 
     @Column(name = "datesubmitted")
-    private LocalDate dateSubmitted;
+    private Timestamp dateSubmitted;
 
     @ManyToOne
     @JoinColumn(name="ALBUMID", referencedColumnName = "ID", columnDefinition = "INT")
@@ -49,14 +50,13 @@ public class Image {
         this.caption = caption;
     }
 
-    public LocalDate getDateSubmitted() {
+    public Timestamp getDateSubmitted() {
         return dateSubmitted;
     }
 
-    public void setDateSubmitted(LocalDate dateSubmitted) {
+    public void setDateSubmitted(Timestamp dateSubmitted) {
         this.dateSubmitted = dateSubmitted;
     }
-
 
     public Album getAlbum() {
         return album;

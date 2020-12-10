@@ -69,6 +69,13 @@
       <version>2.11.3</version>
     </dependency>
 
+<!--    faster xml for jackson - solve lazy typing errors-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-hibernate4</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+
 <!--    servlets-->
     <dependency>
       <groupId>javax.servlet</groupId>

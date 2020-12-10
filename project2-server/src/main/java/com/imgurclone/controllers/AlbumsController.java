@@ -2,7 +2,10 @@ package com.imgurclone.controllers;
 
 import com.imgurclone.daos.AlbumDao;
 import com.imgurclone.models.Album;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +23,16 @@ public class AlbumsController {
     @Autowired
     private AlbumDao albumDao;
 
+    @Autowired
+    private static final Logger logger = LogManager.getLogger(AlbumsController.class);
+
 
     @GetMapping(path="/", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<Album>> getAlbumsForHomepage(HttpServletRequest request) {
         List<Album> mostRecentAlbums = albumDao.getTenMostRecentAlbums();
-        System.out.println("Hello");
-        System.out.println(mostRecentAlbums.get(0).getId());
+        logger.debug("getAlbumsForHomepage retrieved albums. mostRecentAlbums[0].title: "+mostRecentAlbums.get(0)
+                .getAlbumTitle());
         return new ResponseEntity<>(mostRecentAlbums, HttpStatus.OK);
     }
 }
