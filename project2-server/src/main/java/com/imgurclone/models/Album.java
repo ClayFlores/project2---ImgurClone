@@ -24,12 +24,81 @@ public class Album {
     @JoinColumn(name="userCreator")
     private User userCreator;
 
+    @OneToMany(mappedBy="album")
+    private Set<Image> imageSet;
+
     @OneToMany(mappedBy = "album")
     private Set<AlbumTag> tagList;
 
-    int userCreatorId;
+    @OneToMany(mappedBy="album")
+    private Set<Comment> commentSet;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getAlbumTitle() {
+        return albumTitle;
+    }
 
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public User getUserCreator() {
+        return userCreator;
+    }
+
+    public void setUserCreator(User userCreator) {
+        this.userCreator = userCreator;
+    }
+
+    public Set<Image> getImageSet() {
+        return imageSet;
+    }
+
+    public void setImageSet(Set<Image> imageSet) {
+        this.imageSet = imageSet;
+    }
+
+    public Set<AlbumTag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(Set<AlbumTag> tagList) {
+        this.tagList = tagList;
+    }
+
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                ", albumTitle='" + albumTitle + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", userCreator=" + userCreator +
+                ", imageSet=" + imageSet +
+                ", tagList=" + tagList +
+                ", commentSet=" + commentSet +
+                '}';
+    }
 }
