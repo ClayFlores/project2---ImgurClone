@@ -60,7 +60,6 @@ public class PersistenceConfig {
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         props.setProperty("hibernate.show_sql", "true");
         props.setProperty("hibernate.format_sql", "true");
-        props.setProperty("hibernate.hbm2ddl.auto", "create");
         return props;
     }
 
