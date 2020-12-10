@@ -21,11 +21,6 @@ public class Image {
     @Column(name = "datesubmitted")
     private LocalDate dateSubmitted;
 
-    // foreign key map relationships later
-    @OneToOne
-    @JoinColumn(name="USERCREATOR", referencedColumnName = "ID", columnDefinition = "INT")
-    private User user;
-
     @ManyToOne
     @JoinColumn(name="ALBUMID", referencedColumnName = "ID", columnDefinition = "INT")
     private Album album;
@@ -62,13 +57,6 @@ public class Image {
         this.dateSubmitted = dateSubmitted;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Album getAlbum() {
         return album;
@@ -87,13 +75,12 @@ public class Image {
                 Objects.equals(getImagePath(), image.getImagePath()) &&
                 Objects.equals(getCaption(), image.getCaption()) &&
                 Objects.equals(getDateSubmitted(), image.getDateSubmitted()) &&
-                Objects.equals(getUser(), image.getUser()) &&
                 Objects.equals(getAlbum(), image.getAlbum());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getImagePath(), getCaption(), getDateSubmitted(), getUser(), getAlbum());
+        return Objects.hash(getId(), getImagePath(), getCaption(), getDateSubmitted(), getAlbum());
     }
 
     @Override
@@ -103,7 +90,6 @@ public class Image {
                 ", imagePath='" + imagePath + '\'' +
                 ", caption='" + caption + '\'' +
                 ", dateSubmitted=" + dateSubmitted +
-                ", user=" + user +
                 ", album=" + album +
                 '}';
     }
