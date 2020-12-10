@@ -11,20 +11,22 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "image_path")
+    @Column(name = "imagepath")
     private String imagePath;
 
-    @Column(name = "captions")
+    @Column(name = "caption")
     private String caption;
 
-    @Column(name = "date_submitted")
+    @Column(name = "datesubmitted")
     private LocalDate dateSubmitted;
 
     // foreign key map relationships later
     @OneToOne
+    @JoinColumn(name="USERCREATOR", referencedColumnName = "ID", columnDefinition = "INT")
     private User user;
 
     @OneToOne
+    @JoinColumn(name="ALBUMID", referencedColumnName = "ID", columnDefinition = "INT")
     private Album album;
 
 }
