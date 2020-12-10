@@ -11,13 +11,15 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="album_title")
+    @Column(name="albumtitle")
     private String albumTitle;
 
-    @Column(name = "date_created")
+    @Column(name = "datecreated")
     private LocalDate dateCreated;
 
-
+    @ManyToOne
+    @JoinColumn(name="userCreator")
+    private User userCreator;
 
     int userCreatorId;
 

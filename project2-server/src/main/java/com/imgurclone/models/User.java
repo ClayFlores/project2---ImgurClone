@@ -19,8 +19,24 @@ public class User {
     @Column(name = "passwordHash")
     private String passwordHash;
 
-    @OneToMany
+    @OneToMany(mappedBy = "userCreator")
     private List<Album> albumList;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "favoriteItems",
+        joinColumns = { @JoinColumn(name = "userfavoriter") },
+        inverseJoinColumns = { @JoinColumn(name = "albumfavorited") }
+    )
+    private List<Album> favoriteAlbums;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+        name = "albumVotes",
+        joinColumns = { @JoinColumn(name = "usercreator") },
+        inverseJoinColumns = { @JoinColumn(name = "albumid") }
+    )
+    private List<Album> likedAlbums;
 
     public int getId() {
         return id;
