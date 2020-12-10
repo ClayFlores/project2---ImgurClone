@@ -23,10 +23,6 @@ public class Main {
         user.setEmail("test");
         user.setPasswordHash("test");
 
-        app.userDao.save(user);
-
+//        app.userDao.save(user);
     }
-
-
-
 }
