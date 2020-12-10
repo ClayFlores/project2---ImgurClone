@@ -3,6 +3,7 @@ package com.imgurclone.models;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="USERS")
@@ -20,7 +21,7 @@ public class User {
     private String passwordHash;
 
     @OneToMany(mappedBy = "userCreator")
-    private List<Album> albumList;
+    private Set<Album> albumList;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -28,15 +29,16 @@ public class User {
         joinColumns = { @JoinColumn(name = "userfavoriter") },
         inverseJoinColumns = { @JoinColumn(name = "albumfavorited") }
     )
-    private List<Album> favoriteAlbums;
+    private Set<Album> favoriteAlbums;
 
+    //many to many relationship from albumVotes
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
         name = "albumVotes",
         joinColumns = { @JoinColumn(name = "usercreator") },
         inverseJoinColumns = { @JoinColumn(name = "albumid") }
     )
-    private List<Album> likedAlbums;
+    private Set<Album> likedAlbums;
 
     public int getId() {
         return id;
