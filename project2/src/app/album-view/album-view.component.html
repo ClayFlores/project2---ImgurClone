@@ -5,6 +5,9 @@
 
 <!-- my images suck -->
 <div class="column">
+    <a routerLink="/album/{{Album.id}}/edit">
+        <span>Edit Album</span>
+    </a>
     <div class="row" *ngFor="let Image of imageSet">
         <h3>{{Image.caption}}</h3>
         <h5>Submitted: {{Image.dateSubmitted | date:'longDate'}}</h5>
