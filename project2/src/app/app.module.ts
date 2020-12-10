@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/InMemoryData/in-memory-data.service';
+
+import { AlbumEditComponent } from './album-edit/album-edit.component';
+import { AlbumViewComponent } from './album-view/album-view.component';
+
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
@@ -17,9 +21,12 @@ import { UpvoteComponent } from './upvote/upvote.component';
 @NgModule({
   declarations: [
     AppComponent,
+    AlbumEditComponent,
+    AlbumViewComponent,
     LoginComponent,
     HomepageComponent,
     UpvoteComponent
+
   ],
   imports: [
     BrowserModule,
