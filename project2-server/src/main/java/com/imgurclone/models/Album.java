@@ -21,7 +21,7 @@ public class Album {
 
     //many to one
     @ManyToOne
-    @JoinColumn(name="userCreator")
+    @JoinColumn(name="userCreator", referencedColumnName="ID", columnDefinition="INT")
     private User userCreator;
 
     @OneToMany(mappedBy="album")

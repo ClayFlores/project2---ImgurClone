@@ -16,7 +16,7 @@ public class Comment {
     private String body;
 
     @ManyToOne
-    @JoinColumn(name="usercommenter")
+    @JoinColumn(name="usercommenter", referencedColumnName="ID", columnDefinition="INT")
     private User userCommenter;
 
     @ManyToOne
