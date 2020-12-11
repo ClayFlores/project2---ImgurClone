@@ -33,10 +33,12 @@ public class Album {
     @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private Set<Image> imageSet;
 
-    @OneToMany(mappedBy = "album")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private Set<AlbumTag> tagList;
 
-    @OneToMany(mappedBy="album")
+    @JsonManagedReference
+    @OneToMany(mappedBy="album", fetch = FetchType.EAGER)
     private Set<Comment> commentSet;
 
     public int getId() {
