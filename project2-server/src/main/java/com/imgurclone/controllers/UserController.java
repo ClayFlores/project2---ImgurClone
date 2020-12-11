@@ -2,6 +2,7 @@ package com.imgurclone.controllers;
 
 import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.AuthenticationRequest;
+import com.imgurclone.models.AuthenticationResponse;
 import com.imgurclone.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,11 +36,19 @@ public class UserController {
 
     @PostMapping(path = "/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User userResult = userDao.getByEmail(authenticationRequest.getEmail());
         boolean authenticated = passwordEncoder.matches(authenticationRequest.getPassword(), userResult.getPasswordHash());
-        System.out.println("THE PASSWORDS ARE THE SAME AND WE ARE AUTHENTICATED: " + authenticated);
-        return new ResponseEntity<>(userResult, HttpStatus.OK);
+
+        //TODO future add a token to the authentication response?
+        if(authenticated) {
+            authenticationResponse.setId(userResult.getId());
+            authenticationResponse.setEmail(userResult.getEmail());
+        }
+
+        return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
 
 

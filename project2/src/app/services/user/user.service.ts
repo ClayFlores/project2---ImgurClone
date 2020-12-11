@@ -20,7 +20,6 @@ export class UserService {
     console.log(this._myUser);
     this.http.post('http://localhost:8080/users/authenticate', newUser)
       .subscribe(response => console.log(response));
-    console.log("we got here");
   }
 
   //sets myUser to null
