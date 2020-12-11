@@ -32,7 +32,7 @@ public class AlbumsController {
     private ObjectMapper objectMapper;
 
 
-    @GetMapping(path="/", produces= MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/homepageAlbums", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<List<Album>> getAlbumsForHomepage(HttpServletRequest request) {
         List<Album> mostRecentAlbums = albumDao.getTenMostRecentAlbums();
