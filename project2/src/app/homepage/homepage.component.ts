@@ -11,7 +11,7 @@ import { Album } from '../models/album';
 })
 export class HomepageComponent implements OnInit {
 
-  homepageAlbums: Album[] = [];
+  homepageAlbums: any[] = [];
 
   constructor(
     private albumService: AlbumService
@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit {
   }
 
   public getHomepageAlbums(): void{
-    
+    /*
     //for now, going to create a stock array of albums; this will be replaced with a call to the albumService which will return a list from the db
     let users: User[] = [
       new User(1, 'password', 'test1@example.com'),
@@ -40,16 +40,16 @@ export class HomepageComponent implements OnInit {
     ]
 
     this.homepageAlbums = albums;
-  
+    */
     
-    /*
-    this.albumService.getAlbums()
+    
+    this.albumService.getAlbumsForHomepage()
     .subscribe(albums => {
       this.homepageAlbums = albums;
       console.log("HOMEPAGE")
       console.log(this.homepageAlbums)
     })
-    */
+    
     
     
     
