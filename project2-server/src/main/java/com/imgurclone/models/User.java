@@ -20,7 +20,7 @@ public class User {
     @Column(name = "passwordHash")
     private String passwordHash;
 
-    @OneToMany(mappedBy = "userCreator")
+    @OneToMany(mappedBy = "userCreator", fetch = FetchType.EAGER)
     private Set<Album> albumList;
 
     @ManyToMany(cascade = { CascadeType.ALL })
