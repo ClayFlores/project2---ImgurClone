@@ -2,6 +2,20 @@
 <div *ngFor="let album of homepageAlbums">
     <div class = "albumTile">
         <div class = "frontPic">
+            <img src="{{album.imageSet[0].imagePath}}" alt="{{album.imageSet[0].caption}}"/>
+        </div>
+        <div class="albumInfo">
+            <div class="albumTitle"><h5>{{album.albumTitle}}</h5></div>
+            <div class="albumDetails">
+                <div class="commentCount">{{album.commentSet.length}} Comments</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div *ngFor="let album of homepageAlbums">
+    <div class = "albumTile">
+        <div class = "frontPic">
             <img src="{{album.images[0].imgUrl}}" alt="{{album.images[0].caption}}"/>
         </div>
         <div class="albumInfo">
@@ -12,4 +26,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

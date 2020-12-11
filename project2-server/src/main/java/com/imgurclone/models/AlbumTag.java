@@ -1,5 +1,7 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,13 +14,11 @@ public class AlbumTag {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="albumid", referencedColumnName="ID", columnDefinition="INT")
     private Album album;
 
-    @ManyToOne
-    @JoinColumn(name="usercommenter", referencedColumnName="ID", columnDefinition="INT")
-    private User userCommenter;
 
     @Column(name = "tagname")
     private String tagName;
@@ -54,13 +54,12 @@ public class AlbumTag {
         AlbumTag albumTag = (AlbumTag) o;
         return getId() == albumTag.getId() &&
                 Objects.equals(getAlbum(), albumTag.getAlbum()) &&
-                Objects.equals(userCommenter, albumTag.userCommenter) &&
                 Objects.equals(getTagName(), albumTag.getTagName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAlbum(), userCommenter, getTagName());
+        return Objects.hash(getId(), getAlbum(),getTagName());
     }
 
     @Override
@@ -68,7 +67,6 @@ public class AlbumTag {
         return "AlbumTag{" +
                 "id=" + id +
                 ", album=" + album +
-                ", userCommenter=" + userCommenter +
                 ", tagName='" + tagName + '\'' +
                 '}';
     }

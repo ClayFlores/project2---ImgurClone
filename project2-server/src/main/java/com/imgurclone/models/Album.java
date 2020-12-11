@@ -1,6 +1,10 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -17,20 +21,24 @@ public class Album {
     private String albumTitle;
 
     @Column(name = "datecreated")
-    private LocalDate dateCreated;
+    private Timestamp dateCreated;
 
     //many to one
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="userCreator", referencedColumnName="ID", columnDefinition="INT")
     private User userCreator;
 
-    @OneToMany(mappedBy="album")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private Set<Image> imageSet;
 
-    @OneToMany(mappedBy = "album")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private Set<AlbumTag> tagList;
 
-    @OneToMany(mappedBy="album")
+    @JsonManagedReference
+    @OneToMany(mappedBy="album", fetch = FetchType.EAGER)
     private Set<Comment> commentSet;
 
     public int getId() {
@@ -49,11 +57,11 @@ public class Album {
         this.albumTitle = albumTitle;
     }
 
-    public LocalDate getDateCreated() {
+    public Timestamp getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
+    public void setDateCreated(Timestamp dateCreated) {
         this.dateCreated = dateCreated;
     }
 

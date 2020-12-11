@@ -1,6 +1,9 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,13 +22,9 @@ public class Image {
     private String caption;
 
     @Column(name = "datesubmitted")
-    private LocalDate dateSubmitted;
+    private Timestamp dateSubmitted;
 
-    // foreign key map relationships later
-    @OneToOne
-    @JoinColumn(name="USERCREATOR", referencedColumnName = "ID", columnDefinition = "INT")
-    private User user;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="ALBUMID", referencedColumnName = "ID", columnDefinition = "INT")
     private Album album;
@@ -54,20 +53,12 @@ public class Image {
         this.caption = caption;
     }
 
-    public LocalDate getDateSubmitted() {
+    public Timestamp getDateSubmitted() {
         return dateSubmitted;
     }
 
-    public void setDateSubmitted(LocalDate dateSubmitted) {
+    public void setDateSubmitted(Timestamp dateSubmitted) {
         this.dateSubmitted = dateSubmitted;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Album getAlbum() {
@@ -87,13 +78,12 @@ public class Image {
                 Objects.equals(getImagePath(), image.getImagePath()) &&
                 Objects.equals(getCaption(), image.getCaption()) &&
                 Objects.equals(getDateSubmitted(), image.getDateSubmitted()) &&
-                Objects.equals(getUser(), image.getUser()) &&
                 Objects.equals(getAlbum(), image.getAlbum());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getImagePath(), getCaption(), getDateSubmitted(), getUser(), getAlbum());
+        return Objects.hash(getId(), getImagePath(), getCaption(), getDateSubmitted(), getAlbum());
     }
 
     @Override
@@ -103,7 +93,6 @@ public class Image {
                 ", imagePath='" + imagePath + '\'' +
                 ", caption='" + caption + '\'' +
                 ", dateSubmitted=" + dateSubmitted +
-                ", user=" + user +
                 ", album=" + album +
                 '}';
     }

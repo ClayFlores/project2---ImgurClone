@@ -89,6 +89,13 @@
       <version>2.11.3</version>
     </dependency>
 
+<!--    faster xml for jackson - solve lazy typing errors-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-hibernate4</artifactId>
+      <version>2.11.3</version>
+    </dependency>
+
 <!--    servlets-->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -120,6 +127,19 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.2.18</version>
+    </dependency>
+
+    <!--    log4j   -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.13.0</version>
     </dependency>
 
   </dependencies>

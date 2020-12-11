@@ -1,5 +1,7 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class Comment {
     private User userCommenter;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="albumid")
     private Album album;
 
