@@ -35,13 +35,12 @@ public class UserController {
     public ResponseEntity<?> authenticate(@RequestBody User userAuthRequest ) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedRequestPassword = passwordEncoder.encode(userAuthRequest.getPasswordHash());
-//        User userResult = userDao.getByEmailAndPasswordHash(userAuthRequest.getEmail(), userAuthRequest.getPasswordHash());
+
         User userResult = userDao.getByEmail(userAuthRequest.getEmail());
-        System.out.println(userResult);
+        boolean authenticated = passwordEncoder.matches(userAuthRequest.getPasswordHash(), userResult.getPasswordHash());
+        System.out.println("THE PASSWORDS ARE THE SAME AND WE ARE AUTHENTICATED: " + authenticated);
         return new ResponseEntity<>(userResult, HttpStatus.OK);
     }
-
-
 
 
 }
