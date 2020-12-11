@@ -33,7 +33,7 @@ public class UserDao {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where email=:email";
         Query query = session.createQuery(hql);
-        query.setString(1, "email");
+        query.setString("email", email);
         return (User) query.list().get(0);
     }
 

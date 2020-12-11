@@ -24,16 +24,24 @@ public class UserController {
 
     @PostMapping(path = "createUser")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
-        System.out.println(newUser);
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(newUser.getPasswordHash());
         newUser.setPasswordHash(hashedPassword);
-
-        System.out.println(newUser);
         userDao.save(newUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(path = "/authenticate")
+    public ResponseEntity<?> authenticate(@RequestBody User userAuthRequest ) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedRequestPassword = passwordEncoder.encode(userAuthRequest.getPasswordHash());
+//        User userResult = userDao.getByEmailAndPasswordHash(userAuthRequest.getEmail(), userAuthRequest.getPasswordHash());
+        User userResult = userDao.getByEmail(userAuthRequest.getEmail());
+        System.out.println(userResult);
+        return new ResponseEntity<>(userResult, HttpStatus.OK);
+    }
+
+
 
 
 }
