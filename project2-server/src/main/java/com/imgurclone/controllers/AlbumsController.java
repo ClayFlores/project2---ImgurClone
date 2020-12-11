@@ -1,5 +1,7 @@
 package com.imgurclone.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
 import com.imgurclone.models.Album;
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +28,9 @@ public class AlbumsController {
     @Autowired
     private static final Logger logger = LogManager.getLogger(AlbumsController.class);
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
 
     @GetMapping(path="/", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -33,6 +38,13 @@ public class AlbumsController {
         List<Album> mostRecentAlbums = albumDao.getTenMostRecentAlbums();
         logger.debug("getAlbumsForHomepage retrieved albums. mostRecentAlbums[0].title: "+mostRecentAlbums.get(0)
                 .getAlbumTitle());
+        try {
+            logger.debug("getAlbumsForHomepage mostRecentAlbums as json with objectMapper: "
+                    +objectMapper.writeValueAsString(mostRecentAlbums));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
         return new ResponseEntity<>(mostRecentAlbums, HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +22,7 @@ public class User {
     @Column(name = "passwordHash")
     private String passwordHash;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "userCreator")
     private Set<Album> albumList;
 

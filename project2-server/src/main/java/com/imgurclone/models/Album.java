@@ -1,5 +1,8 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -21,11 +24,13 @@ public class Album {
     private Timestamp dateCreated;
 
     //many to one
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="userCreator", referencedColumnName="ID", columnDefinition="INT")
     private User userCreator;
 
-    @OneToMany(mappedBy="album")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER)
     private Set<Image> imageSet;
 
     @OneToMany(mappedBy = "album")
