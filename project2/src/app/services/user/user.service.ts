@@ -26,7 +26,7 @@ export class UserService {
 
   // sets myUser to the specified User object
   public login(newUser: User): Observable<any> {
-    return this.http.post('http://localhost:8080/users/authenticate', newUser)
+    return this.http.post('http://localhost:8080/project2-server/users/authenticate', newUser)
       .pipe(
         tap(response => {
            this._myUser = response;
