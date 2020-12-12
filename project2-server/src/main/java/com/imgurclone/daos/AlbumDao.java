@@ -4,6 +4,7 @@ import com.imgurclone.models.Album;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -51,9 +52,17 @@ public class AlbumDao {
         logger.debug("getTenMostRecentAlbums beginning");
 
         Session session = sessionFactory.getCurrentSession();
+        String hql = "from Album A order by A.dateCreated DESC ";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(10);
+        List<Album> result = query.list();
+        /*
         Criteria criteria = session.createCriteria(Album.class);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.addOrder(Order.desc("dateCreated"));
         criteria.setMaxResults(10);
+
+
 
         logger.debug("getTenMostRecentAlbums Criteria set up");
 
@@ -61,6 +70,8 @@ public class AlbumDao {
 
         logger.debug("getTenMostRecentAlbums Criteria executed");
         logger.debug("getTenMostRecentAlbums result[0] title: "+result.get(0).getAlbumTitle());
+        */
+
 
         return result;
     }

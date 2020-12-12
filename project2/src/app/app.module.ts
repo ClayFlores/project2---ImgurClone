@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { UpvoteComponent } from './upvote/upvote.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegistrationComponent } from './registration/registration.component';
     LoginComponent,
     HomepageComponent,
     UpvoteComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    CommentsComponent
 
   ],
   imports: [
