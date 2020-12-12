@@ -27,7 +27,15 @@ export class LoginComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSubmit() {
     this.submitted = true;
-    this.userService.login(this.currentUser);
+    this.userService.login(this.currentUser)
+      .subscribe(response => {
+        this.currentUser = response;
+        // console.log('This is the User in login component', this.currentUser);
+        localStorage.clear();
+        localStorage.setItem('userId', String(this.currentUser.id));
+        localStorage.setItem('userEmail', this.currentUser.email);
+      },
+        error => console.log('Something went wrong during login'));
   }
 
 }
