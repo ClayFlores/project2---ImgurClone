@@ -18,6 +18,7 @@ public class Comment {
     private String body;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="usercommenter", referencedColumnName="ID", columnDefinition="INT")
     private User userCommenter;
 

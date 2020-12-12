@@ -1,5 +1,7 @@
 package com.imgurclone.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +22,7 @@ public class User {
     @Column(name = "passwordHash")
     private String passwordHash;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "userCreator", fetch = FetchType.EAGER)
     private Set<Album> albumList;
 
@@ -67,13 +70,12 @@ public class User {
         User user = (User) o;
         return getId() == user.getId() &&
                 Objects.equals(getEmail(), user.getEmail()) &&
-                Objects.equals(getPasswordHash(), user.getPasswordHash()) &&
-                Objects.equals(albumList, user.albumList);
+                Objects.equals(getPasswordHash(), user.getPasswordHash());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getEmail(), getPasswordHash(), albumList);
+        return Objects.hash(getId(), getEmail(), getPasswordHash());
     }
 
     @Override
