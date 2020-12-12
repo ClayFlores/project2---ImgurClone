@@ -26,7 +26,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createUser")
     public ResponseEntity<?> createUser(@RequestBody AuthenticationRequest authenticationRequest) {
 
         // TODO Check for wrong input
