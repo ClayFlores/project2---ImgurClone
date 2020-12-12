@@ -3,6 +3,7 @@ package com.imgurclone.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +27,9 @@ public class Comment {
     @JsonBackReference
     @JoinColumn(name="albumid")
     private Album album;
+
+    @Column(name="datesubmitted")
+    Timestamp dateSubmitted;
 
     public int getId() {
         return id;
@@ -57,6 +61,14 @@ public class Comment {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public Timestamp getDateSubmitted() {
+        return dateSubmitted;
+    }
+
+    public void setDateSubmitted(Timestamp dateSubmitted) {
+        this.dateSubmitted = dateSubmitted;
     }
 
     @Override
