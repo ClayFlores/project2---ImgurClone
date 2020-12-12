@@ -11,17 +11,17 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class AlbumService {
 
-  private albumsUrl = 'api/albums';
+  private albumsUrl = 'http://localhost:8080/project2-server/albums';
   
   constructor(
     private http: HttpClient
   ) { }
 
   /** GET albums from the server */
-  getAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(this.albumsUrl)
+  getAlbumsForHomepage(): Observable<Album[]> {
+    return this.http.get<Album[]>(this.albumsUrl+"/homepageAlbums")
       .pipe(
-        tap(_ => console.log('fetched heroes')),
+        tap(_ => console.log('fetched albums')),
         catchError(this.handleError<Album[]>('getAlbums', []))
       );
   }
