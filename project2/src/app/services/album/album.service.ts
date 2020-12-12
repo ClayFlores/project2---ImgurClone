@@ -12,10 +12,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class AlbumService {
 
   private albumsUrl = 'http://localhost:8080/project2-server/albums';
-  
-  constructor(
-    private http: HttpClient
-  ) { }
+
+  constructor(private http: HttpClient) { }
 
   /** GET albums from the server */
   getAlbumsForHomepage(): Observable<Album[]> {
