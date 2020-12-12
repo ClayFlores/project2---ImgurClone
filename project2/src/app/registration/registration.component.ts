@@ -20,13 +20,12 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     const request = {
       email: this.email,
-      passwordHash: this.password
+      password: this.password
     };
 
     console.log(request);
-    this.http.post('http://localhost:8080/users/createUser', request)
+    this.http.post('http://localhost:8080/project2-server/users/createUser', request)
       .subscribe(response => {
-        console.log(response);
         this.router.navigate(['/login']);
       },
         error => console.log('Error during account sign up'));

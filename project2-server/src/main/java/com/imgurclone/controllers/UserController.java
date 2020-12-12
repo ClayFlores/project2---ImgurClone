@@ -6,13 +6,14 @@ import com.imgurclone.models.AuthenticationResponse;
 import com.imgurclone.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("users")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -25,11 +26,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(path = "createUser")
-    public ResponseEntity<?> createUser(@RequestBody User newUser) {
+    @PostMapping(path = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createUser(@RequestBody AuthenticationRequest authenticationRequest) {
+
+        // TODO Check for wrong input
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(newUser.getPasswordHash());
+        String hashedPassword = passwordEncoder.encode(authenticationRequest.getPassword());
+        User newUser = new User();
         newUser.setPasswordHash(hashedPassword);
+        newUser.setEmail(authenticationRequest.getEmail());
         userDao.save(newUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
