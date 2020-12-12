@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { UpvoteComponent } from './upvote/upvote.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpvoteComponent } from './upvote/upvote.component';
     AlbumViewComponent,
     LoginComponent,
     HomepageComponent,
-    UpvoteComponent
+    UpvoteComponent,
+    RegistrationComponent
 
   ],
   imports: [
