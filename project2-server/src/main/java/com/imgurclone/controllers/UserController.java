@@ -1,6 +1,8 @@
 package com.imgurclone.controllers;
 
 import com.imgurclone.daos.UserDao;
+import com.imgurclone.models.AuthenticationRequest;
+import com.imgurclone.models.AuthenticationResponse;
 import com.imgurclone.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("users")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     @Autowired
@@ -32,14 +35,20 @@ public class UserController {
     }
 
     @PostMapping(path = "/authenticate")
-    public ResponseEntity<?> authenticate(@RequestBody User userAuthRequest ) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedRequestPassword = passwordEncoder.encode(userAuthRequest.getPasswordHash());
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
 
-        User userResult = userDao.getByEmail(userAuthRequest.getEmail());
-        boolean authenticated = passwordEncoder.matches(userAuthRequest.getPasswordHash(), userResult.getPasswordHash());
-        System.out.println("THE PASSWORDS ARE THE SAME AND WE ARE AUTHENTICATED: " + authenticated);
-        return new ResponseEntity<>(userResult, HttpStatus.OK);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User userResult = userDao.getByEmail(authenticationRequest.getEmail());
+        boolean authenticated = passwordEncoder.matches(authenticationRequest.getPassword(), userResult.getPasswordHash());
+
+        //TODO future add a token to the authentication response?
+        if(authenticated) {
+            authenticationResponse.setId(userResult.getId());
+            authenticationResponse.setEmail(userResult.getEmail());
+        }
+
+        return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
 
 
