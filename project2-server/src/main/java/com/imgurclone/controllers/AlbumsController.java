@@ -12,14 +12,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@CrossOrigin(origins="http://localhost:4200")
+@RestController
 @RequestMapping("albums")
 public class AlbumsController {
     @Autowired
@@ -44,7 +43,6 @@ public class AlbumsController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-        return new ResponseEntity<>(mostRecentAlbums, HttpStatus.OK);
+        return new ResponseEntity<>(mostRecentAlbums,  HttpStatus.OK);
     }
 }
