@@ -45,4 +45,21 @@ public class AlbumsController {
         }
         return new ResponseEntity<>(mostRecentAlbums,  HttpStatus.OK);
     }
+
+
+    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Album> getAlbumWithId(HttpServletRequest request,
+                                                @PathVariable("id") String id) {
+        Album album = albumDao.getSingleAlbumById(Integer.parseInt(id));
+        logger.debug("getAlbumWithId retrieved album. title: " + album.getAlbumTitle());
+        try{
+            logger.debug("getAlbumWithId album as json with objectMapper: "
+                    + objectMapper.writeValueAsString(album)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(album, HttpStatus.OK);
+    }
 }

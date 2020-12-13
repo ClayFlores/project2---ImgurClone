@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -27,7 +28,7 @@ public class AlbumDao {
     private static final Logger logger = LogManager.getLogger(AlbumDao.class);
 
     @Autowired
-    public AlbumDao(SessionFactory sessionFactory){
+    public AlbumDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -38,17 +39,18 @@ public class AlbumDao {
     }
 
     @Transactional
-    public void update(Album album){
+    public void update(Album album) {
         Session session = sessionFactory.getCurrentSession();
         session.update(album);
     }
 
     /**
      * returns the 10 most recent albums in the database as a List
+     *
      * @return the 10 most recent albums
      */
     @Transactional
-    public List<Album> getTenMostRecentAlbums(){
+    public List<Album> getTenMostRecentAlbums() {
         logger.debug("getTenMostRecentAlbums beginning");
 
         Session session = sessionFactory.getCurrentSession();
@@ -76,4 +78,54 @@ public class AlbumDao {
         return result;
     }
 
+    /**
+     * takes in the title of an album to return the album of that name
+     * an alternative to searching by id
+     *
+     * @param title
+     * @return the desired album
+     */
+    @Transactional
+    public Album getSingleAlbumByTitle(String title) {
+        logger.debug("getSingleAlbumByTitle beginning");
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Album.class);
+        criteria.add(Restrictions.eq("albumTitle", title));
+
+        logger.debug("getSingleAlbumByTitle criteria set");
+
+        List<Album> result = criteria.list();
+
+        logger.debug("getSingleAlbumByTitle Criteria executed");
+        logger.debug("getSingleAlbumByTitle title: " + result.get(0).getAlbumTitle());
+
+        return result.get(0);
+    }
+
+    /**
+     * returns an album by the given id. may be used for
+     * typing album id into url bar
+     *
+     * @param id
+     * @return the desired album
+     */
+    @Transactional
+    public Album getSingleAlbumById(int id) {
+        logger.debug("getSingleAlbum beginning");
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Album.class);
+        criteria.add(Restrictions.eq("id", id));
+
+        logger.debug("getSingleAlbumById criteria set");
+
+        List<Album> result = criteria.list();
+
+        logger.debug("getSingleAlbumById Criteria executed");
+        logger.debug("getSingleAlbumById id: " + result.get(0).getId());
+
+        return result.get(0);
+
+    }
 }
