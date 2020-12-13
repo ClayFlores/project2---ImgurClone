@@ -10,7 +10,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CommentsComponent implements OnInit {
 
   newCommentBody: string="";
-  @Input() comments: AlbumComment[]=[];
+  @Input() comments: AlbumComment[];
   @Output() onSubmitNewComment: EventEmitter<AlbumComment> = new EventEmitter<AlbumComment>();
 
   constructor(
