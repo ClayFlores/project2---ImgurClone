@@ -62,4 +62,21 @@ public class AlbumsController {
 
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
+
+    // this doesnt seem like a good strategy for the most part, title would be very limiting
+    @GetMapping(path="/byTitle/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Album> getAlbumWithTitle(HttpServletRequest request,
+                                                @PathVariable("title") String title) {
+        Album album = albumDao.getSingleAlbumByTitle(title);
+        logger.debug("getAlbumWithTitle retrieved album. title: " + album.getAlbumTitle());
+        try{
+            logger.debug("getAlbumWithTitle album as json with objectMapper: "
+                    + objectMapper.writeValueAsString(album)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(album, HttpStatus.OK);
+    }
 }
