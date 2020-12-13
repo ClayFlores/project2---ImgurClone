@@ -28,10 +28,14 @@ export class HomepageComponent implements OnInit {
     .subscribe(albums => {
 
       let albumsArray: Album[] = []
+
       for(let album of albums){
         let id: number = album.id;
+
         let title: string = album.albumTitle;
+
         let user = null;
+
         let images: Image[] = []
         for(let image of album.imageSet){
           let imageId: number = image.id;
@@ -40,11 +44,15 @@ export class HomepageComponent implements OnInit {
           let dateSubmitted: Date = new Date(image.dateSubmitted)
           images.push(new Image(imageId, imageURL, caption, dateSubmitted))
         }
+
         //change this when we get the upvote count
         let upvoteCount = 0;
+
         let dateCreated: Date = new Date(album.dateCreated)
+
         //change this when we implement tags
         let tags: Tag[] = [];
+
         let comments: AlbumComment[] =[];
         for(let comment of album.commentSet){
           let commentId: number = comment.id;
@@ -56,7 +64,6 @@ export class HomepageComponent implements OnInit {
 
         albumsArray.push(new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments))
       }
-      console.log(albumsArray)
 
       this.homepageAlbums = albumsArray;
       console.log("HOMEPAGE")
@@ -64,5 +71,7 @@ export class HomepageComponent implements OnInit {
     })
     
   }
+
+  
 
 }

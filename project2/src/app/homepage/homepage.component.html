@@ -12,7 +12,7 @@
             <div class="albumTitle"><a routerLink="/album/{{album.id}}"><h5>{{album.title}}</h5></a></div>
             <div class="albumDetails">
                 <div class="commentCount">{{album.comments.length}} Comments</div>
-                <app-comments [comments] ="album.comments"></app-comments>
+                <app-comments [comments] ="album.comments" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
             </div>
         </div>
     </div>
