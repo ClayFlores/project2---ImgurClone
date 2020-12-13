@@ -1,0 +1,16 @@
+<div class = "albumTile">
+        
+    <a routerLink="/album/{{album.id}}">
+        <div class = "frontPic">
+            <img src="{{album.images[0].imgUrl}}" alt="{{album.images[0].caption}}"/>
+        </div>
+    </a>
+    <div class="albumInfo">
+
+        <div class="albumTitle"><a routerLink="/album/{{album.id}}"><h5>{{album.title}}</h5></a></div>
+        <div class="albumDetails">
+            <div class="commentCount">{{album.comments.length}} Comments</div>
+            <app-comments [comments] ="album.comments" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
+        </div>
+    </div>
+</div>

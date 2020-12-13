@@ -20,6 +20,7 @@ import { UpvoteComponent } from './upvote/upvote.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AlbumTileComponent } from './album-tile/album-tile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     UpvoteComponent,
     RegistrationComponent,
     CommentsComponent,
-    NavbarComponent
+    NavbarComponent,
+    AlbumTileComponent
 
   ],
   imports: [
