@@ -45,4 +45,38 @@ public class AlbumsController {
         }
         return new ResponseEntity<>(mostRecentAlbums,  HttpStatus.OK);
     }
+
+
+    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Album> getAlbumWithId(HttpServletRequest request,
+                                                @PathVariable("id") String id) {
+        Album album = albumDao.getSingleAlbumById(Integer.parseInt(id));
+        logger.debug("getAlbumWithId retrieved album. title: " + album.getAlbumTitle());
+        try{
+            logger.debug("getAlbumWithId album as json with objectMapper: "
+                    + objectMapper.writeValueAsString(album)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(album, HttpStatus.OK);
+    }
+
+    // this doesnt seem like a good strategy for the most part, title would be very limiting
+    @GetMapping(path="/byTitle/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Album> getAlbumWithTitle(HttpServletRequest request,
+                                                @PathVariable("title") String title) {
+        Album album = albumDao.getSingleAlbumByTitle(title);
+        logger.debug("getAlbumWithTitle retrieved album. title: " + album.getAlbumTitle());
+        try{
+            logger.debug("getAlbumWithTitle album as json with objectMapper: "
+                    + objectMapper.writeValueAsString(album)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(album, HttpStatus.OK);
+    }
 }
