@@ -17,7 +17,7 @@ public class FileUploadController {
 
 
     @PostMapping(path = "upload")
-    public String handlePost(@RequestParam("user-file") MultipartFile multipartFile) throws  IOException {
+    public String handlePost(@RequestParam("user-file") MultipartFile multipartFile) throws IOException, InterruptedException {
 
         if(multipartFile == null ) {
             System.out.println("The file is null we aren't writing anything");

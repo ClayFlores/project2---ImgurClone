@@ -8,7 +8,11 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.transfer.Upload;
 import com.imgurclone.models.Album;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -33,7 +37,7 @@ public class S3UploadService {
 
 
 
-    public void uploadImage(File transferFile) {
+    public void uploadImage(File transferFile) throws InterruptedException {
         AWSCredentials awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
         AmazonS3 s3Client = AmazonS3ClientBuilder
                     .standard()
@@ -41,8 +45,12 @@ public class S3UploadService {
                     .withRegion(awsRegion)
                     .build();
 
+        TransferManager tm = TransferManagerBuilder.standard()
+                .withS3Client(s3Client)
+                .build();
 
-
+        Upload upload = tm.upload(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()));
+        upload.waitForCompletion();
 
     }
 
