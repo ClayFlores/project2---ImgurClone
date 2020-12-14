@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { Album } from './../../models/album';
 
 import { Injectable } from '@angular/core';
@@ -13,18 +14,25 @@ export class AlbumService {
 
   private albumsUrl = 'http://localhost:8080/project2-server/albums';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userService: UserService) { }
 
   /** GET albums from the server */
   getAlbumsForHomepage(): Observable<any[]> {
     return this.http.get<Album[]>(this.albumsUrl+"/homepageAlbums")
       .pipe(
         tap(_ => console.log('fetched albums')),
-        catchError(this.handleError<Album[]>('getAlbums', []))
+        catchError(this.handleError<Album[]>('getAlbumsForHomepage', []))
       );
   }
 
-
+  getAlbumsForMyAlbums(): Observable<any[]>{
+    return this.http.get<Album[]>(this.albumsUrl+"/byUser/"+this.userService.myUser?.id)
+      .pipe(
+        tap(_ => console.log('fetched albums')),
+        catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
+      );
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.

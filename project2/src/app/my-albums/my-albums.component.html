@@ -1,1 +1,4 @@
-<p>my-albums works!</p>
+<h2>My Albums</h2>
+<div *ngFor="let album of myAlbums">
+    <app-album-tile [album]="album"></app-album-tile>
+</div>
