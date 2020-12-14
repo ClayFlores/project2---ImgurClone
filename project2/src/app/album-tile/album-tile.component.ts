@@ -9,14 +9,18 @@ import { Album } from '../models/album';
 })
 export class AlbumTileComponent implements OnInit {
 
-  @Input() album: Album;
+  @Input() album: Album=null;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  
+  /*
+  USE THIS ON THE ALBUM DETAIL PAGE
   submitNewComment(newComment: AlbumComment){
     this.album.comments.push(newComment);
     //todo: save the album on the server
   }
+  */
 }
