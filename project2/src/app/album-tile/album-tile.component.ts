@@ -9,7 +9,7 @@ import { Album } from '../models/album';
 })
 export class AlbumTileComponent implements OnInit {
 
-  @Input() album: Album;
+  @Input() album: Album=null;
   constructor() { }
 
   ngOnInit(): void {
