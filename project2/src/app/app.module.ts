@@ -21,6 +21,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { CommentsComponent } from './comments/comments.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlbumTileComponent } from './album-tile/album-tile.component';
+import { MyAlbumsComponent } from './my-albums/my-albums.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AlbumTileComponent } from './album-tile/album-tile.component';
     RegistrationComponent,
     CommentsComponent,
     NavbarComponent,
-    AlbumTileComponent
+    AlbumTileComponent,
+    MyAlbumsComponent
 
   ],
   imports: [
