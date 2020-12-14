@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:album-dao" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1f4af865-0ba1-4254-be32-dc3aa3079816" name="Default Changelist" comment="added dateSubmitted to Comment.java">
+      <change beforePath="$PROJECT_DIR$/../project2/src/app/album-tile/album-tile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../project2/src/app/album-tile/album-tile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project2/src/app/comments/comments.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../project2/src/app/comments/comments.component.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="album-dao" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1lQyzc6bunnh0EmHXqXRzcCrNma" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\David\Documents\revature_training\imgur-clone-revature\project2-server\src\main\java\com\imgurclone\models" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY" nameIsGenerated="true">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/project2-server" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.60" />
+          <option name="number" value="0" />
+          <option name="path" value="C:\apache-tomcat-8.5.60" />
+          <option name="version" value="8.5.60.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" />
+      <option name="docBase" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo" />
+      <option name="vmOptions" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1f4af865-0ba1-4254-be32-dc3aa3079816" name="Default Changelist" comment="" />
+      <created>1607543874386</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607543874386</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fixed syntax errors in album.java, image.java, cleaned up User.java">
+      <created>1607560634654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607560634654</updated>
+    </task>
+    <task id="LOCAL-00002" summary="cleaned up Image.java">
+      <created>1607561245644</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607561245644</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added onetomany and manytomany relationships to User.java">
+      <created>1607562814985</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1607562814985</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changed multiplicity data structures from list to set User.java, Album.java">
+      <created>1607563859613</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607563859613</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fleshed out Album.java, Comment.java and Image.java">
+      <created>1607566571050</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607566571050</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added boilerplate to Album.java, AlbumTag.java and Comment.java">
+      <created>1607566920300</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607566920300</updated>
+    </task>
+    <task id="LOCAL-00007" summary="removed user from image model">
+      <created>1607633128138</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607633128138</updated>
+    </task>
+    <task id="LOCAL-00008" summary="written first stab at getTenMostRecentAlbums in AlbumDao.java and the handler to retrieve them in AlbumsController.java, but receiving Hibernate serialization exception. Also added log4j2 to pom.xml">
+      <created>1607637824497</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607637824497</updated>
+    </task>
+    <task id="LOCAL-00009" summary="solved serialization exception by changing the LocalDateTime fields to java.sql.Timestamp - now running into problems in the album controller &quot;org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation&quot;. added faster xml to try to solve any problems with lazily-fetched elements of models. no dice yet.">
+      <created>1607642213606</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607642213606</updated>
+    </task>
+    <task id="LOCAL-00010" summary="changed application-context.xml so it will now serve at the correct route. Begun changing the models to avoid infinite recursion during fetch">
+      <created>1607651807045</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607651807045</updated>
+    </task>
+    <task id="LOCAL-00011" summary="changed Album.java so it eagerly fetches tags and comments. Changed all corresponding elements of Album.java, AlbumTag.java and Comment.java so that they are JSONManagedReference-JSONBackReference pairs. Removed unnecessary userCommenter field from AlbumTag.java">
+      <created>1607653573999</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607653573999</updated>
+    </task>
+    <task id="LOCAL-00012" summary="changed the path for getAlbumsForHomepage to &quot;/albums/homepageAlbums&quot;">
+      <created>1607654882604</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607654882604</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fixed Cross-origin problem AlbumsController.java">
+      <created>1607736290335</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607736290335</updated>
+    </task>
+    <task id="LOCAL-00014" summary="solved hibernate null pointer exception when fetching User - removed albumList from equals and hashCode. set @JsonBackReference on Comment.java's userCommenter field">
+      <created>1607796907985</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1607796907985</updated>
+    </task>
+    <task id="LOCAL-00015" summary="added dateSubmitted to Comment.java">
+      <created>1607797006230</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607797006230</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="album-dao" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="User-model" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixed syntax errors in album.java, image.java, cleaned up User.java" />
+    <MESSAGE value="cleaned up Image.java" />
+    <MESSAGE value="added onetomany and manytomany relationships to User.java" />
+    <MESSAGE value="changed multiplicity data structures from list to set User.java, Album.java" />
+    <MESSAGE value="fleshed out Album.java, Comment.java and Image.java" />
+    <MESSAGE value="added boilerplate to Album.java, AlbumTag.java and Comment.java" />
+    <MESSAGE value="removed user from image model" />
+    <MESSAGE value="written first stab at getTenMostRecentAlbums in AlbumDao.java and the handler to retrieve them in AlbumsController.java, but receiving Hibernate serialization exception. Also added log4j2 to pom.xml" />
+    <MESSAGE value="solved serialization exception by changing the LocalDateTime fields to java.sql.Timestamp - now running into problems in the album controller &quot;org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation&quot;. added faster xml to try to solve any problems with lazily-fetched elements of models. no dice yet." />
+    <MESSAGE value="changed application-context.xml so it will now serve at the correct route. Begun changing the models to avoid infinite recursion during fetch" />
+    <MESSAGE value="changed Album.java so it eagerly fetches tags and comments. Changed all corresponding elements of Album.java, AlbumTag.java and Comment.java so that they are JSONManagedReference-JSONBackReference pairs. Removed unnecessary userCommenter field from AlbumTag.java" />
+    <MESSAGE value="changed the path for getAlbumsForHomepage to &quot;/albums/homepageAlbums&quot;" />
+    <MESSAGE value="fixed Cross-origin problem AlbumsController.java" />
+    <MESSAGE value="solved hibernate null pointer exception when fetching User - removed albumList from equals and hashCode. set @JsonBackReference on Comment.java's userCommenter field" />
+    <MESSAGE value="added dateSubmitted to Comment.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="added dateSubmitted to Comment.java" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="534" y="188" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607802324686">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="534" y="188" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607802324686" />
+    <state x="407" y="204" key="#com.intellij.ide.util.MemberChooser" timestamp="1607796984132">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="407" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1607796984132" />
+    <state x="685" y="283" key="FileChooserDialogImpl" timestamp="1607804472891">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="685" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1607804472891" />
+    <state width="1860" height="362" key="GridCell.Tab.0.bottom" timestamp="1607981016048">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1860" height="362" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607981016048" />
+    <state width="1860" height="362" key="GridCell.Tab.0.center" timestamp="1607981016047">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1860" height="362" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607981016047" />
+    <state width="1860" height="362" key="GridCell.Tab.0.left" timestamp="1607981016047">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1860" height="362" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607981016047" />
+    <state width="1860" height="362" key="GridCell.Tab.0.right" timestamp="1607981016047">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1860" height="362" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607981016047" />
+    <state x="184" y="38" key="MergeDialog" timestamp="1607718966143">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="38" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607718966143" />
+    <state x="598" y="233" key="MultipleFileMergeDialog" timestamp="1607718973886">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="598" y="233" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607718973886" />
+    <state x="880" y="189" key="SettingsEditor" timestamp="1607804479703">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="880" y="189" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607804479703" />
+    <state x="194" y="253" key="Vcs.Push.Dialog.v2" timestamp="1607736308823">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="194" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1607736308823" />
+    <state x="-258" y="201" width="1720" height="814" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1607804482744">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-258" y="201" width="1720" height="814" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607804482744" />
+    <state x="708" y="236" key="git4idea.branch.GitSmartOperationDialog" timestamp="1607563855288">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="708" y="236" key="git4idea.branch.GitSmartOperationDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607563855288" />
+    <state x="685" y="275" key="new project wizard" timestamp="1607804443488">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="685" y="275" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1607804443488" />
+    <state x="505" y="230" key="run.anything.popup" timestamp="1607636623148">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="505" y="230" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607636623148" />
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1607796957375">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607796957375" />
+  </component>
+</project>
