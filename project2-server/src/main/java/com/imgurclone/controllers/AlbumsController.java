@@ -3,7 +3,9 @@ package com.imgurclone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.Album;
+import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 import java.util.List;
 
 @CrossOrigin(origins="http://localhost:4200")
@@ -23,6 +26,9 @@ import java.util.List;
 public class AlbumsController {
     @Autowired
     private AlbumDao albumDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private static final Logger logger = LogManager.getLogger(AlbumsController.class);
@@ -79,4 +85,22 @@ public class AlbumsController {
 
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
+
+    // this doesnt seem like a good strategy for the most part, title would be very limiting
+    @GetMapping(path="/byUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Album> getAlbumsFromUser(@PathVariable("userId") int userId) {
+        User userCreator = userDao.getById(userId);
+        List<Album> albumsFromUser = albumDao.getAlbumsByUserCreator(userCreator);
+        logger.debug("getAlbumsFromUser retrieved albums");
+        try{
+            logger.debug("getAlbumsFromUser albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsFromUser)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return albumsFromUser;
+    }
+
+
 }
