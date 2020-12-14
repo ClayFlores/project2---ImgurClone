@@ -19,6 +19,8 @@ import { CommonModule } from '@angular/common';
 import { UpvoteComponent } from './upvote/upvote.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CommentsComponent } from './comments/comments.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AlbumTileComponent } from './album-tile/album-tile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CommentsComponent } from './comments/comments.component';
     HomepageComponent,
     UpvoteComponent,
     RegistrationComponent,
-    CommentsComponent
+    CommentsComponent,
+    NavbarComponent,
+    AlbumTileComponent
 
   ],
   imports: [

@@ -7,7 +7,7 @@ export class Album{
     constructor(
         private _id: number,
         private _title: string,
-        private _userCreator: User,
+        private _userCreator: User | null,
         private _images: Image[],
         private _upvoteCount: number,
         private _dateCreated: Date,
@@ -33,8 +33,8 @@ export class Album{
     public get title(): string{ return this._title;}
     public set title(newTitle: string){ this._title = newTitle;}
 
-    public get userCreator(): User{ return this._userCreator}
-    public set userCreator(newUserCreator: User){ this._userCreator = newUserCreator}
+    public get userCreator(): User | null{ return this._userCreator}
+    public set userCreator(newUserCreator: User| null){ this._userCreator = newUserCreator}
 
     public get images(): Image[]{return this._images}
     public set images(newImages: Image[]){this._images = newImages}

@@ -16,7 +16,7 @@ export class AlbumService {
   constructor(private http: HttpClient) { }
 
   /** GET albums from the server */
-  getAlbumsForHomepage(): Observable<Album[]> {
+  getAlbumsForHomepage(): Observable<any[]> {
     return this.http.get<Album[]>(this.albumsUrl+"/homepageAlbums")
       .pipe(
         tap(_ => console.log('fetched albums')),

@@ -1,1 +1,3 @@
 datasource.properties
+/target/
+/.idea/

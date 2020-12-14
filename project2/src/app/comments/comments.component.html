@@ -1,5 +1,6 @@
 <div class="commentsContainer">
     <div class="comment" *ngFor="let comment of comments">
+        <br>
         <div class="commentBody">{{comment.body}}</div>
         <div class="dateSubmitted">{{comment.dateSubmitted}}</div>
     </div>
@@ -10,5 +11,5 @@
             <button [disabled]="!commentForm.valid" (click)="onSubmitClick(commentForm)">Submit</button>
         </form>
     </div>
-    <ng-template #elseBlock>Please login to add comments.</ng-template>
+    <ng-template #elseBlock> <a routerLink = "/login">Please login to add comments.</a> </ng-template>
 </div>
