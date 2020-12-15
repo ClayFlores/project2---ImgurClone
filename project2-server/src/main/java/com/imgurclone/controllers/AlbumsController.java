@@ -105,7 +105,7 @@ public class AlbumsController {
 
     @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List <Album> getAlbumsByTag(@PathVariable("/byTag/{tagName}") String tagName){
+    public List <Album> getAlbumsByTag(@PathVariable("tagName") String tagName){
         List<Album> albumsByTag = albumDao.getAlbumsByTagName(tagName);
         logger.debug("getAlbumsByTag retrieved albums");
         try{
