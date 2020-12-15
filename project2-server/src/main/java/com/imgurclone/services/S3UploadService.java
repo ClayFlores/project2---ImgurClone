@@ -5,17 +5,11 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
-import com.imgurclone.models.Album;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -58,6 +52,12 @@ public class S3UploadService {
             URL s3Url = s3Client.getUrl(bucketName, transferFile.getName());
             System.out.println("The name of the file that will be in s3 " + transferFile.getName());
             System.out.println(s3Url.toString());
+
+
+
+            //TODO HERE WE SHOULD ALTER THE ALBUM OBJECT AND EDIT THE IMAGE URL AND STORE IN DB
+            // DAO CALL
+
 
         } catch (SdkClientException e) {
             //TODO add logging

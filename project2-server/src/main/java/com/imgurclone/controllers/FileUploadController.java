@@ -32,16 +32,9 @@ public class FileUploadController {
         File transferFile = new File(uploadDir + "/" + multipartFile.getOriginalFilename());
         multipartFile.transferTo(transferFile);
 
+
         // Now that file is uploaded we need to call the service to get the correct s3 url
         s3UploadService.uploadImage(transferFile);
-
-//        String path = servletContext.getRealPath("WEB-INF/tmp");
-//        System.out.println(path);
-
-        // clean up the tmp directory
-//        for(File file: dir.listFiles())
-//            if (!file.isDirectory())
-//                file.delete();
 
 
         return "response";
