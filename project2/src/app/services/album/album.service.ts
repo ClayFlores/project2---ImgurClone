@@ -28,7 +28,7 @@ export class AlbumService {
   getSingleAlbum (id : number): Observable<Album> {
     return this.http.get<Album>(this.albumsUrl+"/"+id)
       .pipe(
-        tap(_=> console.log('fetched album')),
+        tap(_=> console.log('fetched single album')),
         catchError(this.handleError<Album>('getSingleAlbum'))
       );
   }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Album } from '../models/album';
 import { Image } from '../models/image';
 import { User } from '../models/user';
+import { AlbumService } from '../services/album/album.service';
 
 @Component({
   selector: 'app-album-edit',
@@ -10,24 +12,40 @@ import { User } from '../models/user';
 })
 export class AlbumEditComponent implements OnInit {
 
-  // sample album data 
-  users: User[] = [
-    new User(1, "pw", "test@test.com"),
-    new User(2, "pwpw", "a@b.com")
-  ]
+  album: Album;
+  selectedIndex: number = -1;
+/**
+ * concerns:  adding an image would require an id; how to generate id?
+ *            deleting an image is scary; get over it
+ *            deleting last image; should it delete album?  
+ */
+public setRow(_index: number) {
+  this.selectedIndex = _index;
+  console.log(this.selectedIndex);
+  console.log(this.album.images[this.selectedIndex]);
+}
 
-  imageSet: Image[] = [
-    new Image(1, '../assets/pizza.png','pizza', new Date()),
-    new Image(2, '../assets/macaron.png','macaron', new Date()),
-    new Image(3, '../assets/orange.png','orange', new Date()),
-    new Image(4, '../assets/broccoli.png', 'broccoli', new Date())
-  ]
+// this is not a great strategy, repeating code from album-view.ts
+// ideally, would send the album over with the routing
+public getAlbum() {
+      if (this.route.snapshot.paramMap.get('id')) { // did not like the possibility of id being null, this condition verifies it isnt
+        const id =  this.route.snapshot.paramMap.get('id');
+        this.albumService.getSingleAlbum(Number(id))
+          .subscribe(albumFromServer => {
+            this.album = albumFromServer
 
-  Album = new Album(1, 'test images', this.users[0], this.imageSet, 0, new Date(), [],[])
-
-    constructor() { }
+             console.log(this.album)
+          });
+      }
+    }
+    constructor(
+      private albumService: AlbumService,
+      private route: ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
+
+        this.getAlbum();
     }
   
 }

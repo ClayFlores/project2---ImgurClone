@@ -1,18 +1,24 @@
 <!-- reminder for later: call is async and may need ngIf to not show unless data exists -->
-
+<!-- [state]="{ data: {album}}" -->
 <div *ngIf="album">
     <div class="column">
         <a routerLink="/albums/{{album.id}}/edit">
             <span>Edit Album</span>
         </a>
         <h2>{{ album.albumTitle }}</h2>
-        <h5>Created: {{ album.dateCreated | date:'longDate'}}</h5>
+        <h5>Created: {{ album.dateCreated | date:'short'}}</h5>
         <div class="row" *ngFor="let imagePath of album.imageSet">
-            <h4 *ngIf="caption">{{imageSet.caption}}</h4>
-            <img  src={{imagePath}} />
+            <h4 *ngIf="caption">{{imagePath.caption}}</h4>
+            <img  src={{imagePath.imagePath}} alt="../assets/macaron.png"/>
+            <h6>Submitted:{{imagePath.dateSubmitted | date:'short'}}</h6>
         </div>
         <div *ngIf="tagList">
-          <p *ngFor="let tag in tagList">{{tag}} </p>
+          <p *ngFor="let tag of album.tagList">{{tag}} </p>
+        </div>
+        <div *ngIf=commentSet>
+            <div *ngFor="let comment of commentSet">
+                <p>{{ comment }} </p>
+            </div>
         </div>
     </div>
 </div>
