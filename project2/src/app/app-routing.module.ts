@@ -9,8 +9,8 @@ import {RegistrationComponent} from "./registration/registration.component";
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path:'', component: HomepageComponent},
-  {path:'album/:id', component: AlbumViewComponent},
-  {path:'album/:id/edit', component: AlbumEditComponent},
+  {path:'albums/:id', component: AlbumViewComponent},
+  {path:'albums/:id/edit', component: AlbumEditComponent},
   {path: 'register', component: RegistrationComponent}
 ];
 

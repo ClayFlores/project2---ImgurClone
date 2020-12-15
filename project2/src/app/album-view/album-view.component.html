@@ -1,25 +1,22 @@
 <!-- reminder for later: call is async and may need ngIf to not show unless data exists -->
 
-<!-- albumSet -> Album -> imageSet -> Image -> imgUrl -->
-<!-- array       class    array     class    string -->
-
-<!-- my images suck -->
-<div class="column">
-    <a routerLink="/album/{{Album.id}}/edit">
-        <span>Edit Album</span>
-    </a>
-    <div class="row" *ngFor="let Image of imageSet">
-        <h3>{{Image.caption}}</h3>
-        <h5>Submitted: {{Image.dateSubmitted | date:'longDate'}}</h5>
-        <img  src={{Image.imgUrl}} />
-        <!-- how tour of heroes did click routing -->
-        <!-- <a routerLink="/detail/{{hero.id}}"> -->
-            <!-- <span class="badge">{{hero.id}}</span> {{hero.name}} -->
-        <!-- </a> -->
+<div *ngIf="album">
+    <div class="column">
+        <a routerLink="/albums/{{album.id}}/edit">
+            <span>Edit Album</span>
+        </a>
+        <h2>{{ album.albumTitle }}</h2>
+        <h5>Created: {{ album.dateCreated | date:'longDate'}}</h5>
+        <div class="row" *ngFor="let imagePath of album.imageSet">
+            <h4 *ngIf="caption">{{imageSet.caption}}</h4>
+            <img  src={{imagePath}} />
+        </div>
+        <div *ngIf="tagList">
+          <p *ngFor="let tag in tagList">{{tag}} </p>
+        </div>
     </div>
 </div>
 
-<!-- TODO: add routing to album edit component at least -->
 <!-- TODO: add upvote system -->
 <!-- TODO: add comment system -->
 <!-- TODO: add more css for aesthetics -->

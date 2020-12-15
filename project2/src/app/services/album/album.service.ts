@@ -24,6 +24,15 @@ export class AlbumService {
       );
   }
 
+  /** GET single album from server */
+  getSingleAlbum (id : number): Observable<Album> {
+    return this.http.get<Album>(this.albumsUrl+"/"+id)
+      .pipe(
+        tap(_=> console.log('fetched album')),
+        catchError(this.handleError<Album>('getSingleAlbum'))
+      );
+  }
+
 
   /**
  * Handle Http operation that failed.
