@@ -86,7 +86,7 @@ public class AlbumsController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-    // this doesnt seem like a good strategy for the most part, title would be very limiting
+
     @GetMapping(path="/byUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Album> getAlbumsFromUser(@PathVariable("userId") int userId) {
@@ -99,7 +99,24 @@ public class AlbumsController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
         return albumsFromUser;
+    }
+
+    @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List <Album> getAlbumsByTag(@PathVariable("/byTag/{tagName}") String tagName){
+        List<Album> albumsByTag = albumDao.getAlbumsByTagName(tagName);
+        logger.debug("getAlbumsByTag retrieved albums");
+        try{
+            logger.debug("getAlbumsByTag albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsByTag)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return albumsByTag;
+
     }
 
 

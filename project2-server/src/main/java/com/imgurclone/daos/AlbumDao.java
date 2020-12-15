@@ -1,6 +1,7 @@
 package com.imgurclone.daos;
 
 import com.imgurclone.models.Album;
+import com.imgurclone.models.AlbumTag;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -145,6 +147,18 @@ public class AlbumDao {
         query.setParameter("user", userCreator);
         List<Album> result = query.list();
         logger.debug("getAlbumsByUserCreator retrieved albums for userCreator "+userCreator.getId());
+        return result;
+    }
+
+    public List<Album> getAlbumsByTagName(String tagName){
+        Session session = sessionFactory.getCurrentSession();
+        String tagHql = "from AlbumTag T where T.tagName=:tag";
+        Query query = session.createQuery(tagHql);
+        query.setParameter("tag", tagName);
+        List<AlbumTag> tagMappings = query.list();
+        List<Album> result = new ArrayList<>();
+        for(AlbumTag tag:tagMappings)
+            result.add(tag.getAlbum());
         return result;
     }
 }

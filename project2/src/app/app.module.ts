@@ -22,6 +22,8 @@ import { CommentsComponent } from './comments/comments.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlbumTileComponent } from './album-tile/album-tile.component';
 import { MyAlbumsComponent } from './my-albums/my-albums.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { MyAlbumsComponent } from './my-albums/my-albums.component';
     CommentsComponent,
     NavbarComponent,
     AlbumTileComponent,
-    MyAlbumsComponent
+    MyAlbumsComponent,
+    SearchBarComponent,
+    SearchResultPageComponent
 
   ],
   imports: [

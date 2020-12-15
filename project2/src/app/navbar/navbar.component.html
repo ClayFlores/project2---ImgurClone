@@ -5,6 +5,7 @@
         </a>
     </div>
     <!--SEARCH COMPONENT TO GO HERE-->
+    <app-search-bar></app-search-bar>
     <div class="topNavLinkContainer">
         <a routerLink = "/" class="topNavLink">Home</a>
         <ng-template [ngIf]="userService.myUser" [ngIfElse]="elseBlock">
