@@ -33,6 +33,14 @@ export class AlbumService {
         catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
       );
   }
+
+  getAlbumsByTagName(tagName:string): Observable<any[]>{
+    return this.http.get<Album[]>(this.albumsUrl+"/byTag/"+tagName)
+      .pipe(
+        tap(_ => console.log('fetched albums')),
+        catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
+      );
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.

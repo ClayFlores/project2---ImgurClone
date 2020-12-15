@@ -103,6 +103,7 @@ public class AlbumsController {
         return albumsFromUser;
     }
 
+    //TODO: STOP FROM CRASHING IF NOTHING IS PROVIDED TO TAGNAME
     @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List <Album> getAlbumsByTag(@PathVariable("tagName") String tagName){
