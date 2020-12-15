@@ -7,6 +7,8 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
@@ -46,7 +48,12 @@ public class S3UploadService {
                     .withS3Client(s3Client)
                     .build();
 
-            Upload upload = tm.upload(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()));
+
+//            Upload upload = tm.upload(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()));
+
+            Upload upload = tm.upload(new PutObjectRequest(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()))
+                    .withCannedAcl(CannedAccessControlList.BucketOwnerFullControl));
+
             upload.waitForCompletion();
 
             URL s3Url = s3Client.getUrl(bucketName, transferFile.getName());
