@@ -15,7 +15,8 @@ export class SearchBarComponent implements OnInit {
 
   onSubmitClick(form:any){
     if(form.status === "INVALID") return;
-    this.router.navigate(['/search?tagName='+this.tagName]);
+    console.log(this.tagName)
+    this.router.navigateByUrl('/search?tagName='+this.tagName);
   }
 
 }
