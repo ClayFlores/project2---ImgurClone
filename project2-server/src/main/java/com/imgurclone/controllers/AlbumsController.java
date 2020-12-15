@@ -3,7 +3,9 @@ package com.imgurclone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.Album;
+import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ import java.util.List;
 public class AlbumsController {
     @Autowired
     private AlbumDao albumDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private static final Logger logger = LogManager.getLogger(AlbumsController.class);
@@ -83,5 +88,38 @@ public class AlbumsController {
         }
 
         return new ResponseEntity<>(album, HttpStatus.OK);
+    }
+
+    @GetMapping(path="/byUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Album> getAlbumsFromUser(@PathVariable("userId") int userId) {
+        User userCreator = userDao.getById(userId);
+        List<Album> albumsFromUser = albumDao.getAlbumsByUserCreator(userCreator);
+        logger.debug("getAlbumsFromUser retrieved albums");
+        try{
+            logger.debug("getAlbumsFromUser albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsFromUser)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return albumsFromUser;
+    }
+
+    //TODO: STOP FROM CRASHING IF NOTHING IS PROVIDED TO TAGNAME
+    @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List <Album> getAlbumsByTag(@PathVariable("tagName") String tagName){
+        List<Album> albumsByTag = albumDao.getAlbumsByTagName(tagName);
+        logger.debug("getAlbumsByTag retrieved albums");
+        try{
+            logger.debug("getAlbumsByTag albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsByTag)) ;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return albumsByTag;
+
     }
 }
