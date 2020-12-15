@@ -1,3 +1,5 @@
+import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+import { MyAlbumsComponent } from './my-albums/my-albums.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,7 +13,9 @@ const routes: Routes = [
   {path:'', component: HomepageComponent},
   {path:'album/:id', component: AlbumViewComponent},
   {path:'album/:id/edit', component: AlbumEditComponent},
-  {path: 'register', component: RegistrationComponent}
+  {path: 'register', component: RegistrationComponent},
+  {path:'myAlbums', component: MyAlbumsComponent},
+  {path:'search', component: SearchResultPageComponent}
 ];
 
 @NgModule({

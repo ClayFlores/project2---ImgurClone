@@ -6,7 +6,7 @@
     </div>
 
     <div class="addComment" *ngIf="userService.myUser; else elseBlock">
-        <form class="addCommentForm" #commentForm="ngForm" novalidate>
+        <form class="addCommentForm"  #commentForm="ngForm" novalidate>
             <textarea [(ngModel)]="newCommentBody" placeholder="New Comment Text" name="body" id="body" cols="30" rows="10" minlength="1" maxlength="1000" ></textarea>
             <button [disabled]="!commentForm.valid" (click)="onSubmitClick(commentForm)">Submit</button>
         </form>
