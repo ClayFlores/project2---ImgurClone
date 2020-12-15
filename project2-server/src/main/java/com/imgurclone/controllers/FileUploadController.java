@@ -5,40 +5,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping(name = "files")
+@CrossOrigin(origins = "*")
 public class FileUploadController {
 
     @Autowired
     S3UploadService s3UploadService;
 
+    @Autowired
+    ServletContext servletContext;
 
     @PostMapping(path = "upload")
-    public String handlePost(@RequestParam("user-file") MultipartFile multipartFile) throws IOException, InterruptedException {
+    public String handlePost(@RequestParam("user-file") MultipartFile multipartFile) throws IOException, InterruptedException, URISyntaxException {
 
         if(multipartFile == null ) {
             System.out.println("The file is null we aren't writing anything");
         }
-
-        String uploadDir = "/Users/ratulahmed/Desktop/imgur-clone-revature/project2-server/src/main/resources/tmp";
+//
+        File uploadDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
         File transferFile = new File(uploadDir + "/" + multipartFile.getOriginalFilename());
         multipartFile.transferTo(transferFile);
-
 
         // Now that file is uploaded we need to call the service to get the correct s3 url
         s3UploadService.uploadImage(transferFile);
 
+//        String path = servletContext.getRealPath("WEB-INF/tmp");
+//        System.out.println(path);
 
-
-        // delete the files
-
+        // clean up the tmp directory
+//        for(File file: dir.listFiles())
+//            if (!file.isDirectory())
+//                file.delete();
 
 
         return "response";
     }
+
+
 
 
 }
