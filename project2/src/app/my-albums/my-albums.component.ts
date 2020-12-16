@@ -1,19 +1,18 @@
-import { Tag } from './../models/tag';
-import { AlbumComment } from './../models/AlbumComment';
-import { Album } from './../models/album';
-import { Image } from './../models/image';
-import { User } from 'src/app/models/user';
-import { AlbumService } from './../services/album/album.service';
 import { Component, OnInit } from '@angular/core';
+import { Album } from '../models/album';
+import { AlbumComment } from '../models/AlbumComment';
+import { Image } from './../models/image';
+import { Tag } from '../models/tag';
+import { AlbumService } from '../services/album/album.service';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  selector: 'app-my-albums',
+  templateUrl: './my-albums.component.html',
+  styleUrls: ['./my-albums.component.css']
 })
-export class HomepageComponent implements OnInit {
+export class MyAlbumsComponent implements OnInit {
 
-  homepageAlbums: any[] = [];
+  myAlbums: Album[] = [];
   constructor(
     private albumService: AlbumService
   ) { }
@@ -24,7 +23,7 @@ export class HomepageComponent implements OnInit {
 
   public getHomepageAlbums(): void{    
     
-    this.albumService.getAlbumsForHomepage()
+    this.albumService.getAlbumsForMyAlbums()
     .subscribe(albums => {
 
       let albumsArray: Album[] = []
@@ -65,9 +64,9 @@ export class HomepageComponent implements OnInit {
         albumsArray.push(new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments))
       }
 
-      this.homepageAlbums = albumsArray;
-      console.log("HOMEPAGE")
-      console.log(this.homepageAlbums)
+      this.myAlbums = albumsArray;
+      console.log("My Users")
+      console.log(this.myAlbums)
     })
     
   }

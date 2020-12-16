@@ -1,30 +1,44 @@
-import { Tag } from './../models/tag';
-import { AlbumComment } from './../models/AlbumComment';
-import { Album } from './../models/album';
-import { Image } from './../models/image';
-import { User } from 'src/app/models/user';
 import { AlbumService } from './../services/album/album.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Album } from '../models/album';
+import { AlbumComment } from '../models/AlbumComment';
+import { Tag } from '../models/tag';
+import { Image } from './../models/image';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  selector: 'app-search-result-page',
+  templateUrl: './search-result-page.component.html',
+  styleUrls: ['./search-result-page.component.css']
 })
-export class HomepageComponent implements OnInit {
+export class SearchResultPageComponent implements OnInit {
 
-  homepageAlbums: any[] = [];
+  tagName:string="";
+  searchResults:Album[]=[];
+
   constructor(
+    public route:ActivatedRoute,
     private albumService: AlbumService
   ) { }
 
   ngOnInit(): void {
-    this.getHomepageAlbums();
+    console.log("search result page init")
+    this.makeTagName();
   }
 
-  public getHomepageAlbums(): void{    
+  
+
+  public makeTagName():void{
+    this.route.queryParams.subscribe(params=>{
+      this.tagName=params['tagName'];
+      console.log(this.tagName)
+      this.getSearchResults()
+    });
+  }
+
+  public getSearchResults(): void{    
     
-    this.albumService.getAlbumsForHomepage()
+    this.albumService.getAlbumsByTagName(this.tagName)
     .subscribe(albums => {
 
       let albumsArray: Album[] = []
@@ -65,13 +79,11 @@ export class HomepageComponent implements OnInit {
         albumsArray.push(new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments))
       }
 
-      this.homepageAlbums = albumsArray;
-      console.log("HOMEPAGE")
-      console.log(this.homepageAlbums)
+      this.searchResults = albumsArray;
+      console.log("search results")
+      console.log(this.searchResults)
     })
     
   }
-
-  
 
 }

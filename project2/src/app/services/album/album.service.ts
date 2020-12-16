@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { Album } from './../../models/album';
 
 import { Injectable } from '@angular/core';
@@ -13,16 +14,18 @@ export class AlbumService {
 
   private albumsUrl = 'http://localhost:8080/project2-server/albums';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private userService: UserService) { }
 
   /** GET albums from the server */
-  getAlbumsForHomepage(): Observable<Album[]> {
+  getAlbumsForHomepage(): Observable<any[]> {
     return this.http.get<Album[]>(this.albumsUrl+"/homepageAlbums")
       .pipe(
         tap(_ => console.log('fetched albums')),
-        catchError(this.handleError<Album[]>('getAlbums', []))
+        catchError(this.handleError<Album[]>('getAlbumsForHomepage', []))
       );
   }
+
 
   /** GET single album from server */
   getSingleAlbum (id : number): Observable<Album> {
@@ -33,7 +36,48 @@ export class AlbumService {
       );
   }
 
+  getAlbumsForMyAlbums(): Observable<any[]>{
+    return this.http.get<Album[]>(this.albumsUrl+"/byUser/"+this.userService.myUser?.id)
+      .pipe(
+        tap(_ => console.log('fetched albums')),
+        catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
+      );
+  }
 
+  getAlbumsByTagName(tagName:string): Observable<any[]>{
+    return this.http.get<Album[]>(this.albumsUrl+"/byTag/"+tagName)
+      .pipe(
+        tap(_ => console.log('fetched albums')),
+        catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
+      );
+  }
+  
+  postNewAlbum(title: string):Observable<any>{
+    const formData = new FormData();
+    formData.append('albumTitle', title);
+    let id: string = ""+this.userService.myUser?.id;
+    formData.append('userId', id);
+
+    return this.http.post<any>(this.albumsUrl+"/createAlbum", formData)
+    .pipe(
+      tap(_ => console.log('created album')),
+      catchError(this.handleError<Album[]>('postNewAlbum', []))
+    );
+  }
+
+  postNewComment(myBody:string, myAlbumId: number):Observable<any>{
+    const formData = new FormData();
+    formData.append('commentBody', myBody);
+    formData.append('albumId', ""+myAlbumId);
+    formData.append('userId',""+this.userService.myUser?.id);
+
+    return this.http.post<any>(this.albumsUrl+"/createComment", formData)
+    .pipe(
+      tap(_ => console.log('created album')),
+      catchError(this.handleError<Album[]>('postNewAlbum', []))
+    );
+    //TODO: FINISH THIS METHOD
+  }
   /**
  * Handle Http operation that failed.
  * Let the app continue.

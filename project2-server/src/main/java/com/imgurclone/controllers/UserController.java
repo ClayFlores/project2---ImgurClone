@@ -1,9 +1,8 @@
 package com.imgurclone.controllers;
 
+import com.imgurclone.daos.AlbumDao;
 import com.imgurclone.daos.UserDao;
-import com.imgurclone.models.AuthenticationRequest;
-import com.imgurclone.models.AuthenticationResponse;
-import com.imgurclone.models.User;
+import com.imgurclone.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,14 +18,11 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @GetMapping(path = "/")
-    public ResponseEntity<User> getAllUsers() {
+    @Autowired
+    private AlbumDao albumDao;
 
-        System.out.println("This endpoint works");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
-    @PostMapping(path = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "createUser")
     public ResponseEntity<?> createUser(@RequestBody AuthenticationRequest authenticationRequest) {
 
         // TODO Check for wrong input
@@ -56,6 +52,15 @@ public class UserController {
 
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
+
+    @PostMapping(path = "favorites")
+    public ResponseEntity<?> setFavorite(@RequestBody UserFavoritesRequest request) {
+        Album favAlbum = albumDao.getSingleAlbumById(request.getFavAlbumId());
+        userDao.addFavoriteAlbum(request.getUserId(), favAlbum);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
 
 
 }

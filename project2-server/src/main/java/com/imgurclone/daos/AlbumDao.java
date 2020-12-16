@@ -1,6 +1,9 @@
 package com.imgurclone.daos;
 
 import com.imgurclone.models.Album;
+import com.imgurclone.models.AlbumTag;
+import com.imgurclone.models.Image;
+import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,9 +37,12 @@ public class AlbumDao {
     }
 
     @Transactional
-    public void insert(Album album) {
+    public int insert(Album album) {
         Session session = sessionFactory.getCurrentSession();
         session.save(album);
+        for(AlbumTag t: album.getTagList())
+            session.save(t);
+        return album.getId();
     }
 
     @Transactional
@@ -103,6 +110,7 @@ public class AlbumDao {
         return result.get(0);
     }
 
+
     /**
      * returns an album by the given id. may be used for
      * typing album id into url bar
@@ -127,5 +135,52 @@ public class AlbumDao {
 
         return result.get(0);
 
+    }
+
+    /**
+     * returns all albums created by a particular user
+     * @param userCreator the user whose albums are being returned
+     * @return the list of the user's albums
+     */
+    @Transactional
+    public List<Album> getAlbumsByUserCreator(User userCreator){
+        logger.debug("getAlbumsByUserCreator beginning");
+
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from Album A where A.userCreator = :user order by A.dateCreated DESC ";
+        Query query = session.createQuery(hql);
+        query.setParameter("user", userCreator);
+        List<Album> result = query.list();
+        logger.debug("getAlbumsByUserCreator retrieved albums for userCreator "+userCreator.getId());
+        return result;
+    }
+
+    public List<Album> getAlbumsByTagName(String tagName){
+        Session session = sessionFactory.getCurrentSession();
+        String tagHql = "from AlbumTag T where T.tagName=:tag";
+        Query query = session.createQuery(tagHql);
+        query.setParameter("tag", tagName);
+        List<AlbumTag> tagMappings = query.list();
+        List<Album> result = new ArrayList<>();
+        for(AlbumTag tag:tagMappings)
+            result.add(tag.getAlbum());
+        return result;
+    }
+
+    public void insertNewImage(Integer albumId, Image newImage) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Criteria criteria = session.createCriteria(Album.class);
+        criteria.add(Restrictions.eq("id", albumId));
+
+        List<Album> result = criteria.list();
+        Album albumToUpdate = result.get(0);
+
+        newImage.setAlbum(albumToUpdate);
+        session.save(newImage);
+
+        albumToUpdate.getImageSet().add(newImage);
+        session.save(albumToUpdate);
+        session.flush();
     }
 }

@@ -1,17 +1,6 @@
 <h2>Welcome to Imgur Ripoff!</h2>
 <div *ngFor="let album of homepageAlbums">
-    <div class = "albumTile">
-        <div class = "frontPic">
-            <img src="{{album.imageSet[0].imagePath}}" alt="{{album.imageSet[0].caption}}"/>
-        </div>
-        <div class="albumInfo">
-            <div class="albumTitle"><h5>{{album.albumTitle}}</h5></div>
-            <div class="albumDetails">
-                <div class="commentCount">{{album.commentSet.length}} Comments</div>
-                <app-comments></app-comments>
-            </div>
-        </div>
-    </div>
+    <app-album-tile [album]="album"></app-album-tile>
 </div>
 
 <!-- <div *ngFor="let album of homepageAlbums">
