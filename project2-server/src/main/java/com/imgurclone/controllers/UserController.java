@@ -19,13 +19,6 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @GetMapping(path = "/")
-    public ResponseEntity<User> getAllUsers() {
-
-        System.out.println("This endpoint works");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PostMapping(path = "createUser")
     public ResponseEntity<?> createUser(@RequestBody AuthenticationRequest authenticationRequest) {
 

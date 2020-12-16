@@ -29,6 +29,18 @@ public class UserDao {
         session.save(user);
     }
 
+    /**
+     * returns the highest id in the db
+     * @return highest id in the db
+     */
+    public int getHighestId(){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from User U order by U.id DESC ";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        return ((User)query.list().get(0)).getId();
+    }
+
     public User getByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where email=:email";
@@ -44,21 +56,4 @@ public class UserDao {
         query.setInteger("id", id);
         return (User) query.list().get(0);
     }
-
-    public User getByEmailAndPasswordHash(String email, String passwordHash) {
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "From User where email=:email and passwordhash=:pw";
-        Query query = session.createQuery(hql);
-        query.setString("email", email);
-        query.setString("pw", passwordHash);
-        List<User> user = query.list();
-
-        if(user.size() > 1 || user.size() == 0) {
-            System.out.println(">>>>>>Something went wrong in the UserDao.getByEmailAndPasswordHash");
-            return null;
-        }
-
-        return (User) query.list().get(0);
-    }
-
 }

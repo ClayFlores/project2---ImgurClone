@@ -50,9 +50,7 @@ public class AlbumsController {
         try {
             logger.debug("getAlbumsForHomepage mostRecentAlbums as json with objectMapper: "
                     +objectMapper.writeValueAsString(mostRecentAlbums));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
         return new ResponseEntity<>(mostRecentAlbums,  HttpStatus.OK);
     }
 
@@ -66,9 +64,7 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumWithId album as json with objectMapper: "
                     + objectMapper.writeValueAsString(album)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
@@ -83,9 +79,7 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumWithTitle album as json with objectMapper: "
                     + objectMapper.writeValueAsString(album)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
@@ -99,9 +93,7 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumsFromUser albums as json with objectMapper: "
                     + objectMapper.writeValueAsString(albumsFromUser)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return albumsFromUser;
     }
@@ -115,9 +107,7 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumsByTag albums as json with objectMapper: "
                     + objectMapper.writeValueAsString(albumsByTag)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return albumsByTag;
 
