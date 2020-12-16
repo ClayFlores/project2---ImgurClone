@@ -4,6 +4,7 @@ import { Album } from '../models/album';
 import { Image } from '../models/image';
 import { User } from '../models/user';
 import { AlbumService } from '../services/album/album.service';
+import { FileUploadService } from '../services/fileUpload/file-upload.service';
 
 @Component({
   selector: 'app-album-edit',
@@ -14,16 +15,27 @@ export class AlbumEditComponent implements OnInit {
 
   album: Album;
   selectedIndex: number = -1;
-/**
- * concerns:  adding an image would require an id; how to generate id?
- *            deleting an image is scary; get over it
- *            deleting last image; should it delete album?  
- */
+
+  fileToUpload: File |null = null;
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    if (this.fileToUpload) {
+      this.file.postFile(this.fileToUpload)
+      .subscribe(uploaded => {
+          console.log("came back " + uploaded)
+      })
+    }
+}
+
+
 public setRow(_index: number) {
   this.selectedIndex = _index;
   console.log(this.selectedIndex);
-  console.log(this.album.images[this.selectedIndex]);
 }
+
+
+
 
 // this is not a great strategy, repeating code from album-view.ts
 // ideally, would send the album over with the routing
@@ -40,7 +52,8 @@ public getAlbum() {
     }
     constructor(
       private albumService: AlbumService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private file: FileUploadService
     ) { }
 
     ngOnInit(): void {
