@@ -63,6 +63,30 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {this.passwordHash = passwordHash;}
 
+    public Set<Album> getAlbumList() {
+        return albumList;
+    }
+
+    public void setAlbumList(Set<Album> albumList) {
+        this.albumList = albumList;
+    }
+
+    public Set<Album> getFavoriteAlbums() {
+        return favoriteAlbums;
+    }
+
+    public void setFavoriteAlbums(Set<Album> favoriteAlbums) {
+        this.favoriteAlbums = favoriteAlbums;
+    }
+
+    public Set<Album> getLikedAlbums() {
+        return likedAlbums;
+    }
+
+    public void setLikedAlbums(Set<Album> likedAlbums) {
+        this.likedAlbums = likedAlbums;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
