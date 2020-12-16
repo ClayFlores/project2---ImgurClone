@@ -12,16 +12,28 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 import com.amazonaws.services.s3.transfer.Upload;
+import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.models.Album;
+import com.imgurclone.models.Image;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @PropertySource("classpath:AwsCredentials.properties")
 @Service
 public class S3UploadService {
+
+    @Autowired
+    AlbumDao albumDao;
 
     private final String bucketName = "imgurclone-bucket";
 
@@ -35,7 +47,7 @@ public class S3UploadService {
     private String awsRegion;
 
 
-    public void uploadImage(File transferFile) throws InterruptedException {
+    public void uploadImage(File transferFile, String imageCaption, int albumId) throws InterruptedException {
         try {
             AWSCredentials awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
             AmazonS3 s3Client = AmazonS3ClientBuilder
@@ -49,8 +61,6 @@ public class S3UploadService {
                     .build();
 
 
-//            Upload upload = tm.upload(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()));
-
             Upload upload = tm.upload(new PutObjectRequest(bucketName, transferFile.getName(), new File(transferFile.getAbsolutePath()))
                     .withCannedAcl(CannedAccessControlList.BucketOwnerFullControl));
 
@@ -62,8 +72,19 @@ public class S3UploadService {
 
 
 
-            //TODO HERE WE SHOULD ALTER THE ALBUM OBJECT AND EDIT THE IMAGE URL AND STORE IN DB
-            // DAO CALL
+            // Here we Create an Image Object AND EDIT THE IMAGE URL AND STORE IN DB
+            //
+
+            // Construct the date
+            LocalDateTime ldt = LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC);
+            Timestamp ts = Timestamp.valueOf(ldt);
+
+            // Construct the image using the new URL from s3
+            Image image = new Image();
+            image.setImagePath(s3Url.toString());
+            image.setDateSubmitted(ts);
+            image.setCaption(imageCaption);
+            albumDao.insertNewImage(albumId, image);
 
 
         } catch (SdkClientException e) {

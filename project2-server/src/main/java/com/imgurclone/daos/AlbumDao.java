@@ -2,6 +2,7 @@ package com.imgurclone.daos;
 
 import com.imgurclone.models.Album;
 import com.imgurclone.models.AlbumTag;
+import com.imgurclone.models.Image;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -160,5 +161,22 @@ public class AlbumDao {
         for(AlbumTag tag:tagMappings)
             result.add(tag.getAlbum());
         return result;
+    }
+
+    public void insertNewImage(Integer albumId, Image newImage) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Criteria criteria = session.createCriteria(Album.class);
+        criteria.add(Restrictions.eq("id", albumId));
+
+        List<Album> result = criteria.list();
+        Album albumToUpdate = result.get(0);
+
+        newImage.setAlbum(albumToUpdate);
+        session.save(newImage);
+
+        albumToUpdate.getImageSet().add(newImage);
+        session.save(albumToUpdate);
+        session.flush();
     }
 }
