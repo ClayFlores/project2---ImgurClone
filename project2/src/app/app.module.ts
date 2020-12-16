@@ -24,6 +24,7 @@ import { AlbumTileComponent } from './album-tile/album-tile.component';
 import { MyAlbumsComponent } from './my-albums/my-albums.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+import { AlbumCreateComponent } from './album-create/album-create.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { SearchResultPageComponent } from './search-result-page/search-result-pa
     AlbumTileComponent,
     MyAlbumsComponent,
     SearchBarComponent,
-    SearchResultPageComponent
+    SearchResultPageComponent,
+    AlbumCreateComponent
 
   ],
   imports: [

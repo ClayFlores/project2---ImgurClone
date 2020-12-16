@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AlbumService } from './../services/album/album.service';
 import { UserService } from './../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,15 +11,17 @@ import { Component, OnInit } from '@angular/core';
 export class AlbumCreateComponent implements OnInit {
   albumTitle: string="";
   constructor(
-    private userService: UserService
+    public userService: UserService,
+    private albumService: AlbumService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
   }
 
   onSubmitClick(form:any):void{
-    if(this.albumTitle.length<1 || this.albumTitle.length >=250) return;
-    
+    if(this.albumTitle.length<1 || this.albumTitle.length >=250 || !this.userService.myUser || this.userService.myUser.id === 0) return;
+    this.albumService.postNewAlbum(this.albumTitle).subscribe(resultId => this.router.navigateByUrl('/album/'+resultId+"/edit"));
   }
 
 }

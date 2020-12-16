@@ -40,6 +40,8 @@ public class AlbumDao {
     public int insert(Album album) {
         Session session = sessionFactory.getCurrentSession();
         session.save(album);
+        for(AlbumTag t: album.getTagList())
+            session.save(t);
         return album.getId();
     }
 
