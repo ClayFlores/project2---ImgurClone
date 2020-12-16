@@ -63,7 +63,7 @@ public class AlbumsController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-    // this doesnt seem like a good strategy for the most part, title would be very limiting
+    // this doesnt seem like a good strategy for the most part, title would be very limiting w/ url
     @GetMapping(path="/byTitle/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Album> getAlbumWithTitle(HttpServletRequest request,
