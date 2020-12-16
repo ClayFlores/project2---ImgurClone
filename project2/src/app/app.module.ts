@@ -19,6 +19,12 @@ import { CommonModule } from '@angular/common';
 import { UpvoteComponent } from './upvote/upvote.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CommentsComponent } from './comments/comments.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AlbumTileComponent } from './album-tile/album-tile.component';
+import { MyAlbumsComponent } from './my-albums/my-albums.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+import { AlbumCreateComponent } from './album-create/album-create.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,13 @@ import { CommentsComponent } from './comments/comments.component';
     HomepageComponent,
     UpvoteComponent,
     RegistrationComponent,
-    CommentsComponent
+    CommentsComponent,
+    NavbarComponent,
+    AlbumTileComponent,
+    MyAlbumsComponent,
+    SearchBarComponent,
+    SearchResultPageComponent,
+    AlbumCreateComponent
 
   ],
   imports: [

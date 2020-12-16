@@ -3,7 +3,12 @@ package com.imgurclone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.daos.CommentDao;
+import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.Album;
+import com.imgurclone.models.AlbumTag;
+import com.imgurclone.models.Comment;
+import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +18,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -25,7 +37,15 @@ public class AlbumsController {
     private AlbumDao albumDao;
 
     @Autowired
+    private UserDao userDao;
+
+
+    @Autowired
+    private CommentDao commentDao;
+
+    @Autowired
     private static final Logger logger = LogManager.getLogger(AlbumsController.class);
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -40,9 +60,7 @@ public class AlbumsController {
         try {
             logger.debug("getAlbumsForHomepage mostRecentAlbums as json with objectMapper: "
                     +objectMapper.writeValueAsString(mostRecentAlbums));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
         return new ResponseEntity<>(mostRecentAlbums,  HttpStatus.OK);
     }
 
@@ -56,9 +74,7 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumWithId album as json with objectMapper: "
                     + objectMapper.writeValueAsString(album)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
@@ -73,10 +89,68 @@ public class AlbumsController {
         try{
             logger.debug("getAlbumWithTitle album as json with objectMapper: "
                     + objectMapper.writeValueAsString(album)) ;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
 
         return new ResponseEntity<>(album, HttpStatus.OK);
+    }
+
+    @GetMapping(path="/byUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Album> getAlbumsFromUser(@PathVariable("userId") int userId) {
+        User userCreator = userDao.getById(userId);
+        List<Album> albumsFromUser = albumDao.getAlbumsByUserCreator(userCreator);
+        logger.debug("getAlbumsFromUser retrieved albums");
+        try{
+            logger.debug("getAlbumsFromUser albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsFromUser)) ;
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
+
+        return albumsFromUser;
+    }
+
+    //TODO: STOP FROM CRASHING IF NOTHING IS PROVIDED TO TAGNAME
+    @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List <Album> getAlbumsByTag(@PathVariable("tagName") String tagName){
+        List<Album> albumsByTag = albumDao.getAlbumsByTagName(tagName);
+        logger.debug("getAlbumsByTag retrieved albums");
+        try{
+            logger.debug("getAlbumsByTag albums as json with objectMapper: "
+                    + objectMapper.writeValueAsString(albumsByTag)) ;
+        } catch (JsonProcessingException e) { e.printStackTrace(); }
+
+        return albumsByTag;
+
+    }
+
+
+    @PostMapping(path="/createAlbum")
+    @ResponseStatus(HttpStatus.CREATED)
+    public int createAlbum(@RequestParam(name = "albumTitle") String albumTitle, @RequestParam(name = "userId") int userId){
+        Album myAlbum = new Album();
+        myAlbum.setAlbumTitle(albumTitle);
+
+        myAlbum.setUserCreator(userDao.getById(userId));
+
+        Set<AlbumTag> albumTags = new HashSet<>();
+        AlbumTag titleTag = new AlbumTag();
+        titleTag.setTagName(albumTitle);
+        titleTag.setAlbum(myAlbum);
+        albumTags.add(titleTag);
+        myAlbum.setTagList(albumTags);
+
+        return albumDao.insert(myAlbum);
+    }
+
+    @PostMapping(path = "/createComment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Comment createComment(@RequestParam(name="commentBody") String commentBody,
+                                 @RequestParam(name="albumId") int albumId, @RequestParam(name = "userId")int userId){
+        Comment comment = new Comment();
+        comment.setAlbum(albumDao.getSingleAlbumById(albumId));
+        comment.setUserCommenter(userDao.getById(userId));
+        comment.setBody(commentBody);
+
+        return commentDao.insert(comment);
     }
 }

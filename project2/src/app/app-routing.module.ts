@@ -1,3 +1,6 @@
+import { AlbumCreateComponent } from './album-create/album-create.component';
+import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
+import { MyAlbumsComponent } from './my-albums/my-albums.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,9 +12,12 @@ import {RegistrationComponent} from "./registration/registration.component";
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path:'', component: HomepageComponent},
-  {path:'albums/:id', component: AlbumViewComponent},
-  {path:'albums/:id/edit', component: AlbumEditComponent},
-  {path: 'register', component: RegistrationComponent}
+  {path:'album/:id', component: AlbumViewComponent},
+  {path:'album/:id/edit', component: AlbumEditComponent},
+  {path: 'register', component: RegistrationComponent},
+  {path:'myAlbums', component: MyAlbumsComponent},
+  {path:'search', component: SearchResultPageComponent},
+  {path:'createAlbum', component: AlbumCreateComponent}
 ];
 
 @NgModule({
