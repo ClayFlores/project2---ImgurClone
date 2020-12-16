@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Album } from '../models/album';
 import { User } from '../models/user';
 import { Image } from '../models/image'; 
+import { NONE_TYPE } from '@angular/compiler';
+import { AlbumService } from '../services/album/album.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-album-view',
@@ -11,27 +14,39 @@ import { Image } from '../models/image';
 })
 export class AlbumViewComponent implements OnInit {
 
-    // borrowing some of Davids setup syntax for now
-    // will be replaced later by actual data
-    users: User[] = [
-      new User(1, "pw", "test@test.com"),
-      new User(2, "pwpw", "a@b.com")
-    ]
-
-    imageSet: Image[] = [
-      new Image(1, '../assets/pizza.png','pizza', new Date()),
-      new Image(2, '../assets/macaron.png','macaron', new Date()),
-      new Image(3, '../assets/orange.png','orange', new Date()),
-      new Image(4, '../assets/broccoli.png', 'broccoli', new Date())
-    ]
-
-    Album = new Album(1, 'test images', this.users[0], this.imageSet, 0, new Date(), [],[])
+    album: Album;
 
 
-  constructor() {  }
+    public getAlbum() {
+      if (this.route.snapshot.paramMap.get('id')) { // did not like the possibility of id being null, this condition verifies it isnt
+        const id =  this.route.snapshot.paramMap.get('id');
+        this.albumService.getSingleAlbum(Number(id))
+          .subscribe(albumFromServer => {
+            this.album = albumFromServer
+
+            // would be a more consistent way to do things, similar to davids approach
+            // will come back to if there is time
+            // this.album.id = albumFromServer.id;
+            // this.album.title = albumFromServer.title;
+            // this.album.dateCreated = albumFromServer.dateCreated;
+            // for(let Image of albumFromServer.images){
+            //   this.album.images.push(Image);
+            // }
+            // this.album.tags = albumFromServer.tags;
+            // this.album.comments = albumFromServer.comments;
+
+             console.log(this.album)
+          });
+      }
+    }
+
+  constructor(
+    private albumService: AlbumService,
+    private route: ActivatedRoute
+  ) {  }
 
   ngOnInit(): void {
-
+    this.getAlbum();
   }
 
 }
