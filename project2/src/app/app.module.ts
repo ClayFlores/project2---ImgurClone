@@ -14,7 +14,7 @@ import { AlbumEditComponent } from './album-edit/album-edit.component';
 import { AlbumViewComponent } from './album-view/album-view.component';
 
 import { LoginComponent } from './login/login.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
 import { UpvoteComponent } from './upvote/upvote.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -42,6 +42,7 @@ import { AlbumCreateComponent } from './album-create/album-create.component';
     SearchBarComponent,
     SearchResultPageComponent,
     AlbumCreateComponent
+  
 
   ],
   imports: [
@@ -56,7 +57,8 @@ import { AlbumCreateComponent } from './album-create/album-create.component';
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, {dataEncapsulation: false}
     // ),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

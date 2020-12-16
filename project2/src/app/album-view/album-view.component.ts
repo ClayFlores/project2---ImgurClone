@@ -6,6 +6,8 @@ import { Image } from '../models/image';
 import { NONE_TYPE } from '@angular/compiler';
 import { AlbumService } from '../services/album/album.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Tag } from '../models/tag';
+import { AlbumComment } from '../models/AlbumComment';
 
 @Component({
   selector: 'app-album-view',
@@ -14,30 +16,52 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AlbumViewComponent implements OnInit {
 
-    album: Album;
+    albumFromHere: Album = new Album(-1, '', null, [], 0, new Date(), [], []);
 
 
     public getAlbum() {
       if (this.route.snapshot.paramMap.get('id')) { // did not like the possibility of id being null, this condition verifies it isnt
         const id =  this.route.snapshot.paramMap.get('id');
         this.albumService.getSingleAlbum(Number(id))
-          .subscribe(albumFromServer => {
-            this.album = albumFromServer
-
-            // would be a more consistent way to do things, similar to davids approach
-            // will come back to if there is time
-            // this.album.id = albumFromServer.id;
-            // this.album.title = albumFromServer.title;
-            // this.album.dateCreated = albumFromServer.dateCreated;
-            // for(let Image of albumFromServer.images){
-            //   this.album.images.push(Image);
-            // }
-            // this.album.tags = albumFromServer.tags;
-            // this.album.comments = albumFromServer.comments;
-
-             console.log(this.album)
-          });
+          .subscribe(album => {
+            //this.album = albumFromServer
+              let id: number = album.id;
+      
+              let title: string = album.albumTitle;
+      
+              let user = null;
+      
+              let images: Image[] = []
+              for(let image of album.imageSet){
+                let imageId: number = image.id;
+                let imageURL: string = image.imagePath;
+                let caption: string = image.caption;
+                let dateSubmitted: Date = new Date(image.dateSubmitted)
+                images.push(new Image(imageId, imageURL, caption, dateSubmitted))
+              }
+      
+              //change this when we get the upvote count
+              let upvoteCount = 0;
+      
+              let dateCreated: Date = new Date(album.dateCreated)
+      
+              //change this when we implement tags
+              let tags: Tag[] = [];
+      
+              let comments: AlbumComment[] =[];
+              for(let comment of album.commentSet){
+                let commentId: number = comment.id;
+                let userCommenter = null;
+                let dateSubmitted: Date = new Date(comment.dateSubmitted);
+                let commentBody = comment.body;
+                comments.push(new AlbumComment(commentId, userCommenter, dateSubmitted, commentBody))
+              }
+      
+              this.albumFromHere = new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments)
+              console.log(this.albumFromHere)
+            });
       }
+      
     }
 
   constructor(

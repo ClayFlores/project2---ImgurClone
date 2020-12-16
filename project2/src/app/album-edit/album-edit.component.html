@@ -1,5 +1,34 @@
-<div class="row" *ngIf="album">
-        <div class="column" *ngFor="let imagePath of album.imageSet; let i=index;" 
+<!-- <div>
+        <div>
+                <label>Add image</label>
+                <button type="submit" id="addImageButton">Add</button><br>
+        </div>
+        <div >
+                <label>Delete image</label>
+                <button type="submit" id="deleteImageButton">Delete</button>
+        </div>
+</div> -->
+<!-- <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               placeholder="File name"
+               (change)="handleFileInput($event.target.files)">
+    </div> -->
+    <div>
+        <form  (ngSubmit)="onSubmit()">      
+          <div>
+            <input type="file" name="profile" (change)="onFileSelect($event)" />
+          </div>
+          <div>
+            <button type="submit">Upload</button>
+          </div>
+        </form>
+      
+    </div>      
+<br>
+<!-- <div class="row" *ngIf="album">
+        <div class="column" *ngFor="let imagePath of album.images; let i=index;" 
                 (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}">
                 <div class="listItem">
                         <h3>{{imagePath.caption}}</h3>
@@ -7,4 +36,4 @@
                         <img  src={{imagePath.imagePath}} />
                 </div>
         </div>
-</div>
+</div> -->

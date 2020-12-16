@@ -28,7 +28,7 @@ export class AlbumService {
 
 
   /** GET single album from server */
-  getSingleAlbum (id : number): Observable<Album> {
+  getSingleAlbum (id : number): Observable<any> {
     return this.http.get<Album>(this.albumsUrl+"/"+id)
       .pipe(
         tap(_=> console.log('fetched single album')),
