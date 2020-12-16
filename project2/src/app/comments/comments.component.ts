@@ -22,7 +22,7 @@ export class CommentsComponent implements OnInit {
   }
 
   onSubmitClick(form:any){
-    if(form.status === "INVALID") return;
+    if(this.newCommentBody.length < 1 || this.newCommentBody.length >= 1000 || !this.userService.myUser || this.userService.myUser.id === 0) return;
     this.onSubmitNewComment.emit(new AlbumComment(null, this.userService.myUser, null, this.newCommentBody));
 
   }
