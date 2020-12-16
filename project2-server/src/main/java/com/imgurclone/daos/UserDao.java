@@ -1,5 +1,6 @@
 package com.imgurclone.daos;
 
+import com.imgurclone.models.Album;
 import com.imgurclone.models.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 @Transactional
@@ -24,6 +24,7 @@ public class UserDao {
     }
 
 
+    @Transactional
     public void save(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
@@ -41,6 +42,7 @@ public class UserDao {
         return ((User)query.list().get(0)).getId();
     }
 
+    @Transactional
     public User getByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where email=:email";
@@ -49,6 +51,7 @@ public class UserDao {
         return (User) query.list().get(0);
     }
 
+    @Transactional
     public User getById (int id) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where id=:id";
@@ -56,4 +59,18 @@ public class UserDao {
         query.setInteger("id", id);
         return (User) query.list().get(0);
     }
+
+    @Transactional
+    public void addFavoriteAlbum(Integer userId, Album favAlbumId ) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "From User where id=:id";
+        Query query = session.createQuery(hql);
+        query.setInteger("id", userId);
+        User user = (User) query.list().get(0);
+
+        user.getFavoriteAlbums().add(favAlbumId);
+        session.merge(user);
+
+    }
+
 }
