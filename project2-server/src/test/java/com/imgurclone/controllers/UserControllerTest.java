@@ -1,5 +1,7 @@
 package com.imgurclone.controllers;
 
+import com.imgurclone.daos.UserDao;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +33,12 @@ public class UserControllerTest {
      */
     @Autowired
     private WebApplicationContext wac;
+
+    /**
+     * the user dao which will be used in givenCreateUserValidEmailPassword_whenMockMVC_thenResponse200
+     */
+    @Autowired
+    private UserDao userDao;
 
     /**
      * the MockMvc generated from the web application context
@@ -65,5 +73,23 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email", is(testEmail)))
                 .andReturn();
         Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
+    }
+
+    /**
+     * tests that /users/createUser returns returns 200 ok when given a valid new user
+     * @throws Exception
+     */
+    @Test
+    public void givenCreateUserValidEmailPassword_whenMockMVC_thenResponse200() throws Exception {
+        int highestId = userDao.getHighestId();
+        String testEmail = "userControllerTestRegistration"+(highestId+1)+"@example.com";
+        String testPassword = "password";
+        mockMvc
+                .perform(post("/users/createUser")
+                        .content("{\"email\":\""+testEmail+"\",\"password\":\"password\"}")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print()).andExpect(status().isOk());
+        Assert.assertNotNull(userDao.getByEmail(testEmail));
     }
 }

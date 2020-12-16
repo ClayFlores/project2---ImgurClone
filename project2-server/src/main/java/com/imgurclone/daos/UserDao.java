@@ -29,6 +29,18 @@ public class UserDao {
         session.save(user);
     }
 
+    /**
+     * returns the highest id in the db
+     * @return highest id in the db
+     */
+    public int getHighestId(){
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "from User U order by U.id DESC ";
+        Query query = session.createQuery(hql);
+        query.setMaxResults(1);
+        return ((User)query.list().get(0)).getId();
+    }
+
     public User getByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where email=:email";
