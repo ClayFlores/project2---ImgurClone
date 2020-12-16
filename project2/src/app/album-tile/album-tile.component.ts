@@ -17,11 +17,7 @@ export class AlbumTileComponent implements OnInit {
   }
 
   
-  /*
-  USE THIS ON THE ALBUM DETAIL PAGE
-  submitNewComment(newComment: AlbumComment){
-    this.album.comments.push(newComment);
-    //todo: save the album on the server
-  }
-  */
+  
+  
+  
 }

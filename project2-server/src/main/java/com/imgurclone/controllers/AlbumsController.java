@@ -3,9 +3,11 @@ package com.imgurclone.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.daos.CommentDao;
 import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.Album;
 import com.imgurclone.models.AlbumTag;
+import com.imgurclone.models.Comment;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,8 +39,13 @@ public class AlbumsController {
     @Autowired
     private UserDao userDao;
 
+
+    @Autowired
+    private CommentDao commentDao;
+
     @Autowired
     private static final Logger logger = LogManager.getLogger(AlbumsController.class);
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -116,7 +123,7 @@ public class AlbumsController {
 
     }
 
-    //todo: fix this so it adds the tag in the db
+
     @PostMapping(path="/createAlbum")
     @ResponseStatus(HttpStatus.CREATED)
     public int createAlbum(@RequestParam(name = "albumTitle") String albumTitle, @RequestParam(name = "userId") int userId){
@@ -133,5 +140,17 @@ public class AlbumsController {
         myAlbum.setTagList(albumTags);
 
         return albumDao.insert(myAlbum);
+    }
+
+    @PostMapping(path = "/createComment")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Comment createComment(@RequestParam(name="commentBody") String commentBody,
+                                 @RequestParam(name="albumId") int albumId, @RequestParam(name = "userId")int userId){
+        Comment comment = new Comment();
+        comment.setAlbum(albumDao.getSingleAlbumById(albumId));
+        comment.setUserCommenter(userDao.getById(userId));
+        comment.setBody(commentBody);
+
+        return commentDao.insert(comment);
     }
 }

@@ -47,12 +47,26 @@ export class AlbumService {
     formData.append('albumTitle', title);
     let id: string = ""+this.userService.myUser?.id;
     formData.append('userId', id);
-    
+
     return this.http.post<any>(this.albumsUrl+"/createAlbum", formData)
     .pipe(
       tap(_ => console.log('created album')),
       catchError(this.handleError<Album[]>('postNewAlbum', []))
     );
+  }
+
+  postNewComment(myBody:string, myAlbumId: number):Observable<any>{
+    const formData = new FormData();
+    formData.append('commentBody', myBody);
+    formData.append('albumId', ""+myAlbumId);
+    formData.append('userId',""+this.userService.myUser?.id);
+
+    return this.http.post<any>(this.albumsUrl+"/createComment", formData)
+    .pipe(
+      tap(_ => console.log('created album')),
+      catchError(this.handleError<Album[]>('postNewAlbum', []))
+    );
+    //TODO: FINISH THIS METHOD
   }
   /**
  * Handle Http operation that failed.

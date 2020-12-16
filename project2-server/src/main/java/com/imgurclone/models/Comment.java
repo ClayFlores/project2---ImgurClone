@@ -1,6 +1,7 @@
 package com.imgurclone.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -29,6 +30,7 @@ public class Comment {
     private Album album;
 
     @Column(name="datesubmitted")
+    @CreationTimestamp
     Timestamp dateSubmitted;
 
     public int getId() {
