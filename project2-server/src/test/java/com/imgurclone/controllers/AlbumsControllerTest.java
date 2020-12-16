@@ -82,7 +82,7 @@ public class AlbumsControllerTest {
     }
 
     /**
-     * tests that /albums/{id} returns the album with the correct id
+     * tests that /albums/byTitle/{title} returns the album with the correct title
      * @throws Exception
      */
     @Test
@@ -100,5 +100,28 @@ public class AlbumsControllerTest {
                 .andReturn();
         Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
     }
+
+    //TODO: check that the albums are from the right user
+    /**
+     * tests that /albums/byUser/{userId} returns an array of albums when given a valid user id with albums
+     * @throws Exception
+     */
+    @Test
+    public void givenAlbumUserId_whenMockMVC_thenResponseOK() throws Exception {
+        int testUserId = 2;
+        MvcResult mvcResult = this.mockMvc
+                .perform(get("/albums/byUser/"+testUserId))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].albumTitle").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].dateCreated").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].imageSet").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].tagList").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].commentSet").exists())
+                .andReturn();
+        Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
+    }
+
 
 }
