@@ -11,7 +11,7 @@
         <ng-template [ngIf]="userService.myUser" [ngIfElse]="elseBlock">
             <a routerLink="/myAlbums" class="topNavLink">My Albums</a>
             <a routerLink="/myFavorites" class="topNavLink">My Favorites</a>
-            <a routerLink="/createAlbums" class="topNavLink">Create Album</a>
+            <a routerLink="/createAlbum" class="topNavLink">Create Album</a>
             <a routerLink="/logout" class="topNavLink">Logout</a>
         </ng-template>
         <ng-template #elseBlock>

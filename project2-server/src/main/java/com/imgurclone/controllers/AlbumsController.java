@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imgurclone.daos.AlbumDao;
 import com.imgurclone.daos.UserDao;
 import com.imgurclone.models.Album;
+import com.imgurclone.models.AlbumTag;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -111,5 +114,24 @@ public class AlbumsController {
 
         return albumsByTag;
 
+    }
+
+    //todo: fix this so it adds the tag in the db
+    @PostMapping(path="/createAlbum")
+    @ResponseStatus(HttpStatus.CREATED)
+    public int createAlbum(@RequestParam(name = "albumTitle") String albumTitle, @RequestParam(name = "userId") int userId){
+        Album myAlbum = new Album();
+        myAlbum.setAlbumTitle(albumTitle);
+
+        myAlbum.setUserCreator(userDao.getById(userId));
+
+        Set<AlbumTag> albumTags = new HashSet<>();
+        AlbumTag titleTag = new AlbumTag();
+        titleTag.setTagName(albumTitle);
+        titleTag.setAlbum(myAlbum);
+        albumTags.add(titleTag);
+        myAlbum.setTagList(albumTags);
+
+        return albumDao.insert(myAlbum);
     }
 }

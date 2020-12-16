@@ -38,8 +38,21 @@ export class AlbumService {
     return this.http.get<Album[]>(this.albumsUrl+"/byTag/"+tagName)
       .pipe(
         tap(_ => console.log('fetched albums')),
-        catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
+        catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
       );
+  }
+  
+  postNewAlbum(title: string):Observable<any>{
+    const formData = new FormData();
+    formData.append('albumTitle', title);
+    let id: string = ""+this.userService.myUser?.id;
+    formData.append('userId', id);
+    
+    return this.http.post<any>(this.albumsUrl+"/createAlbum", formData)
+    .pipe(
+      tap(_ => console.log('created album')),
+      catchError(this.handleError<Album[]>('postNewAlbum', []))
+    );
   }
   /**
  * Handle Http operation that failed.

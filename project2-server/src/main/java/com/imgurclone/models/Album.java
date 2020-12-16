@@ -2,6 +2,7 @@ package com.imgurclone.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -21,6 +22,7 @@ public class Album {
     private String albumTitle;
 
     @Column(name = "datecreated")
+    @CreationTimestamp
     private Timestamp dateCreated;
 
     //many to one

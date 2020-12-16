@@ -1,0 +1,12 @@
+<h2>Create an Album</h2>
+
+
+<div class="albumCreate" *ngIf="userService.myUser">
+    <form class="albumCreateForm"  #albumCreateForm="ngForm" novalidate>
+        <label for="albumTitle">Album Title</label>
+        <input type="text" name="albumTitle" id="albumTitle" [(ngModel)]="albumTitle">
+        <button [disabled]="!albumCreateForm.valid" (click)="onSubmitClick(albumCreateForm)">Submit</button>
+    </form>
+</div>
+
+

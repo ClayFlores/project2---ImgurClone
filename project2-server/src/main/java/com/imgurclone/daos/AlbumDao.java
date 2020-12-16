@@ -37,9 +37,12 @@ public class AlbumDao {
     }
 
     @Transactional
-    public void insert(Album album) {
+    public int insert(Album album) {
         Session session = sessionFactory.getCurrentSession();
         session.save(album);
+        for(AlbumTag t: album.getTagList())
+            session.save(t);
+        return album.getId();
     }
 
     @Transactional
@@ -106,6 +109,7 @@ public class AlbumDao {
 
         return result.get(0);
     }
+
 
     /**
      * returns an album by the given id. may be used for
