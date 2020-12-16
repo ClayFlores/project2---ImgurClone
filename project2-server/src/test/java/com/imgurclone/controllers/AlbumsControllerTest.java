@@ -31,11 +31,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = {"classpath:test-application-context.xml"})
 @WebAppConfiguration
 public class AlbumsControllerTest {
+    /**
+     * the WebApplicationContext used by the test class
+     */
     @Autowired
     private WebApplicationContext wac;
 
+    /**
+     * the MockMvc generated from the web application context
+     */
     private MockMvc mockMvc;
 
+    /**
+     * setup method - initialize the mockMvc from the web application context
+     * @throws Exception
+     */
     @Before
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
@@ -124,7 +134,7 @@ public class AlbumsControllerTest {
         Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
     }
 
-    //TODO: check that the albums have a tag with the correct name
+
     /**
      * tests that /albums/byTag/{tagName} returns an empty array of albums when given a tagName that doesn't exist
      * @throws Exception

@@ -44,21 +44,4 @@ public class UserDao {
         query.setInteger("id", id);
         return (User) query.list().get(0);
     }
-
-    public User getByEmailAndPasswordHash(String email, String passwordHash) {
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "From User where email=:email and passwordhash=:pw";
-        Query query = session.createQuery(hql);
-        query.setString("email", email);
-        query.setString("pw", passwordHash);
-        List<User> user = query.list();
-
-        if(user.size() > 1 || user.size() == 0) {
-            System.out.println(">>>>>>Something went wrong in the UserDao.getByEmailAndPasswordHash");
-            return null;
-        }
-
-        return (User) query.list().get(0);
-    }
-
 }
