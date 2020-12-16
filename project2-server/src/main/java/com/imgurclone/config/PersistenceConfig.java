@@ -58,8 +58,8 @@ public class PersistenceConfig {
     private Properties getHibernateProperties() {
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        props.setProperty("hibernate.show_sql", "true");
-        props.setProperty("hibernate.format_sql", "true");
+        props.setProperty("hibernate.show_sql", "false");
+        props.setProperty("hibernate.format_sql", "false");
         return props;
     }
 

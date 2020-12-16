@@ -2,6 +2,8 @@ package com.imgurclone.controllers;
 
 import com.imgurclone.services.S3UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping(name = "files")
+@RequestMapping("files")
 @CrossOrigin(origins = "*")
 public class FileUploadController {
 
@@ -22,10 +24,13 @@ public class FileUploadController {
     ServletContext servletContext;
 
     @PostMapping(path = "upload")
-    public String handlePost(@RequestParam("user-file") MultipartFile multipartFile) throws IOException, InterruptedException, URISyntaxException {
+    public ResponseEntity<?> handlePost(@RequestParam("user-file") MultipartFile multipartFile,
+                                     @RequestParam String imageCaption,
+                                     @RequestParam Integer albumId) throws IOException, InterruptedException {
 
         if(multipartFile == null ) {
             System.out.println("The file is null we aren't writing anything");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 //
         File uploadDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
@@ -34,10 +39,10 @@ public class FileUploadController {
 
 
         // Now that file is uploaded we need to call the service to get the correct s3 url
-        s3UploadService.uploadImage(transferFile);
+        s3UploadService.uploadImage(transferFile, imageCaption, albumId);
 
 
-        return "response";
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
