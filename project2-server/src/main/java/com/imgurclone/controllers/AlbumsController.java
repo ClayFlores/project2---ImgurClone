@@ -155,20 +155,23 @@ public class AlbumsController {
         return commentDao.insert(comment);
     }
 
-<<<<<<< HEAD
+
     @PostMapping(path = "album/{id}/edit")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteImageById(
             @PathVariable("imageId") String id,
-            @PathVariable("albumId") String albumId){
-            try{
-                albumDao.deleteImageById(Integer.parseInt(id));
-                logger.debug("deleteImageById  successful");
-                return new ResponseEntity<>(true, HttpStatus.OK);
-            } catch (HibernateError e) { e.printStackTrace(); }
+            @PathVariable("albumId") String albumId) {
+        try {
+            albumDao.deleteImageById(Integer.parseInt(id));
+            logger.debug("deleteImageById  successful");
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (HibernateError e) {
+            e.printStackTrace();
+        }
 
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-=======
+        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+    
     @GetMapping(path="/userFavorites/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
@@ -187,6 +190,5 @@ public class AlbumsController {
 
         albumDao.addNewTagToAlbum(albumId, newTag);
         return new ResponseEntity<>(HttpStatus.CREATED);
->>>>>>> 2452b16c608237a0f881c1e6f76e59605e8763d0
     }
 }
