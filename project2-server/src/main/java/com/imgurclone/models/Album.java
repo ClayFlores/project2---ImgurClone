@@ -107,9 +107,6 @@ public class Album {
                 ", albumTitle='" + albumTitle + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", userCreator=" + userCreator +
-                ", imageSet=" + imageSet +
-                ", tagList=" + tagList +
-                ", commentSet=" + commentSet +
                 '}';
     }
 

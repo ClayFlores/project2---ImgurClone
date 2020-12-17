@@ -11,6 +11,7 @@ import com.imgurclone.models.Comment;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -197,11 +199,22 @@ public class AlbumsController {
         return commentDao.insert(comment);
     }
 
-    /**
-     *
-     * @param userId - The userId of the user
-     * @return A list of all the favorited albums by the user
-     */
+
+    @DeleteMapping(path = "/delete/{imageId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> deleteImageById(
+            @PathVariable("imageId") String imageId){
+        try {
+            albumDao.deleteImageById(Integer.parseInt(imageId));
+            logger.debug("deleteImageById  successful");
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (HibernateError e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping(path="/userFavorites/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
@@ -221,13 +234,20 @@ public class AlbumsController {
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
 
-    /**
-     *
-     * @param albumId - the id of the album the tag will be added to (it's tagset)
-     * @param newTag - A string that contains the new tag you want to add to the album
-     * @return
-     */
-    @PostMapping(path = "/createTag/{albumId}")
+    @GetMapping(path="/isInUserLikes/{userId}/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean isAlbumInUsersLikes(@PathVariable(name="userId") int userId,
+                                           @PathVariable(name="albumId") int albumId){
+        return userDao.getById(userId).getLikedAlbums().contains(albumDao.getSingleAlbumById(albumId));
+    }
+
+    @GetMapping(path="/likeCount/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public BigInteger getLikeCountForId(@PathVariable(name="albumId") int albumId){
+        return albumDao.getCountAlbumLikes(albumId);
+    }
+
+        @PostMapping(path = "/createTag/{albumId}")
     public ResponseEntity<?> createNewTag(@PathVariable("albumId") Integer albumId, @RequestBody String newTag) {
 
         albumDao.addNewTagToAlbum(albumId, newTag);

@@ -6,10 +6,7 @@ import com.imgurclone.models.Image;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,6 +144,19 @@ public class AlbumDao {
 
     }
 
+    public void deleteImageById(int idOfDeleted) {
+        logger.debug("deleteImageById beginning");
+        Session session = sessionFactory.getCurrentSession();
+
+        Image image = new Image();
+        image.setId(idOfDeleted);
+        logger.debug("deleteImageById Ready");
+
+        session.delete(image);
+        logger.debug("deleteImageById finished");
+    }
+
+
     /**
      * returns all albums created by a particular user
      * @param userCreator the user whose albums are being returned
@@ -164,11 +175,7 @@ public class AlbumDao {
         return result;
     }
 
-    /**
-     *
-     * @param tagName The tagname that will be queried
-     * @return - A list of albums that contain the tagname in their tag set
-     */
+    @Transactional
     public List<Album> getAlbumsByTagName(String tagName){
         Session session = sessionFactory.getCurrentSession();
         String tagHql = "from AlbumTag T where T.tagName=:tag";
@@ -181,11 +188,7 @@ public class AlbumDao {
         return result;
     }
 
-    /**
-     *
-     * @param albumId - The album Id of the album whose image set the new image will go into
-     * @param newImage - An image constructed in the S3Service - contains the s3 resource uri as image path
-     */
+    @Transactional
     public void insertNewImage(Integer albumId, Image newImage) {
         Session session = sessionFactory.getCurrentSession();
 
@@ -222,6 +225,33 @@ public class AlbumDao {
         newAlbumTag.setTagName(newTag);
 
         session.saveOrUpdate(newAlbumTag);
+    }
+
+    @Transactional
+    public BigInteger getCountAlbumLikes(Integer albumId){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select count(id) from albumvotes where albumId="+albumId;
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        return (BigInteger) sqlQuery.list().get(0);
+    }
+
+    /**
+     * deletes the most recent album from the albums table and associated tags
+     */
+    @Transactional
+    public void deleteMostRecentAlbumId(){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select id from albums order by id desc limit 1";
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        int highestId =(Integer)sqlQuery.list().get(0);
+
+        String deleteSql = "delete from albumtags where albumid="+highestId;
+        SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
+
+        deleteSql = "delete from albums where id="+highestId;
+        deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
 
     }
 }

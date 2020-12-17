@@ -27,6 +27,7 @@ import { SearchResultPageComponent } from './search-result-page/search-result-pa
 import { AlbumCreateComponent } from './album-create/album-create.component';
 import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { LikeComponent } from './like/like.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
     SearchResultPageComponent,
     AlbumCreateComponent,
     MyFavoritesComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    LikeComponent
   
 
   ],

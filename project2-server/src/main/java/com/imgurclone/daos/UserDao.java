@@ -18,6 +18,9 @@ public class UserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private AlbumDao albumDao;
+
 
     @Autowired
     public UserDao(SessionFactory sessionFactory) {
@@ -77,14 +80,27 @@ public class UserDao {
      * @param favAlbumId - album of the id to be added to favorites list
      */
     @Transactional
-    public void addFavoriteAlbum(Integer userId, Album favAlbumId ) {
+    public void addFavoriteAlbum(Integer userId, int favAlbumId ) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "From User where id=:id";
         Query query = session.createQuery(hql);
         query.setInteger("id", userId);
         User user = (User) query.list().get(0);
 
-        user.getFavoriteAlbums().add(favAlbumId);
+        user.getFavoriteAlbums().add(albumDao.getSingleAlbumById(favAlbumId));
+        session.merge(user);
+
+    }
+
+    @Transactional
+    public void addLikedAlbum(Integer userId, int likedAlbumId ) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "From User where id=:id";
+        Query query = session.createQuery(hql);
+        query.setInteger("id", userId);
+        User user = (User) query.list().get(0);
+
+        user.getLikedAlbums().add(albumDao.getSingleAlbumById(likedAlbumId));
         session.merge(user);
 
     }
@@ -99,6 +115,22 @@ public class UserDao {
         SQLQuery sqlQuery = session.createSQLQuery(sql);
         int highestId =(Integer)sqlQuery.list().get(0);
         String deleteSql = "delete from favoriteitems where id="+highestId;
+        SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
+
+    }
+
+    /**
+     * deletes the most recent album from the albums table and associated tags
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public void deleteMostRecentUserId(){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select id from users order by id desc limit 1";
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        int highestId =(Integer)sqlQuery.list().get(0);
+
+        String deleteSql = "delete from users where id="+highestId;
         SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
         deleteSqlQuery.executeUpdate();
 
