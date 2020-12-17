@@ -22,7 +22,7 @@ export class AlbumCreateComponent implements OnInit {
   }
 
   onSubmitClick(form:any):void{
-    if(this.albumTitle.length<1 || this.albumTitle.length >=250 || !this.userService.myUser || this.userService.myUser.id === 0) return;
+    if(this.albumTitle.length<1 || this.albumTitle.length >=250 || !this.myUserId || +this.myUserId === 0) return;
     this.albumService.postNewAlbum(this.albumTitle).subscribe(resultId => this.router.navigateByUrl('/album/'+resultId+"/edit"));
   }
 
