@@ -58,9 +58,7 @@ public class UserController {
         Album favAlbum = albumDao.getSingleAlbumById(request.getFavAlbumId());
         userDao.addFavoriteAlbum(request.getUserId(), favAlbum);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
-
 
 
 }

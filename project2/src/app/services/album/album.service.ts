@@ -52,7 +52,7 @@ export class AlbumService {
         catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
       );
   }
-  
+
   postNewAlbum(title: string):Observable<any>{
     const formData = new FormData();
     formData.append('albumTitle', title);
@@ -104,6 +104,16 @@ export class AlbumService {
       catchError(this.handleError<any>('postFavoriteAlbum', []))
     );
   }
+
+  addNewTagToAlbum(albumId: number, newAlbumTag: string): Observable<any> {
+    const requestUrl = this.albumsUrl + '/createTag/' + albumId;
+    return this.http.post<any>(requestUrl, newAlbumTag)
+      .pipe(
+        tap(_ => console.log('created new tag')),
+      );
+  }
+
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.
