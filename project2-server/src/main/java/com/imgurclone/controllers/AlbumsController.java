@@ -159,4 +159,11 @@ public class AlbumsController {
     public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
         return userDao.getById(userId).getFavoriteAlbums();
     }
+
+    @GetMapping(path="/isInUserFavorites/{userId}/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean isAlbumInUsersFavorites(@PathVariable(name="userId") int userId,
+                                           @PathVariable(name="albumId") int albumId){
+        return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
+    }
 }

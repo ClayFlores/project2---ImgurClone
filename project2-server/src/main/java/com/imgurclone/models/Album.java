@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -110,5 +111,21 @@ public class Album {
                 ", tagList=" + tagList +
                 ", commentSet=" + commentSet +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return getId() == album.getId() &&
+                Objects.equals(getAlbumTitle(), album.getAlbumTitle()) &&
+                Objects.equals(getDateCreated(), album.getDateCreated()) &&
+                Objects.equals(getUserCreator(), album.getUserCreator());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getAlbumTitle(), getDateCreated(), getUserCreator());
     }
 }
