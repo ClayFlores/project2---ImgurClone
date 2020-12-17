@@ -3,6 +3,7 @@ package com.imgurclone.daos;
 import com.imgurclone.models.Album;
 import com.imgurclone.models.User;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,21 @@ public class UserDao {
 
         user.getFavoriteAlbums().add(favAlbumId);
         session.merge(user);
+
+    }
+
+    /**
+     * deletes the most recent favorite relationship from the favoriteItems table
+     */
+    @Transactional
+    public void deleteMostRecentFavoriteRelationshipId(){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select id from favoriteitems order by id desc limit 1";
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        int highestId =(Integer)sqlQuery.list().get(0);
+        String deleteSql = "delete from favoriteitems where id="+highestId;
+        SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
 
     }
 
