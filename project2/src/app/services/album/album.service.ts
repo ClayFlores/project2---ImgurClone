@@ -2,7 +2,7 @@ import { UserService } from './../user/user.service';
 import { Album } from './../../models/album';
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -103,6 +103,17 @@ export class AlbumService {
       tap(_ => console.log('fetched favorite albums')),
       catchError(this.handleError<any>('postFavoriteAlbum', []))
     );
+    //TODO: FINISH THIS METHOD
+
+  }
+  
+  deleteImageFromAlbum(imageId: Number):Observable<any>{
+    
+    return this.http.delete<any>(this.albumsUrl + '/delete/' + imageId)
+      .pipe(
+        tap(_ => console.log('delete success')),
+        catchError(this.handleError<Album[]>('failed',[]))
+      );
   }
 
   getDoesAlbumBelongToUser(myUserId: number, myAlbumid:number):Observable<any>{

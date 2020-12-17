@@ -8,10 +8,10 @@
     width: 80%;
 }
 
-.listItem:hover{
+/* .listItem:hover{
     border: solid black 1px;
     cursor: pointer;
-}
+} */
 
 .highlight {
     border: solid black 3px;

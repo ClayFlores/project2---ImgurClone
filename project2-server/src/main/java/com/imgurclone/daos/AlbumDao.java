@@ -137,6 +137,19 @@ public class AlbumDao {
 
     }
 
+    public void deleteImageById(int idOfDeleted) {
+        logger.debug("deleteImageById beginning");
+        Session session = sessionFactory.getCurrentSession();
+
+        Image image = new Image();
+        image.setId(idOfDeleted);
+        logger.debug("deleteImageById Ready");
+
+        session.delete(image);
+        logger.debug("deleteImageById finished");
+    }
+
+
     /**
      * returns all albums created by a particular user
      * @param userCreator the user whose albums are being returned

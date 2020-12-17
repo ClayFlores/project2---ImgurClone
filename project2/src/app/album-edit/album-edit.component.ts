@@ -3,11 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Album } from '../models/album';
 import { Image } from '../models/image';
 import { User } from '../models/user';
+import { Tag } from '../models/tag';
 import { AlbumService } from '../services/album/album.service';
 import { FileUploadService } from '../services/fileUpload/file-upload.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { AlbumComment } from '../models/AlbumComment';
 import {Router} from '@angular/router';
+
 
 
 @Component({
@@ -17,8 +20,10 @@ import {Router} from '@angular/router';
 })
 export class AlbumEditComponent implements OnInit {
 
-  album: Album | any;
-  selectedIndex = -1;
+  album: any;
+  selectedIndex: number = -1;
+  idToDelete: number = -1;
+
   form: FormData;
   imageCaption = '';
   newTag = '';
@@ -27,15 +32,8 @@ export class AlbumEditComponent implements OnInit {
   serverURL = 'http://localhost:8080/project2-server/files/upload';
   //  uploadForm: FormGroup = new FormGroup();
 
-//   handleFileInput(files: FileList) {
-//     this.fileToUpload = files.item(0);
-//     if (this.fileToUpload) {
-//       this.file.postFile(this.fileToUpload)
-//       .subscribe(uploaded => {
-//           console.log("came back " + uploaded)
-//       })
-//     }
-// }
+
+
 
 onFileSelect(event: any) {
   if (event.target.files.length > 0) {
@@ -47,6 +45,15 @@ onFileSelect(event: any) {
         this.form.append('albumId', this.album.id.toString());
         console.log(this.album.id);
     }
+    this.getAlbum(); // called after to hopefully show the new addition
+}
+
+onDeleteSubmit(_idToDelete: number){
+  if (_idToDelete && _idToDelete != -1) {
+      this.albumService.deleteImageFromAlbum(_idToDelete)
+        .subscribe(_ => console.log("image deleted"))
+        this.getAlbum(); // should refresh the album with one less image
+  }
 }
 
 onSubmit() {
@@ -76,9 +83,43 @@ public getAlbum() {
         const id =  this.route.snapshot.paramMap.get('id');
         this.albumService.getSingleAlbum(Number(id))
           .subscribe(albumFromServer => {
-            this.album = albumFromServer;
-            console.log(this.album);
-          });
+
+            //this.album = albumFromServer
+              let id: number = albumFromServer.id;
+      
+              let title: string = albumFromServer.albumTitle;
+      
+              let user = null;
+      
+              let images: Image[] = []
+              for(let image of albumFromServer.imageSet){
+                let imageId: number = image.id;
+                let imageURL: string = image.imagePath;
+                let caption: string = image.caption;
+                let dateSubmitted: Date = new Date(image.dateSubmitted)
+                images.push(new Image(imageId, imageURL, caption, dateSubmitted))
+              }
+      
+              //change this when we get the upvote count
+              let upvoteCount = 0;
+      
+              let dateCreated: Date = new Date(albumFromServer.dateCreated)
+      
+              //change this when we implement tags
+              let tags = albumFromServer.tags;
+      
+              let comments: AlbumComment[] =[];
+              for(let comment of albumFromServer.commentSet){
+                let commentId: number = comment.id;
+                let userCommenter = null;
+                let dateSubmitted: Date = new Date(comment.dateSubmitted);
+                let commentBody = comment.body;
+                comments.push(new AlbumComment(commentId, userCommenter, dateSubmitted, commentBody))
+              }
+      
+              this.album = new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments)
+              console.log(this.album)
+            });
       }
     }
     constructor(
