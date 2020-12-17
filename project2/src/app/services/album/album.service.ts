@@ -52,7 +52,7 @@ export class AlbumService {
         catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
       );
   }
-  
+
   postNewAlbum(title: string):Observable<any>{
     const formData = new FormData();
     formData.append('albumTitle', title);
@@ -105,15 +105,15 @@ export class AlbumService {
     );
   }
 
-  getDoesAlbumBelongToUser(myUserId: number, myAlbumid:number):Observable<any>{
-
-    return this.http.get<boolean>(this.albumsUrl+"/belongsToUser/"+myUserId+"/"+myAlbumid)
+  addNewTagToAlbum(albumId: number, newAlbumTag: string): Observable<any> {
+    const requestUrl = this.albumsUrl + '/createTag/' + albumId;
+    return this.http.post<any>(requestUrl, newAlbumTag)
       .pipe(
-        tap(_ => console.log('fetched does album belong to user')),
-        catchError(this.handleError<boolean>('getDoesAlbumBelongToUser', false))
+        tap(_ => console.log('created new tag')),
       );
-
   }
+
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.

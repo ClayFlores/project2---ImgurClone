@@ -167,10 +167,10 @@ public class AlbumsController {
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
 
-    @GetMapping(path="/belongsToUser/{userId}/{albumId}")
-    @ResponseStatus(HttpStatus.OK)
-    public boolean doesAlbumBelongToUser(@PathVariable(name="userId") int userId,
-                                         @PathVariable(name="albumId") int albumId){
-        return albumDao.getSingleAlbumById(albumId).getUserCreator().getId() == userId;
+    @PostMapping(path = "/createTag/{albumId}")
+    public ResponseEntity<?> createNewTag(@PathVariable("albumId") Integer albumId, @RequestBody String newTag) {
+
+        albumDao.addNewTagToAlbum(albumId, newTag);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
