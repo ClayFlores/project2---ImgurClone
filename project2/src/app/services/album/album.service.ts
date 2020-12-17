@@ -2,7 +2,7 @@ import { UserService } from './../user/user.service';
 import { Album } from './../../models/album';
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -103,22 +103,17 @@ export class AlbumService {
       tap(_ => console.log('fetched favorite albums')),
       catchError(this.handleError<any>('postFavoriteAlbum', []))
     );
-<<<<<<< HEAD
     //TODO: FINISH THIS METHOD
 
   }
   
-  deleteImageFromAlbum(imageId: Number, albumId: number):Observable<any>{
-    const formData = new FormData();
-    formData.append('imageId', imageId.toString());
-    formData.append('albumId', albumId.toString());
-    return this.http.post<any>(this.albumsUrl + '/' + imageId.toString() + '/edit', formData)
+  deleteImageFromAlbum(imageId: Number):Observable<any>{
+    
+    return this.http.delete<any>(this.albumsUrl + '/delete/' + imageId)
       .pipe(
         tap(_ => console.log('delete success')),
         catchError(this.handleError<Album[]>('failed',[]))
       );
-=======
->>>>>>> 2452b16c608237a0f881c1e6f76e59605e8763d0
   }
 
   addNewTagToAlbum(albumId: number, newAlbumTag: string): Observable<any> {

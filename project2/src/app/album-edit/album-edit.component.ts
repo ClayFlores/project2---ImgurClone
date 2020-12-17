@@ -22,7 +22,7 @@ export class AlbumEditComponent implements OnInit {
 
   album: any;
   selectedIndex: number = -1;
-
+  idToDelete: number = -1;
 
   form: FormData;
   imageCaption = '';
@@ -48,8 +48,12 @@ onFileSelect(event: any) {
     this.getAlbum(); // called after to hopefully show the new addition
 }
 
-onDeleteSubmit(){
-  
+onDeleteSubmit(_idToDelete: number){
+  if (_idToDelete && _idToDelete != -1) {
+      this.albumService.deleteImageFromAlbum(_idToDelete)
+        .subscribe(_ => console.log("image deleted"))
+        this.getAlbum(); // should refresh the album with one less image
+  }
 }
 
 onSubmit() {
@@ -102,7 +106,7 @@ public getAlbum() {
               let dateCreated: Date = new Date(albumFromServer.dateCreated)
       
               //change this when we implement tags
-              let tags: Tag[] = [];
+              let tags = albumFromServer.tags;
       
               let comments: AlbumComment[] =[];
               for(let comment of albumFromServer.commentSet){

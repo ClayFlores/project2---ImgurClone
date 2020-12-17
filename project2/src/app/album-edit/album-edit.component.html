@@ -1,8 +1,9 @@
 
 <div>
-        <form (ngSubmit)="onDeleteSubmit()">
-                        <input type="number" name="idToDelete" placeholder="id of image to delete">
-                        <button type="submit">Delete</button>
+        <form (ngSubmit)="onDeleteSubmit(idToDelete)">
+                        <input type="number" name="idToDelete" [(ngModel)]="idToDelete">
+                        <button type="submit" (submit)="onDeleteSubmit(idToDelete)"
+                                >Delete</button>
         </form>
 </div>
 

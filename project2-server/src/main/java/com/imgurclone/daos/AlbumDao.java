@@ -137,15 +137,15 @@ public class AlbumDao {
 
     }
 
-    @Transactional
     public void deleteImageById(int idOfDeleted) {
         logger.debug("deleteImageById beginning");
         Session session = sessionFactory.getCurrentSession();
 
-        String hql = "delete from images where id= :idOfDelete";
-        logger.debug("deleteImageById ready to execute");
+        Image image = new Image();
+        image.setId(idOfDeleted);
+        logger.debug("deleteImageById Ready");
 
-        session.update(hql);
+        session.delete(image);
         logger.debug("deleteImageById finished");
     }
 

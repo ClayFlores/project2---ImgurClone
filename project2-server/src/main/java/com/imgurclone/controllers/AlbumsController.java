@@ -156,13 +156,12 @@ public class AlbumsController {
     }
 
 
-    @PostMapping(path = "album/{id}/edit")
+    @DeleteMapping(path = "/delete/{imageId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteImageById(
-            @PathVariable("imageId") String id,
-            @PathVariable("albumId") String albumId) {
+            @PathVariable("imageId") String imageId){
         try {
-            albumDao.deleteImageById(Integer.parseInt(id));
+            albumDao.deleteImageById(Integer.parseInt(imageId));
             logger.debug("deleteImageById  successful");
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (HibernateError e) {
@@ -171,7 +170,7 @@ public class AlbumsController {
 
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
-    
+
     @GetMapping(path="/userFavorites/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
