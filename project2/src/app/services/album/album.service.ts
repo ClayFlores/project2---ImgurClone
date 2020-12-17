@@ -13,6 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class AlbumService {
 
   private albumsUrl = 'http://localhost:8080/project2-server/albums';
+  private usersUrl = 'http://localhost:8080/project2-server/users';
 
   constructor(private http: HttpClient,
     private userService: UserService) { }
@@ -84,6 +85,24 @@ export class AlbumService {
         tap(_ => console.log('fetched favorite albums')),
         catchError(this.handleError<Album[]>('getFavoriteAlbums', []))
       );
+  }
+
+  getIsAlbumInMyFavorites(userId:number, albumId:number):Observable<any>{
+    return this.http.get<Album[]>(this.albumsUrl+"/isInUserFavorites/"+userId+"/"+albumId)
+      .pipe(
+        tap(_ => console.log('fetched favorite albums')),
+        catchError(this.handleError<Album[]>('getIsAlbumInMyFavorites', []))
+      );
+  }
+
+  postFavoriteAlbum(myUserId:number, myAlbumId:number):Observable<any>{
+    const requestJson={userId: myUserId, favAlbumId: myAlbumId}
+
+    return this.http.post<any>(this.usersUrl+"/favorites", requestJson)
+    .pipe(
+      tap(_ => console.log('fetched favorite albums')),
+      catchError(this.handleError<any>('postFavoriteAlbum', []))
+    );
   }
   /**
  * Handle Http operation that failed.
