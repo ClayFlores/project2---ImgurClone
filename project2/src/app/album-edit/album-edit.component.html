@@ -16,7 +16,7 @@
                (change)="handleFileInput($event.target.files)">
     </div> -->
     <div>
-        <form  (ngSubmit)="onSubmit()">      
+        <form  (ngSubmit)="onSubmit()">
           <div>
             <input type="file" name="profile" (change)="onFileSelect($event)" />
           </div>
@@ -24,11 +24,11 @@
             <button type="submit">Upload</button>
           </div>
         </form>
-      
-    </div>      
+
+    </div>
 <br>
 <!-- <div class="row" *ngIf="album">
-        <div class="column" *ngFor="let imagePath of album.images; let i=index;" 
+        <div class="column" *ngFor="let imagePath of album.images; let i=index;"
                 (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}">
                 <div class="listItem">
                         <h3>{{imagePath.caption}}</h3>
