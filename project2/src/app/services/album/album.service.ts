@@ -73,10 +73,17 @@ export class AlbumService {
 
     return this.http.post<any>(this.albumsUrl+"/createComment", formData)
     .pipe(
-      tap(_ => console.log('created album')),
-      catchError(this.handleError<Album[]>('postNewAlbum', []))
+      tap(_ => console.log('created comment')),
+      catchError(this.handleError<Album[]>('postNewComment', []))
     );
-    //TODO: FINISH THIS METHOD
+  }
+
+  getAlbumsForMyFavorites():Observable<any>{
+    return this.http.get<Album[]>(this.albumsUrl+"/userFavorites/"+localStorage.getItem('userId'))
+      .pipe(
+        tap(_ => console.log('fetched favorite albums')),
+        catchError(this.handleError<Album[]>('getFavoriteAlbums', []))
+      );
   }
   /**
  * Handle Http operation that failed.

@@ -18,10 +18,10 @@ export class MyAlbumsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getHomepageAlbums();
+    this.getMyAlbums();
   }
 
-  public getHomepageAlbums(): void{    
+  public getMyAlbums(): void{    
     
     this.albumService.getAlbumsForMyAlbums()
     .subscribe(albums => {
