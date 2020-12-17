@@ -36,6 +36,11 @@ public class AlbumDao {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     *
+     * @param album - New album to be inserted
+     * @return returns the new album's id
+     */
     @Transactional
     public int insert(Album album) {
         Session session = sessionFactory.getCurrentSession();
@@ -45,6 +50,10 @@ public class AlbumDao {
         return album.getId();
     }
 
+    /**
+     *
+     * @param album The album to be updated
+     */
     @Transactional
     public void update(Album album) {
         Session session = sessionFactory.getCurrentSession();
@@ -155,6 +164,11 @@ public class AlbumDao {
         return result;
     }
 
+    /**
+     *
+     * @param tagName The tagname that will be queried
+     * @return - A list of albums that contain the tagname in their tag set
+     */
     public List<Album> getAlbumsByTagName(String tagName){
         Session session = sessionFactory.getCurrentSession();
         String tagHql = "from AlbumTag T where T.tagName=:tag";
@@ -167,6 +181,11 @@ public class AlbumDao {
         return result;
     }
 
+    /**
+     *
+     * @param albumId - The album Id of the album whose image set the new image will go into
+     * @param newImage - An image constructed in the S3Service - contains the s3 resource uri as image path
+     */
     public void insertNewImage(Integer albumId, Image newImage) {
         Session session = sessionFactory.getCurrentSession();
 
@@ -184,6 +203,11 @@ public class AlbumDao {
         session.flush();
     }
 
+    /**
+     * Add a new tag to the album
+     * @param albumId - Id of the album whose tagset the tag will be put into
+     * @param newTag - A new tag for the albums tagset
+     */
     @Transactional
     public void addNewTagToAlbum(Integer albumId, String newTag) {
         Session session = sessionFactory.getCurrentSession();

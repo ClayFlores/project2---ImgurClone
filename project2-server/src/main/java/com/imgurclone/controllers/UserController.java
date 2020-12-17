@@ -21,7 +21,11 @@ public class UserController {
     @Autowired
     private AlbumDao albumDao;
 
-
+    /**
+     * A request that will create a new user with a hashed password
+     * @param authenticationRequest - A request object that contains username and unhashed password
+     * @return Returns a 200 status code
+     */
     @PostMapping(path = "createUser")
     public ResponseEntity<?> createUser(@RequestBody AuthenticationRequest authenticationRequest) {
 
@@ -36,6 +40,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Will hash the password sent from client and then compare the hashes
+     * @param authenticationRequest - A custom request model that maps the username and password
+     * @return 200 status code
+     */
     @PostMapping(path = "/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
@@ -53,6 +62,12 @@ public class UserController {
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param request An object used to represent a favorite request - 2 integers
+     *                  a userId and a favoritedAlbumId
+     * @return a 200 status
+     */
     @PostMapping(path = "favorites")
     public ResponseEntity<?> setFavorite(@RequestBody UserFavoritesRequest request) {
         Album favAlbum = albumDao.getSingleAlbumById(request.getFavAlbumId());
