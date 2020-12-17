@@ -6,15 +6,16 @@
             <span>Edit Album</span>
         </a>
         <h2>{{ albumFromHere.title }}</h2>
+        <h5>Created: {{ albumFromHere.dateCreated | date:'short'}}</h5>
 
         <div *ngIf="albumFromHere.tags">
             <h4>Tags:</h4>
             <p *ngFor="let tag of albumFromHere.tags">[{{tag.tagName}}]</p>
+            <p>----------------------</p>
         </div>
 
         <app-favorite [albumId]="albumFromHere.id"></app-favorite>
 
-        <h5>Created: {{ albumFromHere.dateCreated | date:'short'}}</h5>
         <div class="row" *ngFor="let imagePath of albumFromHere.images">
             <h4 *ngIf="imagePath.caption">{{imagePath.caption}}</h4>
             <img  src={{imagePath.imgUrl}} alt="../assets/macaron.png"/>
