@@ -1,11 +1,7 @@
 <div>
         <form (ngSubmit)="onDeleteSubmit()">
-                <div>
-                        <input type="number" name="idToDelete">
-                </div>
-                <div>
+                        <input type="number" name="idToDelete" placeholder="id of image to delete">
                         <button type="submit">Delete</button>
-                </div>
         </form>
 </div>
 
@@ -18,16 +14,27 @@
             <button type="submit">Upload</button>
           </div>
         </form>
-
     </div>
 <br>
-<!-- <div class="row" *ngIf="album">
-        <div class="column" *ngFor="let imagePath of album.images; let i=index;"
+<div class="row" *ngIf="album">
+        <h2>{{album.albumTitle}}</h2>
+        <h3>Created: {{album.dateCreated | date:'short'}}</h3>
+        <div class="column" *ngFor="let imagePath of album.images">
+                <div class="listItem">
+                        <h3>{{imagePath.caption}}</h3>
+                        <h5>id: {{imagePath.id}}</h5>
+                        <img  src={{imagePath.imgUrl}} />
+                        <h5>Submitted: {{imagePath.dateSubmitted | date:'short'}}</h5>
+                                
+                </div>
+        </div>
+        <!-- <div class="column" *ngFor="let imagePath of album.images; let i=index;"
                 (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}">
                 <div class="listItem">
                         <h3>{{imagePath.caption}}</h3>
                         <h5>Submitted: {{imagePath.dateSubmitted | date:'short'}}</h5>
                         <img  src={{imagePath.imagePath}} />
+                        <h5>id: {{imagePath.id}}</h5>
                 </div>
-        </div>
-</div> -->
+        </div> -->
+</div>
