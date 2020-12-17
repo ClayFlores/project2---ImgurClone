@@ -173,4 +173,11 @@ public class AlbumsController {
         albumDao.addNewTagToAlbum(albumId, newTag);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping(path="/belongsToUser/{userId}/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean doesAlbumBelongToUser(@PathVariable(name="userId") int userId,
+                                         @PathVariable(name="albumId") int albumId){
+        return albumDao.getSingleAlbumById(albumId).getUserCreator().getId() == userId;
+    }
 }
