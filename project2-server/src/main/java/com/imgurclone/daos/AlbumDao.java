@@ -138,11 +138,11 @@ public class AlbumDao {
     }
 
     @Transactional
-    public void deleteImageById(int idOfDeleted, int idOfAlbum) {
+    public void deleteImageById(int idOfDeleted) {
         logger.debug("deleteImageById beginning");
         Session session = sessionFactory.getCurrentSession();
 
-        String hql = "delete from images where albumid= :idOfAlbum and id= :idOfDelete";
+        String hql = "delete from images where id= :idOfDelete";
         logger.debug("deleteImageById ready to execute");
 
         session.update(hql);

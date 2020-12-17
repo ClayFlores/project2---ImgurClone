@@ -155,13 +155,13 @@ public class AlbumsController {
         return commentDao.insert(comment);
     }
 
-    @PostMapping(path = "album/{albumId}/{id}/edit")
+    @PostMapping(path = "album/{id}/edit")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> deleteImageById(
             @PathVariable("imageId") String id,
             @PathVariable("albumId") String albumId){
             try{
-                albumDao.deleteImageById(Integer.parseInt(id), Integer.parseInt(albumId));
+                albumDao.deleteImageById(Integer.parseInt(id));
                 logger.debug("deleteImageById  successful");
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } catch (HibernateError e) { e.printStackTrace(); }
