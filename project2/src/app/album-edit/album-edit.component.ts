@@ -20,9 +20,9 @@ export class AlbumEditComponent implements OnInit {
   selectedIndex: number = -1;
 
   //fileToUpload: File |null = null;
-  serverURL = "http://localhost:8080/files/upload";
-  //  uploadForm: FormGroup = new FormGroup(); 
-  
+  serverURL = "http://localhost:8080/project2-server/files/upload";
+  //  uploadForm: FormGroup = new FormGroup();
+
 //   handleFileInput(files: FileList) {
 //     this.fileToUpload = files.item(0);
 //     if (this.fileToUpload) {
@@ -39,17 +39,13 @@ onFileSelect(event: any) {
         //this.uploadForm.get('profile').setValue(file);
 
         const formData = new FormData();
-        formData.append('file', file);
-        console.log(formData.get('file'));
-        const httpOptions = {
-          headers: new HttpHeaders({
-            'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'multipart/form-data' 
-          })}
-        this.httpClient.post<any>(this.serverURL, formData, httpOptions ).subscribe(
-          (res) => console.log(res)
-    );
+        formData.append('user-file', file, file.name);
+        formData.append('imageCaption', 'This is a great view from angular');
+        formData.append('albumId', '5');
+        console.log(formData.get('user-file'));
+        this.httpClient.post<any>(this.serverURL, formData ).subscribe(
+          (res) => console.log(res.method)
+        );
     }
 }
 
@@ -100,5 +96,5 @@ public getAlbum() {
         //   profile: ['']
         //});
     }
-  
+
 }
