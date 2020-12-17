@@ -74,6 +74,19 @@ public class UserDao {
 
     }
 
+    @Transactional
+    public void addLikedAlbum(Integer userId, Album likedAlbumId ) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "From User where id=:id";
+        Query query = session.createQuery(hql);
+        query.setInteger("id", userId);
+        User user = (User) query.list().get(0);
+
+        user.getLikedAlbums().add(likedAlbumId);
+        session.merge(user);
+
+    }
+
     /**
      * deletes the most recent favorite relationship from the favoriteItems table
      */

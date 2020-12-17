@@ -6,10 +6,7 @@ import com.imgurclone.models.Image;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,6 +153,7 @@ public class AlbumDao {
         return result;
     }
 
+    @Transactional
     public List<Album> getAlbumsByTagName(String tagName){
         Session session = sessionFactory.getCurrentSession();
         String tagHql = "from AlbumTag T where T.tagName=:tag";
@@ -167,6 +166,7 @@ public class AlbumDao {
         return result;
     }
 
+    @Transactional
     public void insertNewImage(Integer albumId, Image newImage) {
         Session session = sessionFactory.getCurrentSession();
 
@@ -198,6 +198,13 @@ public class AlbumDao {
         newAlbumTag.setTagName(newTag);
 
         session.saveOrUpdate(newAlbumTag);
+    }
 
+    @Transactional
+    public BigInteger getCountAlbumLikes(Integer albumId){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select count(id) from albumvotes where albumId="+albumId;
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        return (BigInteger) sqlQuery.list().get(0);
     }
 }
