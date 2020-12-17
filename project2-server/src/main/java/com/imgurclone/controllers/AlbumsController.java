@@ -153,4 +153,10 @@ public class AlbumsController {
 
         return commentDao.insert(comment);
     }
+
+    @GetMapping(path="/userFavorites/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
+        return userDao.getById(userId).getFavoriteAlbums();
+    }
 }

@@ -1,3 +1,4 @@
+import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
 import { AlbumCreateComponent } from './album-create/album-create.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
 import { MyAlbumsComponent } from './my-albums/my-albums.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path:'myAlbums', component: MyAlbumsComponent},
   {path:'search', component: SearchResultPageComponent},
-  {path:'createAlbum', component: AlbumCreateComponent}
+  {path:'createAlbum', component: AlbumCreateComponent},
+  {path:'myFavorites', component: MyFavoritesComponent}
 ];
 
 @NgModule({

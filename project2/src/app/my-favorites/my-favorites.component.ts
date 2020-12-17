@@ -1,29 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../models/album';
 import { AlbumComment } from '../models/AlbumComment';
-import { Image } from './../models/image';
 import { Tag } from '../models/tag';
 import { AlbumService } from '../services/album/album.service';
+import { Image } from './../models/image';
 
 @Component({
-  selector: 'app-my-albums',
-  templateUrl: './my-albums.component.html',
-  styleUrls: ['./my-albums.component.css']
+  selector: 'app-my-favorites',
+  templateUrl: './my-favorites.component.html',
+  styleUrls: ['./my-favorites.component.css']
 })
-export class MyAlbumsComponent implements OnInit {
-
-  myAlbums: Album[] = [];
+export class MyFavoritesComponent implements OnInit {
+  myFavorites: Album[] = [];
   constructor(
     private albumService: AlbumService
   ) { }
 
   ngOnInit(): void {
-    this.getMyAlbums();
+    this.getMyFavorites();
   }
 
-  public getMyAlbums(): void{    
+  public getMyFavorites(): void{    
     
-    this.albumService.getAlbumsForMyAlbums()
+    this.albumService.getAlbumsForMyFavorites()
     .subscribe(albums => {
 
       let albumsArray: Album[] = []
@@ -64,13 +63,11 @@ export class MyAlbumsComponent implements OnInit {
         albumsArray.push(new Album(id, title, user, images, upvoteCount, dateCreated, tags, comments))
       }
 
-      this.myAlbums = albumsArray;
-      console.log("My Users")
-      console.log(this.myAlbums)
+      this.myFavorites = albumsArray;
+      console.log("My My Favorites")
+      console.log(this.myFavorites)
     })
     
   }
-
-  
 
 }
