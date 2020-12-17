@@ -26,7 +26,7 @@ public class User {
     @OneToMany(mappedBy = "userCreator", fetch = FetchType.EAGER)
     private Set<Album> albumList;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
         name = "favoriteItems",
         joinColumns = { @JoinColumn(name = "userfavoriter") },
