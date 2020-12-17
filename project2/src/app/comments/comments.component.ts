@@ -11,6 +11,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CommentsComponent implements OnInit {
 
   newCommentBody: string="";
+  myUserId = localStorage.getItem('userId');
 
   @Input() comments: AlbumComment[]=[];
   @Input() albumId: number=0;
@@ -26,7 +27,7 @@ export class CommentsComponent implements OnInit {
   }
 
   onSubmitClick(form:any){
-    if(this.newCommentBody.length < 1 || this.newCommentBody.length >= 1000 || !this.userService.myUser || this.userService.myUser.id === 0 ||this.albumId===0) 
+    if(this.newCommentBody.length < 1 || this.newCommentBody.length >= 1000 || !this.myUserId || +this.myUserId === 0 ||this.albumId===0) 
       return;
     this.albumService.postNewComment(this.newCommentBody, this.albumId)
       .subscribe(commentJson => {

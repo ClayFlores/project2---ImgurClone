@@ -12,6 +12,8 @@
             <img  src={{imagePath.imgUrl}} alt="../assets/macaron.png"/>
             <h6>Submitted:{{imagePath.dateSubmitted | date:'short'}}</h6>
         </div>
+        <app-comments [comments]="albumFromHere.comments" [albumId]="albumFromHere.id" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
+ 
         <!-- <div *ngIf="tagList">
           <p *ngFor="let tag of album.tagList">{{tag}} </p>
         </div> -->

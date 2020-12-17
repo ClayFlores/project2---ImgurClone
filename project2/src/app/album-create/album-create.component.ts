@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumCreateComponent implements OnInit {
   albumTitle: string="";
+  myUserId = localStorage.getItem('userId')
+
   constructor(
     public userService: UserService,
     private albumService: AlbumService,
