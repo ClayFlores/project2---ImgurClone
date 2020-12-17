@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -191,7 +192,7 @@ public class AlbumsControllerTest {
 
     /**
      * tests that a post to "/albums/createComment" will create a comment with the correct body
-     * @throws Exception
+     * @throws Exception - thrown by mockMvc.perform()
      */
     @Test
     public void givenValidInputCreateComment_whenMockMVC_thenResponseCreated() throws Exception{
@@ -211,6 +212,24 @@ public class AlbumsControllerTest {
                 .andReturn();
 
         commentDao.deleteMostRecentCommentId();
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void givenValidInputCreateTag_whenMockMVC_thenResponseCreated() throws Exception{
+        String testTagName ="jUnit test tag";
+        int testAlbumId = 1;
+        MvcResult mvcResult = this.mockMvc
+                .perform(post("/albums/createTag/"+testAlbumId)
+                        .content(testTagName)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print()).andExpect(status().isCreated())
+                .andReturn();
+
+        albumDao.deleteMostRecentTagId();
     }
 
 

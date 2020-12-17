@@ -208,9 +208,7 @@ public class AlbumsController {
             albumDao.deleteImageById(Integer.parseInt(imageId));
             logger.debug("deleteImageById  successful");
             return new ResponseEntity<>(true, HttpStatus.OK);
-        } catch (HibernateError e) {
-            e.printStackTrace();
-        }
+        } catch (HibernateError e) { e.printStackTrace(); }
 
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }

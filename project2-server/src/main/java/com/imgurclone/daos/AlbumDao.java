@@ -254,4 +254,19 @@ public class AlbumDao {
         deleteSqlQuery.executeUpdate();
 
     }
+
+    /**
+     * deletes the most recent tag from the albums table and associated tags
+     */
+    @Transactional
+    public void deleteMostRecentTagId(){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select id from albumtags order by id desc limit 1";
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        int highestId =(Integer)sqlQuery.list().get(0);
+
+        String deleteSql = "delete from albumtags where id="+highestId;
+        SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
+    }
 }
