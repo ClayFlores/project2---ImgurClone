@@ -111,4 +111,22 @@ public class UserControllerTest {
 
         userDao.deleteMostRecentFavoriteRelationshipId();
     }
+
+    /**
+     * tests that when given valid input, set favorite returns with an ok status
+     * @throws Exception
+     */
+    @Test
+    public void givenValidInputSetLike_whenMockMVC_thenResponseCreated() throws Exception{
+        int testUserId= 3;
+        int testLikedAlbumId = 1;
+
+        mockMvc
+                .perform(post("/users/likes")
+                        .param("userId", Integer.toString(testUserId))
+                        .param("likedAlbumId", Integer.toString(testLikedAlbumId))
+                ).andDo(print()).andExpect(status().isCreated());
+
+        userDao.deleteMostRecentLikeId();
+    }
 }
