@@ -91,7 +91,7 @@ export class AlbumService {
     return this.http.get<Album[]>(this.albumsUrl+"/isInUserFavorites/"+userId+"/"+albumId)
       .pipe(
         tap(_ => console.log('fetched favorite albums')),
-        catchError(this.handleError<Album[]>('getFavoriteAlbums', []))
+        catchError(this.handleError<Album[]>('getIsAlbumInMyFavorites', []))
       );
   }
 
@@ -101,7 +101,7 @@ export class AlbumService {
     return this.http.post<any>(this.usersUrl+"/favorites", requestJson)
     .pipe(
       tap(_ => console.log('fetched favorite albums')),
-      catchError(this.handleError<any>('getFavoriteAlbums', []))
+      catchError(this.handleError<any>('postFavoriteAlbum', []))
     );
   }
   /**

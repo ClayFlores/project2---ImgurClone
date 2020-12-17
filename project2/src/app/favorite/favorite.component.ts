@@ -1,5 +1,6 @@
 import { AlbumService } from './../services/album/album.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-favorite',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FavoriteComponent implements OnInit {
 
-  @Input() albumId:number=0;
+  @Input() albumId:number=-1;
   myUserId:string|null = null;
   isFavorited:boolean=false;
 
@@ -18,7 +19,12 @@ export class FavoriteComponent implements OnInit {
 
   ngOnInit(): void {
     this.myUserId = localStorage.getItem('userId');
-    if(this.myUserId && this.albumId)
+    if(this.myUserId && this.albumId!==-1)
+      this.checkIsAlbumInFavorites();
+  }
+
+  ngOnChanges(){
+    if(this.myUserId && this.albumId!==-1)
       this.checkIsAlbumInFavorites();
   }
 
@@ -26,7 +32,9 @@ export class FavoriteComponent implements OnInit {
     if(this.myUserId)
       this.albumService.getIsAlbumInMyFavorites(+this.myUserId, this.albumId)
       .subscribe(result=>{
-        this.isFavorited = result;
+        if(result === true)
+          this.isFavorited = true;
+        
       });
   }
 
