@@ -134,6 +134,34 @@ export class AlbumService {
       );
   }
 
+  getNumLikes(albumId: number): Observable<any>{
+    const requestUrl = this.albumsUrl + '/likeCount/' + albumId;
+    return this.http.get<any>(requestUrl)
+      .pipe(
+        tap(_ => console.log('retrieved like count')),
+      );
+  }
+
+  getIsAlbumInMyLikes(userId:number, albumId: number):Observable<any>{
+    return this.http.get<any>(this.albumsUrl+"/isInUserLikes/"+userId+"/"+albumId)
+      .pipe(
+        tap(_ => console.log('fetched is in user likes')),
+        catchError(this.handleError<Album[]>('getIsAlbumInMyLikes', []))
+      );
+  }
+
+  postLikeAlbum(myUserId:number, myAlbumId:number):Observable<any>{
+    const formData = new FormData();
+    formData.append('likedAlbumId', ""+myAlbumId);
+    formData.append('userId',""+localStorage.getItem('userId'));
+
+    return this.http.post<any>(this.usersUrl+"/likes", formData)
+    .pipe(
+      tap(_ => console.log('fetched favorite albums')),
+      catchError(this.handleError<any>('postFavoriteAlbum', []))
+    );
+  }
+
 
   /**
  * Handle Http operation that failed.

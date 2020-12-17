@@ -24,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -184,7 +185,20 @@ public class AlbumsController {
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
 
-    @PostMapping(path = "/createTag/{albumId}")
+    @GetMapping(path="/isInUserLikes/{userId}/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean isAlbumInUsersLikes(@PathVariable(name="userId") int userId,
+                                           @PathVariable(name="albumId") int albumId){
+        return userDao.getById(userId).getLikedAlbums().contains(albumDao.getSingleAlbumById(albumId));
+    }
+
+    @GetMapping(path="/likeCount/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public BigInteger getLikeCountForId(@PathVariable(name="albumId") int albumId){
+        return albumDao.getCountAlbumLikes(albumId);
+    }
+
+        @PostMapping(path = "/createTag/{albumId}")
     public ResponseEntity<?> createNewTag(@PathVariable("albumId") Integer albumId, @RequestBody String newTag) {
 
         albumDao.addNewTagToAlbum(albumId, newTag);
