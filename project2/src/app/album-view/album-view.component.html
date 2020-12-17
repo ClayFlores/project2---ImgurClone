@@ -7,6 +7,11 @@
         </a>
         <h2>{{ albumFromHere.title }}</h2>
 
+        <div *ngIf="albumFromHere.tags">
+            <h4>Tags:</h4>
+            <p *ngFor="let tag of albumFromHere.tags">[{{tag.tagName}}]</p>
+        </div>
+
         <app-favorite [albumId]="albumFromHere.id"></app-favorite>
 
         <h5>Created: {{ albumFromHere.dateCreated | date:'short'}}</h5>
@@ -17,9 +22,6 @@
         </div>
         <app-comments [comments]="albumFromHere.comments" [albumId]="albumFromHere.id" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
  
-        <!-- <div *ngIf="tagList">
-          <p *ngFor="let tag of album.tagList">{{tag}} </p>
-        </div> -->
     </div>
 </div>
 

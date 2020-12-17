@@ -47,6 +47,11 @@ export class AlbumViewComponent implements OnInit {
       
               //change this when we implement tags
               let tags: Tag[] = [];
+              for(let tag of album.tagList){
+                let tagId = tag.id;
+                let tagName = tag.tagName;
+                tags.push(new Tag(tagId, tagName));
+              }
       
               let comments: AlbumComment[] =[];
               for(let comment of album.commentSet){
