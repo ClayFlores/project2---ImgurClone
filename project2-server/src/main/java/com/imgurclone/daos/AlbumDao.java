@@ -137,6 +137,19 @@ public class AlbumDao {
 
     }
 
+    @Transactional
+    public void deleteImageById(int idOfDeleted, int idOfAlbum) {
+        logger.debug("deleteImageById beginning");
+        Session session = sessionFactory.getCurrentSession();
+
+        String hql = "delete from images where albumid= :idOfAlbum and id= :idOfDelete";
+        logger.debug("deleteImageById ready to execute");
+
+        session.update(hql);
+        logger.debug("deleteImageById finished");
+    }
+
+
     /**
      * returns all albums created by a particular user
      * @param userCreator the user whose albums are being returned

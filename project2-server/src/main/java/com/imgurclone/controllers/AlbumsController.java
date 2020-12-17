@@ -11,6 +11,7 @@ import com.imgurclone.models.Comment;
 import com.imgurclone.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.HibernateError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -152,5 +153,19 @@ public class AlbumsController {
         comment.setBody(commentBody);
 
         return commentDao.insert(comment);
+    }
+
+    @PostMapping(path = "album/{albumId}/{id}/edit")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> deleteImageById(
+            @PathVariable("imageId") String id,
+            @PathVariable("albumId") String albumId){
+            try{
+                albumDao.deleteImageById(Integer.parseInt(id), Integer.parseInt(albumId));
+                logger.debug("deleteImageById  successful");
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            } catch (HibernateError e) { e.printStackTrace(); }
+
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
     }
 }

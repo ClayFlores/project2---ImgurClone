@@ -77,6 +77,18 @@ export class AlbumService {
       catchError(this.handleError<Album[]>('postNewAlbum', []))
     );
     //TODO: FINISH THIS METHOD
+
+  }
+  
+  deleteImageFromAlbum(imageId: Number, albumId: number):Observable<any>{
+    const formData = new FormData();
+    formData.append('imageId', imageId.toString());
+    formData.append('albumId', albumId.toString());
+    return this.http.post<any>(this.albumsUrl + '/' + imageId.toString() + '/edit', formData)
+      .pipe(
+        tap(_ => console.log('delete success')),
+        catchError(this.handleError<Album[]>('failed',[]))
+      );
   }
   /**
  * Handle Http operation that failed.

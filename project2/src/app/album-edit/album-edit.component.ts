@@ -19,19 +19,8 @@ export class AlbumEditComponent implements OnInit {
   album:   any;
   selectedIndex: number = -1;
 
-  //fileToUpload: File |null = null;
   serverURL = "http://localhost:8080/project2-server/files/upload";
-  //  uploadForm: FormGroup = new FormGroup();
 
-//   handleFileInput(files: FileList) {
-//     this.fileToUpload = files.item(0);
-//     if (this.fileToUpload) {
-//       this.file.postFile(this.fileToUpload)
-//       .subscribe(uploaded => {
-//           console.log("came back " + uploaded)
-//       })
-//     }
-// }
 
 onFileSelect(event: any) {
   if (event.target.files.length > 0) {
@@ -47,6 +36,10 @@ onFileSelect(event: any) {
           (res) => console.log(res.method)
         );
     }
+}
+
+onDeleteSubmit(){
+  
 }
 
 onSubmit() {
@@ -92,9 +85,6 @@ public getAlbum() {
     ngOnInit(): void {
 
         this.getAlbum();
-        // this.uploadForm = this.formBuilder.group({
-        //   profile: ['']
-        //});
     }
 
 }
