@@ -1,3 +1,4 @@
+import { AlbumEditGuard } from './guards/albumEdit/album-edit.guard';
 import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
 import { AlbumCreateComponent } from './album-create/album-create.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
@@ -14,7 +15,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path:'', component: HomepageComponent},
   {path:'album/:id', component: AlbumViewComponent},
-  {path:'album/:id/edit', component: AlbumEditComponent},
+  {path:'album/:id/edit', component: AlbumEditComponent, canActivate: [AlbumEditGuard]},
   {path: 'register', component: RegistrationComponent},
   {path:'myAlbums', component: MyAlbumsComponent},
   {path:'search', component: SearchResultPageComponent},

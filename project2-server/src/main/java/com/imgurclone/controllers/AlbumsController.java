@@ -166,4 +166,11 @@ public class AlbumsController {
                                            @PathVariable(name="albumId") int albumId){
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
+
+    @GetMapping(path="/belongsToUser/{userId}/{albumId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean doesAlbumBelongToUser(@PathVariable(name="userId") int userId,
+                                         @PathVariable(name="albumId") int albumId){
+        return albumDao.getSingleAlbumById(albumId).getUserCreator().getId() == userId;
+    }
 }
