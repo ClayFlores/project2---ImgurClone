@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {UserService} from '../services/user/user.service';
 import {User} from '../models/user';
 import { Router } from '@angular/router';
@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  
+  @Output() onLogin: EventEmitter<number> = new EventEmitter<number>();
 
    currentUser: User;
    submitted = false;
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit {
         localStorage.clear();
         localStorage.setItem('userId', String(this.currentUser.id));
         localStorage.setItem('userEmail', this.currentUser.email);
+        this.onLogin.emit(this.currentUser.id);
         this.router.navigate(['/']);
       },
         error => console.log('Something went wrong during login'));

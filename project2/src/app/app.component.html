@@ -1,2 +1,2 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<app-navbar [myUser]="userId" (onLogout)="logoutResponse()"></app-navbar>
+<router-outlet (onLogin)="loginResponse()"></router-outlet>

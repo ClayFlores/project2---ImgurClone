@@ -73,4 +73,8 @@ export class AlbumViewComponent implements OnInit {
     this.getAlbum();
   }
 
+  submitNewComment(newComment: AlbumComment){
+    this.albumFromHere.comments.push(newComment);
+  }
+
 }

@@ -37,7 +37,7 @@ export class AlbumService {
   }
 
   getAlbumsForMyAlbums(): Observable<any[]>{
-    return this.http.get<Album[]>(this.albumsUrl+"/byUser/"+this.userService.myUser?.id)
+    return this.http.get<Album[]>(this.albumsUrl+"/byUser/"+localStorage.getItem('userId'))
       .pipe(
         tap(_ => console.log('fetched albums')),
         catchError(this.handleError<Album[]>('getAlbumsForMyAlbums', []))
@@ -55,7 +55,7 @@ export class AlbumService {
   postNewAlbum(title: string):Observable<any>{
     const formData = new FormData();
     formData.append('albumTitle', title);
-    let id: string = ""+this.userService.myUser?.id;
+    let id: string = ""+localStorage.getItem('userId');
     formData.append('userId', id);
 
     return this.http.post<any>(this.albumsUrl+"/createAlbum", formData)
@@ -69,7 +69,7 @@ export class AlbumService {
     const formData = new FormData();
     formData.append('commentBody', myBody);
     formData.append('albumId', ""+myAlbumId);
-    formData.append('userId',""+this.userService.myUser?.id);
+    formData.append('userId',""+localStorage.getItem('userId'));
 
     return this.http.post<any>(this.albumsUrl+"/createComment", formData)
     .pipe(
