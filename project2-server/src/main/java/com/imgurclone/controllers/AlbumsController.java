@@ -168,10 +168,9 @@ public class AlbumsController {
     }
 
     @PostMapping(path = "/createTag/{albumId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String createNewTag(@PathVariable("albumId") Integer albumId, @RequestParam(name = "newTag") String newTag) {
+    public ResponseEntity<?> createNewTag(@PathVariable("albumId") Integer albumId, @RequestBody String newTag) {
 
         albumDao.addNewTagToAlbum(albumId, newTag);
-        return "Successfully created a new album tag for Album " + albumId;
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
