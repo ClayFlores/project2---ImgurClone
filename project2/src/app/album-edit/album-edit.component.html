@@ -15,19 +15,28 @@
                placeholder="File name"
                (change)="handleFileInput($event.target.files)">
     </div> -->
-    <h2>Add an Image to Album</h2>
+    <h2>Add an Image to Album {{this.album.albumTitle}}</h2>
     <div>
         <form  (ngSubmit)="onSubmit()">
           <div>
             <input type="file" name="profile" (change)="onFileSelect($event)" />
-            <label>Caption for New Image</label>
+            <label>Caption for New Image: </label>
             <input type="text" name="imageCaption" [(ngModel)]="imageCaption" />
           </div>
+          <br>
             <button type="submit">Upload</button>
         </form>
-
     </div>
 <br>
+
+  <h2>Add a new Tag for the Album {{this.album.albumTitle}}</h2>
+    <div>
+      <label>Your new tag: </label>
+      <br>
+      <input type="text" name="tag" [(ngModel)]="newTag">
+      <br>
+      <button type="submit" (click)="tagSubmit()">Submit new tag</button>
+    </div>
 <!--  <div class="row" *ngIf="album">-->
 <!--        <div class="column" *ngFor="let imagePath of album.images; let i=index;"-->
 <!--                (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}">-->

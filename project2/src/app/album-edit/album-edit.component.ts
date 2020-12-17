@@ -18,11 +18,12 @@ import {Router} from '@angular/router';
 export class AlbumEditComponent implements OnInit {
 
   album: Album;
-  selectedIndex: number = -1;
+  selectedIndex = -1;
   form: FormData;
   imageCaption = '';
+  newTag = '';
 
-  //fileToUpload: File |null = null;
+  // fileToUpload: File |null = null;
   serverURL = 'http://localhost:8080/project2-server/files/upload';
   //  uploadForm: FormGroup = new FormGroup();
 
@@ -49,7 +50,7 @@ onFileSelect(event: any) {
 }
 
 onSubmit() {
-  const url = 'album/' + this.album.id;
+  const url = 'album/' + this.album.id + 'edit';
   this.form.append('imageCaption', this.imageCaption);
   this.httpClient.post<any>(this.serverURL, this.form).subscribe(
     (res) => {
@@ -76,7 +77,7 @@ public getAlbum() {
         this.albumService.getSingleAlbum(Number(id))
           .subscribe(albumFromServer => {
             this.album = albumFromServer;
-             console.log(this.album);
+            console.log(this.album);
           });
       }
     }
@@ -97,4 +98,12 @@ public getAlbum() {
         console.log('inside ngoninit' , this.album);
     }
 
+  tagSubmit() {
+    if (this.newTag === '') {
+      console.log('tag needs to be not empty');
+    } else {
+      console.log(this.newTag);
+
+    }
+  }
 }

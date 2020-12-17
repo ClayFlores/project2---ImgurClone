@@ -183,4 +183,21 @@ public class AlbumDao {
         session.save(albumToUpdate);
         session.flush();
     }
+
+    @Transactional
+    public void addNewTagToAlbum(Integer albumId, String newTag) {
+        Session session = sessionFactory.getCurrentSession();
+        String hql = "From Album where id=:albumId";
+        Query query = session.createQuery(hql);
+        query.setInteger("albumId", albumId);
+
+        Album albumToUpdate = (Album) query.list().get(0);
+
+        AlbumTag newAlbumTag = new AlbumTag();
+        newAlbumTag.setAlbum(albumToUpdate);
+        newAlbumTag.setTagName(newTag);
+
+        session.saveOrUpdate(newAlbumTag);
+
+    }
 }

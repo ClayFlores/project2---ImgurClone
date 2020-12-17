@@ -166,4 +166,12 @@ public class AlbumsController {
                                            @PathVariable(name="albumId") int albumId){
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
+
+    @PostMapping(path = "/createTag/{albumId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String createNewTag(@PathVariable("albumId") Integer albumId, @RequestParam(name = "newTag") String newTag) {
+
+        albumDao.addNewTagToAlbum(albumId, newTag);
+        return "Successfully created a new album tag for Album " + albumId;
+    }
 }

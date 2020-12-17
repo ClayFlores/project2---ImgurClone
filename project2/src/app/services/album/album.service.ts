@@ -52,7 +52,7 @@ export class AlbumService {
         catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
       );
   }
-  
+
   postNewAlbum(title: string):Observable<any>{
     const formData = new FormData();
     formData.append('albumTitle', title);
@@ -104,6 +104,8 @@ export class AlbumService {
       catchError(this.handleError<any>('postFavoriteAlbum', []))
     );
   }
+
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.
