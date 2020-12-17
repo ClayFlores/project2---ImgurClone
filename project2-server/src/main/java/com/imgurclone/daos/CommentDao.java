@@ -25,6 +25,11 @@ public class CommentDao {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     * Insert a new comment into
+     * @param comment
+     * @return
+     */
     @Transactional
     public Comment insert(Comment comment){
         Session session = sessionFactory.getCurrentSession();

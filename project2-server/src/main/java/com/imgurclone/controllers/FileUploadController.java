@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
+
+
+/**
+ * Rest Controller for Album objects and operations
+ * Root Mapping : /users
+ * Allows localhost:4200 to access
+ */
+
 
 @RestController
 @RequestMapping("files")

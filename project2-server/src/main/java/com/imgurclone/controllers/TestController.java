@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-
+    /**
+     * A test endpoint used to test connectivity
+     * @return
+     */
     @GetMapping(path = "/",produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
     public ResponseEntity<String> helloWorld() {

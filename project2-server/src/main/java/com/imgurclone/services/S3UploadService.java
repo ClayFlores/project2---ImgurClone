@@ -28,6 +28,13 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+/**
+ * A Service class that is used to upload an image to a S3 bucket
+ * It requires an AwsCredentials.properites file to run in the form of :
+ *          AWSAccessKeyId=YOURACCESSKEY
+ *          AWSSecretKey=YOURSECRETKEY
+ *          region=the-region-of-your-bucket-this-format
+ */
 @PropertySource("classpath:AwsCredentials.properties")
 @Service
 public class S3UploadService {
@@ -46,7 +53,16 @@ public class S3UploadService {
     @Value("${region}")
     private String awsRegion;
 
-
+    /**
+     * The class that will actually send the file to S3
+     * Will build the credentials, s3Client and TransferManager
+     * Since it is multipart file we must wait for upload to finish
+     * It will construct an image object with the new url from S3
+     * @param transferFile - The multipart file that contains an image
+     * @param imageCaption - Caption of the new image to be added to album
+     * @param albumId - The id of the album that the new image will be a part of
+     * @throws InterruptedException
+     */
     public void uploadImage(File transferFile, String imageCaption, int albumId) throws InterruptedException {
         try {
             AWSCredentials awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);

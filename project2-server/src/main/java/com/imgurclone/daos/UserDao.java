@@ -46,6 +46,11 @@ public class UserDao {
         return ((User)query.list().get(0)).getId();
     }
 
+    /**
+     * Get a user by their email address
+     * @param email
+     * @return
+     */
     @Transactional
     public User getByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
@@ -55,6 +60,11 @@ public class UserDao {
         return (User) query.list().get(0);
     }
 
+    /**
+     * Get a user by their primary Id
+     * @param id
+     * @return
+     */
     @Transactional
     public User getById (int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -64,6 +74,11 @@ public class UserDao {
         return (User) query.list().get(0);
     }
 
+    /**
+     * Add a new album to the User's favorite album list
+     * @param userId - Id of the user
+     * @param favAlbumId - album of the id to be added to favorites list
+     */
     @Transactional
     public void addFavoriteAlbum(Integer userId, int favAlbumId ) {
         Session session = sessionFactory.getCurrentSession();

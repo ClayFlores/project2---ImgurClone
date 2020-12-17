@@ -34,6 +34,11 @@ public class AlbumDao {
         this.sessionFactory = sessionFactory;
     }
 
+    /**
+     *
+     * @param album - New album to be inserted
+     * @return returns the new album's id
+     */
     @Transactional
     public int insert(Album album) {
         Session session = sessionFactory.getCurrentSession();
@@ -43,6 +48,10 @@ public class AlbumDao {
         return album.getId();
     }
 
+    /**
+     *
+     * @param album The album to be updated
+     */
     @Transactional
     public void update(Album album) {
         Session session = sessionFactory.getCurrentSession();
@@ -197,6 +206,11 @@ public class AlbumDao {
         session.flush();
     }
 
+    /**
+     * Add a new tag to the album
+     * @param albumId - Id of the album whose tagset the tag will be put into
+     * @param newTag - A new tag for the albums tagset
+     */
     @Transactional
     public void addNewTagToAlbum(Integer albumId, String newTag) {
         Session session = sessionFactory.getCurrentSession();
