@@ -13,6 +13,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+/**
+ * Configuration class used to configure our datasource and hibernates
+ * Requires a datasource.properties file to configure
+ *
+ * Postgres configured to use hibernate
+ *
+ * datasource.properties requires
+ *          datasource.url=URL
+ *          datasource.username=USERNAME
+ *          datasource.password=PASSWORD
+ */
+
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:datasource.properties")

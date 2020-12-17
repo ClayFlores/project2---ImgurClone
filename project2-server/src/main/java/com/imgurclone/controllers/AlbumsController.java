@@ -29,6 +29,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Rest Controller for Album objects and operations
+ * Root Mapping : /users
+ * Allows localhost:4200 to access
+ */
+
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping("albums")
@@ -50,6 +56,11 @@ public class AlbumsController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     *
+     * @param request Request body does not require any params
+     * @return - Will return the 10 latest albums that were created
+     */
 
     @GetMapping(path="/homepageAlbums", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -65,6 +76,12 @@ public class AlbumsController {
     }
 
 
+    /**
+     *
+     * @param request
+     * @param id - Path Variable that represents the id of the album we want
+     * @return - The album with the corresponding id - Status code 200
+     */
     @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Album> getAlbumWithId(HttpServletRequest request,
@@ -79,7 +96,12 @@ public class AlbumsController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-    // this doesnt seem like a good strategy for the most part, title would be very limiting w/ url
+    /**
+     *
+     * @param request
+     * @param title - The title of the album you want
+     * @return A single album that has the title in path param - json response
+     */
     @GetMapping(path="/byTitle/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Album> getAlbumWithTitle(HttpServletRequest request,
@@ -94,6 +116,11 @@ public class AlbumsController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param userId The id of the user that created the album
+     * @return - json of list of album(s) that were created by the user in the path param
+     */
     @GetMapping(path="/byUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Album> getAlbumsFromUser(@PathVariable("userId") int userId) {
@@ -108,7 +135,11 @@ public class AlbumsController {
         return albumsFromUser;
     }
 
-    //TODO: STOP FROM CRASHING IF NOTHING IS PROVIDED TO TAGNAME
+    /**
+     *
+     * @param tagName - a String tag that can possible be found in an album tag list
+     * @return - List of album(s) that contain the tagName in their taglists
+     */
     @GetMapping(path="/byTag/{tagName}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List <Album> getAlbumsByTag(@PathVariable("tagName") String tagName){
@@ -123,7 +154,12 @@ public class AlbumsController {
 
     }
 
-
+    /**
+     *
+     * @param albumTitle - The new title for the album
+     * @param userId - The userID of the user that is creating the album
+     * @return - Returns a 201 status code
+     */
     @PostMapping(path="/createAlbum")
     @ResponseStatus(HttpStatus.CREATED)
     public int createAlbum(@RequestParam(name = "albumTitle") String albumTitle, @RequestParam(name = "userId") int userId){
@@ -142,6 +178,13 @@ public class AlbumsController {
         return albumDao.insert(myAlbum);
     }
 
+    /**
+     *
+     * @param commentBody - The text that will be the comment - albumComments table
+     * @param albumId - The id of the album the comment will be a part of
+     * @param userId - The userId of the commenter
+     * @return - Returns a 201 status code
+     */
     @PostMapping(path = "/createComment")
     @ResponseStatus(HttpStatus.CREATED)
     public Comment createComment(@RequestParam(name="commentBody") String commentBody,
@@ -154,12 +197,23 @@ public class AlbumsController {
         return commentDao.insert(comment);
     }
 
+    /**
+     *
+     * @param userId - The userId of the user
+     * @return A list of all the favorited albums by the user
+     */
     @GetMapping(path="/userFavorites/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public Set<Album> getUsersFavoriteAlbums(@PathVariable(name = "userId")int userId){
         return userDao.getById(userId).getFavoriteAlbums();
     }
 
+    /**
+     *  checks if the album is contained in the user's favorites
+     * @param userId - the id of the user that is checked
+     * @param albumId - the id of the album that is checked
+     * @return Returns a 200 -
+     */
     @GetMapping(path="/isInUserFavorites/{userId}/{albumId}")
     @ResponseStatus(HttpStatus.OK)
     public boolean isAlbumInUsersFavorites(@PathVariable(name="userId") int userId,
@@ -167,6 +221,12 @@ public class AlbumsController {
         return userDao.getById(userId).getFavoriteAlbums().contains(albumDao.getSingleAlbumById(albumId));
     }
 
+    /**
+     *
+     * @param albumId - the id of the album the tag will be added to (it's tagset)
+     * @param newTag - A string that contains the new tag you want to add to the album
+     * @return
+     */
     @PostMapping(path = "/createTag/{albumId}")
     public ResponseEntity<?> createNewTag(@PathVariable("albumId") Integer albumId, @RequestBody String newTag) {
 
@@ -174,6 +234,12 @@ public class AlbumsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    /**
+     *  Checks whether an album belongs to a certain user
+     * @param userId - The id of the user you want th check
+     * @param albumId - the if of the album you want to check
+     * @return - A 200 statu code
+     */
     @GetMapping(path="/belongsToUser/{userId}/{albumId}")
     @ResponseStatus(HttpStatus.OK)
     public boolean doesAlbumBelongToUser(@PathVariable(name="userId") int userId,

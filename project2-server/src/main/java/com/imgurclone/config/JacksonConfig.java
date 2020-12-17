@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Jackson Configuration that will allow us to handle lazily fetched objects
+ */
+
 @Configuration
 public class JacksonConfig { // call this whatever you want
 
