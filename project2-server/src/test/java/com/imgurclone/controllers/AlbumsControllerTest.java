@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -149,6 +150,49 @@ public class AlbumsControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty())
                 .andReturn();
         Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
+    }
+
+    /**
+     * tests that given a post to "/albums/createAlbum" with valid input, the program returns a response with Created
+     * code and a number
+     * @throws Exception
+     */
+    @Test
+    public void givenValidInputCreateAlbum_whenMockMVC_thenResponseCreated() throws Exception{
+        String testAlbumTitle = "jUnit test album";
+        int testUserId = 3;
+
+        MvcResult mvcResult = this.mockMvc
+                .perform(post("/albums/createAlbum")
+                        .param("albumTitle", testAlbumTitle)
+                        .param("userId", Integer.toString(testUserId))
+                )
+                .andDo(print()).andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNumber())
+                .andReturn();
+
+    }
+
+    /**
+     * tests that a post to "/albums/createComment" will create a comment with the correct body
+     * @throws Exception
+     */
+    @Test
+    public void givenValidInputCreateComment_whenMockMVC_thenResponseCreated() throws Exception{
+        String testCommentBody ="jUnit test";
+        int testAlbumId = 1;
+        int testUserId = 3;
+        MvcResult mvcResult = this.mockMvc
+                .perform(post("/albums/createComment")
+                    .param("commentBody", testCommentBody)
+                    .param("albumId", Integer.toString(testAlbumId))
+                    .param("userId", Integer.toString(testUserId))
+                )
+                .andDo(print()).andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.body", is(testCommentBody)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateSubmitted").exists())
+                .andReturn();
     }
 
 

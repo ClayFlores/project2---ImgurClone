@@ -1,3 +1,4 @@
+
 <div>
         <form (ngSubmit)="onDeleteSubmit()">
                         <input type="number" name="idToDelete" placeholder="id of image to delete">
@@ -5,17 +6,38 @@
         </form>
 </div>
 
+<!-- <div>
+        <div>
+                <label>Add image</label>
+                <button type="submit" id="addImageButton">Add</button><br>
+        </div>
+        <div >
+                <label>Delete image</label>
+                <button type="submit" id="deleteImageButton">Delete</button>
+        </div>
+</div> -->
+<!-- <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               placeholder="File name"
+               (change)="handleFileInput($event.target.files)">
+    </div> -->
+    <h2>Add an Image to Album: {{this.album.albumTitle}}</h2>
+
     <div>
         <form  (ngSubmit)="onSubmit()">
           <div>
             <input type="file" name="profile" (change)="onFileSelect($event)" />
+            <label>Caption for New Image: </label>
+            <input type="text" name="imageCaption" [(ngModel)]="imageCaption" />
           </div>
-          <div>
+          <br>
             <button type="submit">Upload</button>
-          </div>
         </form>
     </div>
 <br>
+
 <div class="row" *ngIf="album">
         <h2>{{album.albumTitle}}</h2>
         <h3>Created: {{album.dateCreated | date:'short'}}</h3>
@@ -38,3 +60,26 @@
                 </div>
         </div> -->
 </div>
+
+  <h2>Add a new Tag for the Album: {{this.album.albumTitle}}</h2>
+    <div>
+      <label>Your new tag: </label>
+      <br>
+      <input type="text" name="tag" [(ngModel)]="newTag">
+      <br>
+      <button type="submit" (click)="tagSubmit()">Submit new tag</button>
+    </div>
+
+
+
+<!--  <div class="row" *ngIf="album">-->
+<!--        <div class="column" *ngFor="let imagePath of album.images; let i=index;"-->
+<!--                (click)="setRow(i)" [ngClass]="{'highlight': selectedIndex === i}">-->
+<!--                <div class="listItem">-->
+<!--                        <h3>{{imagePath.caption}}</h3>-->
+<!--                        <h5>Submitted: {{imagePath.dateCreated | date:'short'}}</h5>-->
+<!--                        <img  src={{imagePath.imagePath}} />-->
+<!--                </div>-->
+<!--        </div>-->
+<!--</div>-->
+

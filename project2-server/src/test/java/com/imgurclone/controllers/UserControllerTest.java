@@ -92,4 +92,22 @@ public class UserControllerTest {
                 .andDo(print()).andExpect(status().isOk());
         Assert.assertNotNull(userDao.getByEmail(testEmail));
     }
+
+    /**
+     * tests that when given valid input, set favorite returns with an ok status
+     * @throws Exception
+     */
+    @Test
+    public void givenValidInputSetFavorite_whenMockMVC_thenResponseOk() throws Exception{
+        int testUserId= 3;
+        int testFavAlbumId = 1;
+
+        mockMvc
+                .perform(post("/users/favorites")
+                        .content("{\"userId\":\""+testUserId+"\",\"favAlbumId\":\""+testFavAlbumId+"\"}")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print()).andExpect(status().isOk());
+
+        userDao.deleteMostRecentFavoriteRelationshipId();
+    }
 }

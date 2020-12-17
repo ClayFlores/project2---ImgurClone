@@ -13,6 +13,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class AlbumService {
 
   private albumsUrl = 'http://localhost:8080/project2-server/albums';
+  private usersUrl = 'http://localhost:8080/project2-server/users';
 
   constructor(private http: HttpClient,
     private userService: UserService) { }
@@ -51,7 +52,7 @@ export class AlbumService {
         catchError(this.handleError<Album[]>('getAlbumsByTagName', []))
       );
   }
-  
+
   postNewAlbum(title: string):Observable<any>{
     const formData = new FormData();
     formData.append('albumTitle', title);
@@ -73,9 +74,36 @@ export class AlbumService {
 
     return this.http.post<any>(this.albumsUrl+"/createComment", formData)
     .pipe(
-      tap(_ => console.log('created album')),
-      catchError(this.handleError<Album[]>('postNewAlbum', []))
+      tap(_ => console.log('created comment')),
+      catchError(this.handleError<Album[]>('postNewComment', []))
     );
+  }
+
+  getAlbumsForMyFavorites():Observable<any>{
+    return this.http.get<Album[]>(this.albumsUrl+"/userFavorites/"+localStorage.getItem('userId'))
+      .pipe(
+        tap(_ => console.log('fetched favorite albums')),
+        catchError(this.handleError<Album[]>('getFavoriteAlbums', []))
+      );
+  }
+
+  getIsAlbumInMyFavorites(userId:number, albumId:number):Observable<any>{
+    return this.http.get<Album[]>(this.albumsUrl+"/isInUserFavorites/"+userId+"/"+albumId)
+      .pipe(
+        tap(_ => console.log('fetched favorite albums')),
+        catchError(this.handleError<Album[]>('getIsAlbumInMyFavorites', []))
+      );
+  }
+
+  postFavoriteAlbum(myUserId:number, myAlbumId:number):Observable<any>{
+    const requestJson={userId: myUserId, favAlbumId: myAlbumId}
+
+    return this.http.post<any>(this.usersUrl+"/favorites", requestJson)
+    .pipe(
+      tap(_ => console.log('fetched favorite albums')),
+      catchError(this.handleError<any>('postFavoriteAlbum', []))
+    );
+<<<<<<< HEAD
     //TODO: FINISH THIS METHOD
 
   }
@@ -89,7 +117,19 @@ export class AlbumService {
         tap(_ => console.log('delete success')),
         catchError(this.handleError<Album[]>('failed',[]))
       );
+=======
+>>>>>>> 2452b16c608237a0f881c1e6f76e59605e8763d0
   }
+
+  addNewTagToAlbum(albumId: number, newAlbumTag: string): Observable<any> {
+    const requestUrl = this.albumsUrl + '/createTag/' + albumId;
+    return this.http.post<any>(requestUrl, newAlbumTag)
+      .pipe(
+        tap(_ => console.log('created new tag')),
+      );
+  }
+
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.

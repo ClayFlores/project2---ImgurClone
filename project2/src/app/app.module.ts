@@ -25,6 +25,8 @@ import { MyAlbumsComponent } from './my-albums/my-albums.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultPageComponent } from './search-result-page/search-result-page.component';
 import { AlbumCreateComponent } from './album-create/album-create.component';
+import { MyFavoritesComponent } from './my-favorites/my-favorites.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { AlbumCreateComponent } from './album-create/album-create.component';
     MyAlbumsComponent,
     SearchBarComponent,
     SearchResultPageComponent,
-    AlbumCreateComponent
+    AlbumCreateComponent,
+    MyFavoritesComponent,
+    FavoriteComponent
   
 
   ],
