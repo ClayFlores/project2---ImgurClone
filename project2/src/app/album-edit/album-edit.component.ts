@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 })
 export class AlbumEditComponent implements OnInit {
 
-  album: Album;
+  album: Album | any;
   selectedIndex = -1;
   form: FormData;
   imageCaption = '';
@@ -50,7 +50,7 @@ onFileSelect(event: any) {
 }
 
 onSubmit() {
-  const url = 'album/' + this.album.id + 'edit';
+  const url = 'album/' + this.album.id + '/edit';
   this.form.append('imageCaption', this.imageCaption);
   this.httpClient.post<any>(this.serverURL, this.form).subscribe(
     (res) => {
@@ -98,12 +98,16 @@ public getAlbum() {
         console.log('inside ngoninit' , this.album);
     }
 
+    // TODO need some kind of alert that it was successfully created
   tagSubmit() {
+    const url = 'album/' + this.album.id + '/edit';
     if (this.newTag === '') {
       console.log('tag needs to be not empty');
     } else {
-      console.log(this.newTag);
-
+      this.albumService.addNewTagToAlbum(this.album.id, this.newTag)
+        .subscribe(response => {
+          this.newTag = '';
+        });
     }
   }
 }
