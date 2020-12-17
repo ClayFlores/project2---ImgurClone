@@ -55,16 +55,16 @@ public class UserController {
 
     @PostMapping(path = "favorites")
     public ResponseEntity<?> setFavorite(@RequestBody UserFavoritesRequest request) {
-        Album favAlbum = albumDao.getSingleAlbumById(request.getFavAlbumId());
-        userDao.addFavoriteAlbum(request.getUserId(), favAlbum);
+        //Album favAlbum = albumDao.getSingleAlbumById(request.getFavAlbumId());
+        userDao.addFavoriteAlbum(request.getUserId(), request.getFavAlbumId());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(path="likes")
     @ResponseStatus(HttpStatus.CREATED)
     public void setLike(@RequestParam(name="userId")int userId, @RequestParam(name="likedAlbumId") int likedAlbumId){
-        Album likedAlbum = albumDao.getSingleAlbumById(likedAlbumId);
-        userDao.addLikedAlbum(userId, likedAlbum);
+        //Album likedAlbum = albumDao.getSingleAlbumById(likedAlbumId);
+        userDao.addLikedAlbum(userId, likedAlbumId);
     }
 
 

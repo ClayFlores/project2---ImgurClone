@@ -35,7 +35,7 @@ public class User {
     private Set<Album> favoriteAlbums;
 
     //many to many relationship from albumVotes
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(
         name = "albumVotes",
         joinColumns = { @JoinColumn(name = "usercreator") },
@@ -108,7 +108,6 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
-                ", albumList=" + albumList +
                 '}';
     }
 }

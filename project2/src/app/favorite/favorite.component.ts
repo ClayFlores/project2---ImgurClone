@@ -39,11 +39,12 @@ export class FavoriteComponent implements OnInit {
   }
 
   favoriteAlbum():void{
-    if(!this.isFavorited && this.myUserId)
+    if(!this.isFavorited && this.myUserId){
+      this.isFavorited = true;
       this.albumService.postFavoriteAlbum(+this.myUserId, this.albumId)
       .subscribe(result=>{
-        this.isFavorited = true;
       })
+    }
   }
 
 }

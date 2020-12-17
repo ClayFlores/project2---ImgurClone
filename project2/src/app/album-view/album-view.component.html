@@ -15,6 +15,7 @@
         </div>
 
         <app-favorite [albumId]="albumFromHere.id"></app-favorite>
+        <app-like [albumId]="albumFromHere.id"></app-like>
 
         <div class="row" *ngFor="let imagePath of albumFromHere.images">
             <h4 *ngIf="imagePath.caption">{{imagePath.caption}}</h4>
