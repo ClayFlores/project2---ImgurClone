@@ -105,6 +105,16 @@ export class AlbumService {
     );
   }
 
+  getDoesAlbumBelongToUser(myUserId: number, myAlbumid:number):Observable<any>{
+
+    return this.http.get<boolean>(this.albumsUrl+"/belongsToUser/"+myUserId+"/"+myAlbumid)
+      .pipe(
+        tap(_ => console.log('fetched does album belong to user')),
+        catchError(this.handleError<boolean>('getDoesAlbumBelongToUser', false))
+      );
+
+  }
+
   addNewTagToAlbum(albumId: number, newAlbumTag: string): Observable<any> {
     const requestUrl = this.albumsUrl + '/createTag/' + albumId;
     return this.http.post<any>(requestUrl, newAlbumTag)
