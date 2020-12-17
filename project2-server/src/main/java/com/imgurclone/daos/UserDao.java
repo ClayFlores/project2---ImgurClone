@@ -105,4 +105,20 @@ public class UserDao {
 
     }
 
+    /**
+     * deletes the most recent album from the albums table and associated tags
+     */
+    @org.springframework.transaction.annotation.Transactional
+    public void deleteMostRecentUserId(){
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "select id from users order by id desc limit 1";
+        SQLQuery sqlQuery = session.createSQLQuery(sql);
+        int highestId =(Integer)sqlQuery.list().get(0);
+
+        String deleteSql = "delete from users where id="+highestId;
+        SQLQuery deleteSqlQuery = session.createSQLQuery(deleteSql);
+        deleteSqlQuery.executeUpdate();
+
+    }
+
 }

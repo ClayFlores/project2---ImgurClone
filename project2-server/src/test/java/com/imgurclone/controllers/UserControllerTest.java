@@ -91,6 +91,7 @@ public class UserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk());
         Assert.assertNotNull(userDao.getByEmail(testEmail));
+        userDao.deleteMostRecentUserId();
     }
 
     /**

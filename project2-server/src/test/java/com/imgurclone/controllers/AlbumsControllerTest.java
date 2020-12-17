@@ -1,5 +1,7 @@
 package com.imgurclone.controllers;
 
+import com.imgurclone.daos.AlbumDao;
+import com.imgurclone.daos.CommentDao;
 import com.imgurclone.models.Album;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,6 +44,18 @@ public class AlbumsControllerTest {
      * the MockMvc generated from the web application context
      */
     private MockMvc mockMvc;
+
+    /**
+     * album dao - used for cleanup
+     */
+    @Autowired
+    private AlbumDao albumDao;
+
+    /**
+     * comment dao - used for cleanup
+     */
+    @Autowired
+    private CommentDao commentDao;
 
     /**
      * setup method - initialize the mockMvc from the web application context
@@ -113,7 +127,7 @@ public class AlbumsControllerTest {
         Assert.assertEquals("application/json;charset=UTF-8",mvcResult.getResponse().getContentType());
     }
 
-    //TODO: check that the albums are from the right user
+
     /**
      * tests that /albums/byUser/{userId} returns an array of albums when given a valid user id with albums
      * @throws Exception
@@ -171,6 +185,8 @@ public class AlbumsControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNumber())
                 .andReturn();
 
+        albumDao.deleteMostRecentAlbumId();
+
     }
 
     /**
@@ -193,6 +209,8 @@ public class AlbumsControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dateSubmitted").exists())
                 .andReturn();
+
+        commentDao.deleteMostRecentCommentId();
     }
 
 
