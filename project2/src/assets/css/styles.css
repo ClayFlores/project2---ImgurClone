@@ -1,7 +1,3 @@
-.imageTileimg {
-    width: 100%;
-}
-
 [class*="col-"] {
     float: left;
     padding: 5px;
@@ -16,20 +12,19 @@
 }
 
 .col-1 {
-    width: 20%;
+    width: 10%;
 }
 
 .col-2 {
-    min-width: 60%;
     width: 60%;
-    max-width: 60%;
-    border: solid black 3px;
 }
 
 .col-3 {
     width: 20%;
 }
 
-.text {
-    background-color: gray;
+.row::after {
+    content: "";
+    clear: both;
+    display:table;
 }

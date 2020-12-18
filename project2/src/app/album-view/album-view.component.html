@@ -1,32 +1,32 @@
-<!-- reminder for later: call is async and may need ngIf to not show unless data exists -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- [state]="{ data: {album}}" -->
 <div *ngIf="albumFromHere">
     <div class="column">
-        <a routerLink="/album/{{albumFromHere.id}}/edit">
-            <span>Edit Album</span>
-        </a>
-        <h2>{{ albumFromHere.title }}</h2>
-        <h5>Created: {{ albumFromHere.dateCreated | date:'short'}}</h5>
+        <div class="col-1">
+            
+            <h2 class="row">{{ albumFromHere.title }}</h2>
+            <h5 class="row">Created: {{ albumFromHere.dateCreated | date:'short'}}</h5>
 
-        <div *ngIf="albumFromHere.tags">
-            <h4>Tags:</h4>
-            <p *ngFor="let tag of albumFromHere.tags">[{{tag.tagName}}]</p>
-            <p>----------------------</p>
+            <div *ngIf="albumFromHere.tags">
+                <h4>Tags:</h4>
+                <p *ngFor="let tag of albumFromHere.tags">[{{tag.tagName}}]</p>
+                <p>----------------------</p>
+            </div>
+                <app-favorite class="row" [albumId]="albumFromHere.id"></app-favorite>
+                <app-like class="row" [albumId]="albumFromHere.id"></app-like>
+                <a routerLink="/album/{{albumFromHere.id}}/edit">
+                    <span class="row">Edit Album</span>
+                </a>
         </div>
-
-        <app-favorite [albumId]="albumFromHere.id"></app-favorite>
-        <app-like [albumId]="albumFromHere.id"></app-like>
-
-        <div class="row" *ngFor="let imagePath of albumFromHere.images">
-            <h4 *ngIf="imagePath.caption">{{imagePath.caption}}</h4>
-            <img  src={{imagePath.imgUrl}} alt="../assets/macaron.png"/>
-            <h6>Submitted:{{imagePath.dateSubmitted | date:'short'}}</h6>
+        <div class="col-2">
+            <div class="row" *ngFor="let imagePath of albumFromHere.images">
+                <h4 *ngIf="imagePath.caption" class="row">{{imagePath.caption}}</h4>
+                <img  src={{imagePath.imgUrl}} alt="../assets/macaron.png"/>
+                <h6 class="row">Submitted:{{imagePath.dateSubmitted | date:'short'}}</h6>
+            </div>
+             <app-comments [comments]="albumFromHere.comments" [albumId]="albumFromHere.id" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
         </div>
-        <app-comments [comments]="albumFromHere.comments" [albumId]="albumFromHere.id" (onSubmitNewComment)="submitNewComment($event)"></app-comments>
- 
+        <div class="col-3">
+        </div>
     </div>
 </div>
-
-<!-- TODO: add upvote system -->
-<!-- TODO: add comment system -->
-<!-- TODO: add more css for aesthetics -->

@@ -6,7 +6,7 @@
     </div>
     <!--SEARCH COMPONENT TO GO HERE-->
     <app-search-bar></app-search-bar>
-    <div class="topNavLinkContainer">
+    <div class="topNavLinkContainer" background-color="(0,34,34)">
         <a routerLink = "/" class="topNavLink">Home</a>
         <ng-template [ngIf]="myUser || userService.myUser" [ngIfElse]="elseBlock">
             <a routerLink="/myAlbums" class="topNavLink">My Albums</a>
