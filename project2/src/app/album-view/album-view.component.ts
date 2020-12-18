@@ -14,11 +14,20 @@ import { AlbumComment } from '../models/AlbumComment';
   templateUrl: './album-view.component.html',
   styleUrls: ['./album-view.component.css']
 })
+/**
+ * component for displaying a full album
+ */
 export class AlbumViewComponent implements OnInit {
 
+  /**
+   * the album to be displayed in full
+   */
     albumFromHere: Album = new Album(-1, '', null, [], 0, new Date(), [], []);
 
 
+    /**
+     * retrieves the album to be displayed from the server and molds it into the Album model
+     */
     public getAlbum() {
       if (this.route.snapshot.paramMap.get('id')) { // did not like the possibility of id being null, this condition verifies it isnt
         const id =  this.route.snapshot.paramMap.get('id');
@@ -69,15 +78,27 @@ export class AlbumViewComponent implements OnInit {
       
     }
 
+    /**
+     * constructor for the AlbumViewComponent
+     * @param albumService - the album service - used to communicate with the server
+     * @param route - representation of the current route
+     */
   constructor(
     private albumService: AlbumService,
     private route: ActivatedRoute
   ) {  }
 
+  /**
+   * runs as soon as the AlbumViewComponent has been initialized -- calls getAlbum() to retrieve the album from the server
+   */
   ngOnInit(): void {
     this.getAlbum();
   }
 
+  /**
+   * adds a newly-created comment emitted from the CommentsComponent to the album's comment list
+   * @param newComment the newly-created comment to be added to the album model
+   */
   submitNewComment(newComment: AlbumComment){
     this.albumFromHere.comments.push(newComment);
   }
