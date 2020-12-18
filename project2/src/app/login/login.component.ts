@@ -8,15 +8,32 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+/**
+ * compnent for logging in
+ */
 export class LoginComponent implements OnInit {
 
-  
+  /**
+   * event emitter to send the id of the newly signed-in user to the parent component
+   */
   @Output() onLogin: EventEmitter<number> = new EventEmitter<number>();
 
+  /**
+   * representation of the current user
+   */
    currentUser: User;
+
+   /**
+    * boolean represents whether the form has been submitted or not
+    */
    submitted = false;
 
 
+   /**
+    * constructor for the LoginComponent
+    * @param userService userService - used to log in the potential user
+    * @param router router - used to redirect the user after login
+    */
   constructor(private userService: UserService, private router: Router) {
     if (userService.myUser) {
       // return to homepage
@@ -29,6 +46,9 @@ export class LoginComponent implements OnInit {
   }
 
 
+  /**
+   * submits the contents of the form and attempts to sign in the user with the given credentials
+   */
   onSubmit() {
     this.submitted = true;
     this.userService.login(this.currentUser)
