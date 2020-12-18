@@ -7,24 +7,39 @@ import {catchError, tap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * service class for logic having to do with the currently logged-in user
+ */
 export class UserService {
-  // represents the currently logged-in user; set to null if no one is logged in
+  
+  /**
+   * represents the currently logged-in user; set to null if no one is logged in
+   */
   private _myUser: User | null | any;
 
   constructor(private http: HttpClient) {
     this._myUser = null;
   }
 
-  // getter for currently logged-in user
+  
+  /**
+   * getter for currently logged-in user
+   */
   public get myUser(): User | null {
     return this._myUser;
   }
 
+  /**
+   * setter for the currently logged-in user
+   */
   public set myUser(user) {
     this._myUser =  user;
   }
 
-  // sets myUser to the specified User object
+  /**
+   * returns an observable representing a post request that tries to authenticate the user on the server
+   * @param newUser the user object to be logged in
+   */
   public login(newUser: User): Observable<any> {
     return this.http.post('http://localhost:8080/project2-server/users/authenticate', newUser)
       .pipe(
@@ -37,7 +52,10 @@ export class UserService {
       );
   }
 
-  // sets myUser to null
+  
+  /**
+   * logs the user out
+   */
   public logout() {
     this._myUser = null;
     localStorage.clear();
