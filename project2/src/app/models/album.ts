@@ -2,8 +2,21 @@ import { AlbumComment } from './AlbumComment';
 import { Image } from './image';
 import { Tag } from './tag';
 import { User } from './user'
-
+/**
+ * model class to represent an album
+ */
 export class Album{
+    /**
+     * constructor for the album model
+     * @param _id - the unique id for the album
+     * @param _title - the title of the album
+     * @param _userCreator - the user who created the album
+     * @param _images - the array of images that belong to the album
+     * @param _upvoteCount - the number of users who have liked the album
+     * @param _dateCreated - the timestamp for when the album was created
+     * @param _tags - the array of tags that tag the album
+     * @param _comments - the array of comments on the album
+     */
     constructor(
         private _id: number,
         private _title: string,
@@ -15,12 +28,18 @@ export class Album{
         private _comments: AlbumComment[]
     ){}
 
-    //appends myImage to the end of the images array
+    /**
+     * adds an image to the album's list of images
+     * @param myImage - the image to be added
+     */
     public addImage(myImage: Image){
         this._images.push(myImage);
     }
 
-    //removes the specified image from the images array
+   /**
+    * removes an image from the list of albums
+    * @param victimImage - the image to be yeeted
+    */
     public removeImage(victimImage: Image){
         this._images.filter((img: Image)=>{
             return(img !== victimImage)
