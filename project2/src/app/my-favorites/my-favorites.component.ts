@@ -10,16 +10,33 @@ import { Image } from './../models/image';
   templateUrl: './my-favorites.component.html',
   styleUrls: ['./my-favorites.component.css']
 })
+/**
+ * view for displaying the currently logged-in user's favorite albums
+ */
 export class MyFavoritesComponent implements OnInit {
+  /**
+   * list of the currently logged-in user's favorites
+   */
   myFavorites: Album[] = [];
+  /**
+   * Constructor for MyFavoritesComponent
+   * @param albumService album service - used to communicate with the server
+   */
   constructor(
     private albumService: AlbumService
   ) { }
 
+  /**
+   * runs as soon the MyAlbumsComponent is initialized -- attempts to retrieve the currently logged-in user's favorites
+   */
   ngOnInit(): void {
     this.getMyFavorites();
   }
 
+  /**
+   * attempts to retrieve the currently logged-in user's favorites, mold them into the Album model and assign them to myFavorites
+   *
+   */
   public getMyFavorites(): void{    
     
     this.albumService.getAlbumsForMyFavorites()
