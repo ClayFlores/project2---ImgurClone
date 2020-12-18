@@ -9,6 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './upvote.component.html',
   styleUrls: ['./upvote.component.css']
 })
+/**
+ * DEPRECATED --  unused upvote component -- replaced by LikeComponent
+ */
 export class UpvoteComponent implements OnInit {
   //  @Input() album: Album;
   //  currentUser: User | null;
