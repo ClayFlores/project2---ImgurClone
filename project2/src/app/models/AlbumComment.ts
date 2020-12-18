@@ -1,6 +1,16 @@
 import { Album } from './album';
 import { User } from './user';
+/**
+ * model class for a comment
+ */
 export class AlbumComment{
+    /**
+     * Constructor for the AlbumComment model
+     * @param _id - the unique id of the album
+     * @param _userCommenter - the user who left the comment
+     * @param _dateSubmitted - the timestamp for when the comment was submitted 
+     * @param _body - the body of the comment
+     */
     constructor(
         private _id:number | null,
         //private _album: Album,
