@@ -1,4 +1,13 @@
+/**
+ * model class for a signed-in user
+ */
 export class User{
+    /**
+     * 
+     * @param _id - unique id for the user
+     * @param _password - user's password
+     * @param _email - user's email
+     */
     constructor(
         private _id: number,
         private _password: string,
