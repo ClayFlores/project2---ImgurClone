@@ -10,17 +10,34 @@ import { AlbumService } from '../services/album/album.service';
   templateUrl: './my-albums.component.html',
   styleUrls: ['./my-albums.component.css']
 })
+/**
+ * view for display currently logged-in user's albums
+ */
 export class MyAlbumsComponent implements OnInit {
 
+  /**
+   * the list of the currently logged-in user's albums
+   */
   myAlbums: Album[] = [];
+  /**
+   * constructor for MyAlbumsComponent
+   * @param albumService album service - used for communicating with the server
+   */
   constructor(
     private albumService: AlbumService
   ) { }
 
+  /**
+   * runs as soon the MyAlbumsComponent is initialized -- attempts to retrieve the currently logged-in user's albums
+   */
   ngOnInit(): void {
     this.getMyAlbums();
   }
 
+  /**
+   * attempts to retrieve the currently logged-in user's albums, mold them into the Album model and assign them to myAlbums
+   *
+   */
   public getMyAlbums(): void{    
     
     this.albumService.getAlbumsForMyAlbums()

@@ -11,16 +11,34 @@ import { Image } from './../models/image';
   templateUrl: './search-result-page.component.html',
   styleUrls: ['./search-result-page.component.css']
 })
+/**
+ * view for the searchresult page
+ */
 export class SearchResultPageComponent implements OnInit {
 
+  /**
+   * the tag being searched for
+   */
   tagName:string="";
+  /**
+   * the list of search results
+   */
   searchResults:Album[]=[];
 
+  /**
+   * constructor for the SearchResultPageComponent
+   * @param route the currently activated route -- used to retrieve path params
+   * @param albumService the album service - used to interact with the server
+   */
   constructor(
     public route:ActivatedRoute,
     private albumService: AlbumService
   ) { }
 
+  /**
+   * runs as soon as the component has been initialized 
+   * -- fetches the tag from the url and gets the search results
+   */
   ngOnInit(): void {
     console.log("search result page init")
     this.makeTagName();
@@ -28,6 +46,9 @@ export class SearchResultPageComponent implements OnInit {
 
   
 
+  /**
+   * gets the tag to search for from the url and calls getSearchResults
+   */
   public makeTagName():void{
     this.route.queryParams.subscribe(params=>{
       this.tagName=params['tagName'];
@@ -36,6 +57,9 @@ export class SearchResultPageComponent implements OnInit {
     });
   }
 
+  /**
+   * retrieves the search results with the populated tag
+   */
   public getSearchResults(): void{    
     
     this.albumService.getAlbumsByTagName(this.tagName)

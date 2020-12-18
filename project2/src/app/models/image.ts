@@ -1,4 +1,15 @@
+
+/**
+ * model for an Image object 
+ */
 export class Image{ 
+    /**
+     * 
+     * @param _id - 
+     * @param _imgUrl 
+     * @param _caption 
+     * @param _dateSubmitted 
+     */
     constructor(
         private _id: number,
         private _imgUrl: string,

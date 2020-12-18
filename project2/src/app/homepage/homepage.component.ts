@@ -11,17 +11,35 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
+/**
+ * Component representing the homepage view
+ */
 export class HomepageComponent implements OnInit {
 
+  /**
+   * the set of albums to be displayed on the homepage
+   */
   homepageAlbums: any[] = [];
+
+  /**
+   * Constructor for the HomepageComponent
+   * @param albumService - album service - used to communicate with the server
+   */
   constructor(
     private albumService: AlbumService
   ) { }
 
+  /**
+   * runs as soon as the HomepageComponent has been initialized
+   * -- attempts to retrieve the the albums to be displayed from the server
+   */
   ngOnInit(): void {
     this.getHomepageAlbums();
   }
 
+  /**
+   * attempts to retrieve the albums to be displayed from the server, mold them into the Album model and set them to homepageAlbums
+   */
   public getHomepageAlbums(): void{    
     
     this.albumService.getAlbumsForHomepage()
