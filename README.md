@@ -6,7 +6,9 @@ The goal of this project was to make an image displaying website similar to Imgu
 
 ## Technologies Used:
 
-Angular 9 Spring Apache Tomcat
+- Angular 9 
+- Spring 
+- Apache Tomcat
 
 ## Features:
 
