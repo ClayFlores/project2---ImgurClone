@@ -1,37 +1,63 @@
-# PROJECT 2 imgur-clone-revature
+# imgur-clone
+A Maven web application that works similarly to Imgur. It allows users to create an account/login with password hashing implemented. Users can view images, comment on albums, create albums, upload images and, like/favorites albums.
 
-## Project Description:
+## Technologies
+• Java 1.8
 
-The goal of this project was to make an image displaying website similar to Imgur.com
+• Maven
 
-## Technologies Used:
+• Spring Framework 4.3.27
 
-- Angular 9 
-- Spring 
-- Apache Tomcat
+    - Spring ORM    
+    - Spring MVC
+    
+• Hibernate 4.3.11
 
-## Features:
+• Postgres 42.2.18
 
-- Can create and edit albums that user has submitted. 
-- Can view albums other people have submitted and favorite them, if desired. 
-- Can leave comments on albums and vote approval on comments others have left.
+• Amazon RDS
 
-## To-do list:
+• Amazon AWS S3 SDK
 
-- Better website appearance with CSS or another aesthetic tool 
-- Optimization of some of the front end methods.
+• JUnit 4.12
 
-## Getting Started:
+• Apache Tomcat
 
-- git clone https://github.com/ClayFlores/project2---ImgurClone.git
+• Angular 4
 
-- You will need to insert your own properties file with the information to connect to your database.
 
-## Usage:
+## Getting Started
 
-Once the program is on your computer you will then want to run your tomcat server. After that is running, you may go to the website. Hopefully it is intuitive from that point.
+### Pre-requisites
+Please ensure you have the following installed prior to cloning this repository:
+- Java 1.8 SDK
+- Maven
 
-## Contributors:
-- David Foley
-- Ratul Ahmed
-- Clay Flores
+
+### Required Files
+• AwsCredentials.properties
+
+        AWSAccessKeyId=YOUR_AWS_ACCESS_KEY
+        AWSSecretKey=YOUR_AWS_SECRET_KEY
+        region=your_s3_bucket_region
+
+• datasource.properties
+
+      datasource.url=your_rds_instance
+      datasource.username=your_database_username
+      datasource.password=your_database_password
+
+
+## Running the Application
+
+- maven package the spring application to a war
+- deploy the war file to a tomcat server and run the server
+
+
+Start the angular project with 
+`ng serve -o`
+
+
+## Contributors
+David Foley, Ratul Ahmed, Clay Flores
+
